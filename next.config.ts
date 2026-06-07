@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
-  images: {
-    remotePatterns: [new URL("https://picsum.photos/**")],
-  },
+    /* config options here */
+    reactCompiler: true,
+    images: {
+        remotePatterns: [new URL("https://picsum.photos/**")],
+    },
 };
 
 export default nextConfig;
