@@ -8,8 +8,7 @@ export interface Section {
     chapters: Chapter[];
 }
 
-// keep it for root index page only
-// side bar is toc
+// will keep this file. Easy to give names instead directory
 
 export const chapters: Section[] = [
     {

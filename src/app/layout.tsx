@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/theme-context";
+import { title, description, keywords, url } from "@/lib/data";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -16,25 +17,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "A Journey Through the Realms of Sorting Algorithms",
-    description: "Blog Posts by Subhajit Gorai",
-    keywords: [
-        "subhajit",
-        "iiest",
-        "gorai",
-        "blog",
-        "computer science",
-        "web development",
-        "machine learning",
-    ],
+    title,
+    description,
+    keywords,
     robots: { index: true, follow: true },
 
     openGraph: {
-        title: "A Journey Through the Realms of Sorting Algorithms",
-        description:
-            "Interactive Blog Posts On Sorting Algorithms & Computer Science by Subhajit Gorai",
-        url: "https://dream-world-coder.vercel.app",
-        images: ["https://dream-world-coder.vercel.app/preview.png"],
+        title,
+        description,
+        url,
+        images: [`${url}/preview.png`],
     },
 };
 
@@ -46,33 +38,11 @@ export default function RootLayout({
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "A Journey Through the Realms of Sorting Algorithms",
-        url: "https://dream-world-coder.vercel.app",
-        description: "Blog Posts by Subhajit Gorai",
-        keywords: [
-            "subhajit",
-            "iiest",
-            "gorai",
-            "blog",
-            "computer science",
-            "web development",
-            "machine learning",
-        ],
-        isPartOf: {
-            "@type": "WebSite",
-            name: "SortAlgo",
-            url: "https://dream-world-coder.vercel.app",
-        },
-        image: "https://dream-world-coder.vercel.app/preview.png",
-        publisher: {
-            "@type": "Organization",
-            name: "SortAlgo",
-            url: "https://dream-world-coder.vercel.app",
-            logo: {
-                "@type": "ImageObject",
-                url: "https://dream-world-coder.vercel.app/preview.png",
-            },
-        },
+        name: title,
+        url,
+        description,
+        keywords,
+        image: `${url}/preview.png`,
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
@@ -113,18 +83,3 @@ export default function RootLayout({
         </html>
     );
 }
-
-/*
-if i add lists of blogs in homepage, then i need to also add:
-{
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "SortAlgo – Interactive Sorting Algorithm Blog",
-  "url": "https://dream-world-coder.vercel.app",
-  "description": "Explore visualisations, explanations, and interactive blog posts on sorting algorithms.",
-  "publisher": {
-    "@type": "Person",
-    "name": "Subhajit Gorai"
-  }
-}
-*/

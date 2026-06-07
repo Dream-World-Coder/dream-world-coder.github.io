@@ -6,8 +6,8 @@ export default async function Home() {
         <div className="flex md:items-center justify-center size-full h-screen py-4 md:py-0">
             <section
                 className="h-full md:h-[80vh] w-[90dvw] max-w-[1368px] bg-[#f8f8f8] dark:bg-neutral-900 text-black dark:text-[#f8f8f8]
-        border border-dashed border-neutral-300/80 dark:border-neutral-700/80 p-6 py-10
-        flex flex-col justify-start items-center relative"
+                    border border-dashed border-neutral-300/80 dark:border-neutral-700/80 p-6 py-10
+                    flex flex-col justify-start items-center relative"
             >
                 <h1 className="md:font-serif capitalize text-3xl text-center mt-20 md:mt-0">
                     Blog

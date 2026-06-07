@@ -1,11 +1,13 @@
 import { ParsedMetaData } from "./MetaParser";
 
-export function getSchemaData(metaData: ParsedMetaData) {
+export function getSchemaData(metaData: ParsedMetaData | null) {
     // converts parsed metadata into schema.org json-ld format
     // it returns a plain object that you can insert inside:
     // <script type="application/ld+json">{...}</script>
 
     // extract values for convenience
+    if (!metaData) return;
+
     const {
         title,
         subtitle,

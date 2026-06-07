@@ -4,26 +4,19 @@ import { ChevronLeft } from "lucide-react";
 import { CornerPlusIcons } from "@/components/Decorum";
 import { Metadata } from "next";
 import Script from "next/script";
+import { title, description, keywords, url } from "@/lib/data";
 
 export const metadata: Metadata = {
-    title: "Index",
-    description: "Blog Posts by Subhajit Gorai",
-    keywords: [
-        "subhajit",
-        "iiest",
-        "gorai",
-        "blog",
-        "computer science",
-        "web development",
-        "machine learning",
-    ],
+    title,
+    description,
+    keywords,
     robots: { index: true, follow: true },
 
     openGraph: {
-        title: "Index",
-        description: "Blog Posts by Subhajit Gorai",
-        url: "https://dream-world-coder.vercel.app",
-        images: ["https://dream-world-coder.vercel.app/preview.png"],
+        title,
+        description,
+        url,
+        images: [`${url}/preview.png`],
     },
 };
 
@@ -31,32 +24,15 @@ export default async function Chapters() {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Index",
-        url: "https://dream-world-coder.vercel.app",
-        description: "Blog Posts by Subhajit Gorai",
-        keywords: [
-            "subhajit",
-            "iiest",
-            "gorai",
-            "blog",
-            "computer science",
-            "web development",
-            "machine learning",
-        ],
-        image: "https://dream-world-coder.vercel.app/preview.png",
-        publisher: {
-            "@type": "Person",
-            name: "Subhajit Gorai",
-            url: "https://dream-world-coder.vercel.app",
-            logo: {
-                "@type": "ImageObject",
-                url: "https://dream-world-coder.vercel.app/preview.png",
-            },
-        },
+        name: title,
+        url,
+        description,
+        keywords,
+        image: `${url}/preview.png`,
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
-            url: "https://dream-world-coder.vercel.app",
+            url,
         },
         breadcrumb: {
             "@type": "BreadcrumbList",
@@ -65,7 +41,7 @@ export default async function Chapters() {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://dream-world-coder.vercel.app",
+                    item: url,
                 },
             ],
         },
@@ -78,18 +54,19 @@ export default async function Chapters() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
             />
+
             <div className="flex md:items-center justify-center size-full h-screen py-4 md:py-0">
                 <section
                     className="h-full md:h-[80vh] w-[90dvw] max-w-[1368px] bg-[#f8f8f8] dark:bg-neutral-900  text-black dark:text-[#f8f8f8]
-        border border-neutral-300/80 dark:border-neutral-700/80
-        p-6 py-10 flex flex-col justify-start items-center relative border-dashed"
+                    border border-neutral-300/80 dark:border-neutral-700/80
+                    p-6 py-10 flex flex-col justify-start items-center relative border-dashed"
                 >
                     {/* /chapters -> / */}
                     <nav className="absolute top-0 right-0 px-2 py-2 opacity-50 hover:opacity-100 z-40">
                         <Link
                             href="/"
                             className="flex items-center justify-center gap-0 px-2 py-0.5 rounded-2xl
-            bg-stone-200 dark:bg-stone-800 border-r border-b border-stone-300 dark:border-stone-700"
+                            bg-stone-200 dark:bg-stone-800 border-r border-b border-stone-300 dark:border-stone-700"
                         >
                             <ChevronLeft size={20} /> Home
                         </Link>

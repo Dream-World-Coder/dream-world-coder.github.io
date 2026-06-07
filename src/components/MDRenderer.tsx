@@ -201,7 +201,7 @@ const MarkdownImage = (props: MarkdownImageProps) => {
     );
 };
 
-export function MarkdownRenderer({ content }: { content: string }) {
+export function MarkdownRenderer({ content }: { content: null | string }) {
     return (
         <div className="w-full flex flex-col">
             <div id="export" className="sentient-regular w-full">
