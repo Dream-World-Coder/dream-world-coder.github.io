@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface H4Item {
     text: string;
     id: string;
@@ -26,16 +28,14 @@ export const extractTextFromReactChildren = (
         return children.map(extractTextFromReactChildren).join("");
     }
 
-    if (
-        children &&
-        typeof children === "object" &&
-        "props" in children &&
-        (children as React.ReactElement).props
-    ) {
-        // Fix: Pass the children of the element, not the element itself
-        return extractTextFromReactChildren(
-            (children as React.ReactElement).props.children,
-        );
+    // Use React.isValidElement for type-safe checking
+    if (React.isValidElement(children)) {
+        // Explicitly type the props so TypeScript knows 'children' might exist
+        const props = children.props as { children?: React.ReactNode };
+
+        if (props.children) {
+            return extractTextFromReactChildren(props.children);
+        }
     }
 
     return "";

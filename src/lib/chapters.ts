@@ -18,16 +18,39 @@ export const chapters: Section[] = [
                 slug: "wanna-learn-web-dev",
                 title: "Wanna Learn Web Development?",
             },
-            { slug: "why-redis", title: "Why Do I Need Redis?" },
+            {
+                slug: "why-redis",
+                title: "Why Do I Need Redis?",
+            },
         ],
     },
-
     {
         title: "Project Engineering",
         chapters: [
             {
                 slug: "1993-to-17007-rps-mern-single-thread",
                 title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale",
+            },
+            {
+                slug: "ttl-cache",
+                title: "Understanding TTL Caching",
+            },
+        ],
+    },
+    {
+        title: "Algorithms",
+        chapters: [
+            {
+                slug: "stable-and-unstable-sort",
+                title: "Stable vs. Unstable Sort",
+            },
+            {
+                slug: "heap-vs-sorted-array",
+                title: "Heap vs. Sorted Array, Why Building a Heap is Linear?",
+            },
+            {
+                slug: "minima-extraction",
+                title: "Minima Extraction as Sorting Technique",
             },
         ],
     },

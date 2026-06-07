@@ -235,7 +235,10 @@ export const dynamic = "force-static";
 
 export async function generateStaticParams() {
     return [
-        { slug: "introduction" },
+        { slug: "1993-to-17007-rps-mern-single-thread" },
+        { slug: "wanna-learn-web-dev" },
+        { slug: "why-redis" },
+        { slug: "ttl-cache" },
         { slug: "stable-and-unstable-sort" },
         { slug: "minima-extraction" },
         { slug: "heap-vs-sorted-array" },
