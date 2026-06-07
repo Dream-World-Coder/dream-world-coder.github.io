@@ -1,3 +1,1 @@
-My personal blog
-
-left side will be TOC, no animations
+Hi everyone, welcome to my personal blog.
