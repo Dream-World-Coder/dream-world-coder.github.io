@@ -168,7 +168,7 @@ interface MarkdownImageProps {
     // [key: string]: any;
 }
 
-const MarkdownImage = (props: MarkdownImageProps) => {
+const _MarkdownImage = (props: MarkdownImageProps) => {
     const { src, alt, ...rest } = props;
 
     if (!src || !alt) return <></>;
@@ -195,6 +195,32 @@ const MarkdownImage = (props: MarkdownImageProps) => {
                 alt={alt}
                 width={w || 468}
                 height={h || 468}
+                {...rest}
+            />
+        </i>
+    );
+};
+
+const MarkdownImage = (props: MarkdownImageProps) => {
+    const { src, alt, ...rest } = props;
+
+    if (!src || !alt) return <></>;
+
+    return (
+        <i
+            className="relative z-10 overflow-hidden flex items-center group"
+            style={{
+                justifyContent: "center",
+                marginTop: "25px",
+                marginBottom: "25px",
+            }}
+        >
+            <Image
+                className="relative object-contain"
+                width={600}
+                height={350}
+                src={src}
+                alt={alt}
                 {...rest}
             />
         </i>
@@ -238,7 +264,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         ) => (
                             <h1
                                 id={generateId(children)}
-                                className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold md:font-serif flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold _md:font-serif sentient-regular flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h1>
@@ -246,7 +272,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h2: ({ children }) => (
                             <h2
                                 id={generateId(children)}
-                                className="font-serif mt-10 mb-5 leading-tight tracking-tight text-2xl md:text-3xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="mt-10 mb-5 leading-tight tracking-tight text-3xl md:text-4xl font-bold flex items-center gap-2 justify-start sentient-regular text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h2>
@@ -254,7 +280,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h3: ({ children }) => (
                             <h3
                                 id={generateId(children)}
-                                className="font-serif mt-8 mb-4 leading-snug text-xl md:text-2xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="mt-8 mb-4 leading-snug text-2xl md:text-3xl font-bold flex items-center gap-2 justify-start sentient-regular text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h3>
@@ -262,13 +288,13 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h4: ({ children }) => (
                             <h4
                                 id={generateId(children)}
-                                className="sentient-bold font-semibold mt-6 mb-3 leading-snug text-lg md:text-xl flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="sentient-bold mt-6 mb-3 leading-snug text-xl md:text-2xl flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h4>
                         ),
                         h5: ({ children }) => (
-                            <h5 className="sentient-bold font-semibold mt-5 mb-3 leading-snug text-base md:text-lg text-neutral-900 dark:text-neutral-100">
+                            <h5 className="sentient-bold mt-5 mb-3 leading-snug text-base md:text-lg text-neutral-900 dark:text-neutral-100">
                                 {children}
                             </h5>
                         ),
@@ -279,7 +305,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         ),
 
                         p: ({ children }) => (
-                            <p className="my-8 w-full text-base md:text-lg md:leading-7 text-neutral-700 dark:text-neutral-300">
+                            <p className="my-8 w-full text-base md:text-lg md:leading-7 text-neutral-700 dark:text-neutral-300 sentient-regular">
                                 {children}
                             </p>
                         ),
@@ -300,7 +326,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                             <a
                                 href={href}
                                 className="underline font-medium sentient-regular transition-colors duration-200
-                text-sky-700 hover:text-sky-600 dark:text-blue-400 dark:hover:text-blue-300"
+                                text-sky-700 hover:text-sky-600 dark:text-blue-400 dark:hover:text-blue-300"
                                 target={
                                     href?.startsWith("http")
                                         ? "_blank"
@@ -353,7 +379,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         th: ({ children }) => (
                             <th
                                 className="px-4 py-2 sentient-bold text-center
-                  border border-neutral-200 dark:border-[#303030]"
+                                border border-neutral-200 dark:border-[#303030]"
                             >
                                 {children}
                             </th>
@@ -361,7 +387,7 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         td: ({ children }) => (
                             <td
                                 className="px-4 py-2 sentient-regular text-center
-                border border-neutral-200 dark:border-[#303030]"
+                                border border-neutral-200 dark:border-[#303030]"
                             >
                                 {children}
                             </td>

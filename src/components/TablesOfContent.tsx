@@ -132,15 +132,15 @@ export const TableOfContents = ({ tableOfContents }: TableOfContentsProps) => {
 
                 <div
                     data-lenis-prevent
-                    className="overflow-y-auto no-scrollbar flex-1 pb-10"
+                    className="overflow-y-auto hide-scrollbar flex-1 pb-10"
                 >
-                    <ul className="pl-1 pt-2 space-y-3 font-serif">
+                    <ul className="pl-1 pt-2 space-y-3 font-sans">
                         {tableOfContents.map((heading, headingIndex) => (
                             <li key={`heading-${headingIndex}`}>
                                 {heading.text && (
                                     <a
                                         href={`#${heading.id}`}
-                                        className="flex items-start gap-2 font-bold text-base text-neutral-800 dark:text-neutral-200 hover:underline leading-snug group"
+                                        className="flex items-start gap-2 text-base text-neutral-800 dark:text-neutral-200 hover:underline leading-snug group"
                                     >
                                         <span className="shrink-0 mt-0.5 text-xs font-mono font-semibold text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/40 rounded px-1 py-0.5 group-hover:bg-sky-200 dark:group-hover:bg-sky-800/50 transition-colors">
                                             {headingIndex + 1}
@@ -159,7 +159,7 @@ export const TableOfContents = ({ tableOfContents }: TableOfContentsProps) => {
                                                     {subheading.text && (
                                                         <a
                                                             href={`#${subheading.id}`}
-                                                            className="flex items-start gap-2 font-medium text-sm text-neutral-700 dark:text-neutral-300 hover:underline leading-snug group"
+                                                            className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:underline leading-snug group"
                                                         >
                                                             <span className="shrink-0 mt-0.5 text-xs text-neutral-400 dark:text-neutral-500 font-mono">
                                                                 {headingIndex +

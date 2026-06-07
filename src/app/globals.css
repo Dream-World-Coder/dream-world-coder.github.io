@@ -114,3 +114,12 @@ em strong {
     font-weight: 600;
     font-style: normal;
 }
+
+.hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}

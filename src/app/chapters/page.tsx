@@ -76,19 +76,20 @@ export default async function Chapters() {
                         Index
                     </h1>
 
-                    <ul className="list mt-12 md:mt-24 columns-1 md:columns-2 md:gap-x-36 font-serif">
-                        {chapters.map((section) => (
+                    <ol className="list mt-12 md:mt-24 columns-1 md:columns-2 md:gap-x-36 font-serif md:px-10">
+                        {chapters.map((section, sid) => (
                             <li key={section.title} className="pb-4">
                                 <h3 className="font-bold capitalize">
-                                    {section.title}
+                                    {sid + 1}. {section.title}
                                 </h3>
                                 <ol className="pl-4">
-                                    {section.chapters.map((chapter) => (
+                                    {section.chapters.map((chapter, cid) => (
                                         <li key={chapter.slug}>
                                             <Link
                                                 href={`/chapters/${chapter.slug}`}
                                                 className="capitalize hover:underline font-sans md:font-serif"
                                             >
+                                                {sid + 1}.{cid + 1}{" "}
                                                 {chapter.title}
                                             </Link>
                                         </li>
@@ -96,7 +97,7 @@ export default async function Chapters() {
                                 </ol>
                             </li>
                         ))}
-                    </ul>
+                    </ol>
 
                     <CornerPlusIcons />
                 </section>

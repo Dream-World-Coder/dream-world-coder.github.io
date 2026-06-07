@@ -5,6 +5,7 @@
   dateEdited: "07/06/2026"
   description: "In depth system design of opencanvas to handle 6138 rps in node.js single thread, p95 1ms, p99 2ms."
   tags: [""]
+  slug:"1993-to-17007-rps-mern-single-thread"
 -->
 
 # From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale
@@ -45,7 +46,7 @@ Those numbers with 100,000 posts and half a million interactions in the database
 ---
 ## Optimisations
 
-### 1. Denormalization and the authorSnapshot Pattern
+### Denormalization and the authorSnapshot Pattern
 
 The most expensive operation in the original feed query was the `.populate()` call. Every time a list of posts was fetched, Mongoose would issue a separate query to the `users` collection for each unique `authorId` in the result set. At 10 posts per page, that is up to 10 additional round trips to MongoDB before the response could be sent.
 
@@ -75,7 +76,7 @@ The same pattern is used for comments. Rather than populating `authorId` on ever
 
 ---
 
-### 2. contentPreview and Payload Reduction
+### contentPreview and Payload Reduction
 
 The original feed was returning the full `content` field of every post. A research article might be 8,000 to 15,000 characters of Markdown. Returning that for 10 posts per page, across potentially thousands of concurrent users, is an enormous waste of bandwidth and serialization time.
 
@@ -110,7 +111,7 @@ The `content` field is never included. Every byte not sent is a byte the event l
 
 ---
 
-### 3. Eliminating .populate() with .lean()
+### Eliminating .populate() with .lean()
 
 Mongoose documents returned from a query are <u>full class instances.</u> They carry prototype methods, virtual fields, getter and setter logic, and change-tracking overhead. For read-only endpoints, all of that is pure waste.
 
@@ -133,7 +134,7 @@ The performance gain from `.lean()` is especially meaningful on high-throughput 
 
 ---
 
-### 4. Cursor-Based Pagination vs skip()
+### Cursor-Based Pagination vs skip()
 
 The `skip()` approach to pagination is one of the most common performance mistakes in MongoDB applications. When you write `.skip(500).limit(10)`, MongoDB still has to scan through 500 documents before discarding them and returning the next 10. So, for example, a user on page 50 causes MongoDB to scan 500 documents every time. Under concurrent load, this degrades quadratically.
 
@@ -174,7 +175,7 @@ The `skip()` approach is still used on lower traffic routes like paginated comme
 
 ---
 
-### 5. Proper Indexing Strategy
+### Proper Indexing Strategy
 
 Indexes are the single highest-leverage optimization in any database-backed application. <u>The wrong indexes will slow writes without helping reads. The right indexes turn expensive collection scans into fast index scans.</u>
 
@@ -204,7 +205,7 @@ The second index on Interaction (`targetId + type`) allows efficient queries lik
 
 ---
 
-### 6. Atomic Counters and Denormalized Stats
+### Atomic Counters and Denormalized Stats
 
 A naive implementation of a likes counter would count matching Interaction documents every time the stat is needed:
 
@@ -240,7 +241,7 @@ These <u>`$inc` operations are atomic in MongoDB</u>, meaning concurrent request
 
 ---
 
-### 7. In-Memory TTL Cache with Intelligent Invalidation
+### In-Memory TTL Cache with Intelligent Invalidation
 
 The `/articles` feed is the most read route on the platform. Under the Artillery load test configuration, 70 percent of all simulated traffic targeted this single endpoint. Sending every one of those requests to MongoDB would be wasteful given that the feed content changes slowly, not on every request.
 
@@ -322,7 +323,7 @@ This key is deleted by name whenever a like or post creation/deletion event chan
 
 ---
 
-### 8. Aggregation Pipeline for Ranked Queries
+### Aggregation Pipeline for Ranked Queries
 
 > Note: This is optimal but not related to the high RPS gain on `/articles`.
 
@@ -357,7 +358,7 @@ The `$match` stage filters out users with no posts before the sort, dramatically
 
 ---
 
-### 9. Streaming Cursor for Batch Jobs
+### Streaming Cursor for Batch Jobs
 
 > Note: This is optimal but not related to the high RPS gain on `/articles`.
 
