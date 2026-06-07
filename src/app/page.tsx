@@ -14,8 +14,7 @@ export default async function Home() {
                 </h1>
 
                 <h1 className="font-serif capitalize text-center mt-16 md:mt-12 max-w-[30ch] md:max-w-none">
-                    Interactive blog posts on sorting algorithms &amp; Computer
-                    Science,
+                    Blog posts on algorithms &amp; Computer Science,
                 </h1>
 
                 <p className="my-0 font-serif">

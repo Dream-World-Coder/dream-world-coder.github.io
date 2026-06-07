@@ -6,29 +6,22 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-    title: "SortAlgo - Index",
-    description:
-        "Interactive Blog Posts On Sorting Algorithms & Computer Science by Subhajit Gorai",
+    title: "Index",
+    description: "Blog Posts by Subhajit Gorai",
     keywords: [
-        "sorting",
-        "algorithms",
-        "quicksort",
-        "heapsort",
-        "mergesort",
-        "selectionsort",
-        "bubblesort",
-        "heapsort",
-        "bucketsort",
-        "radixsort",
-        "visualisation",
-        "sorting techniques",
+        "subhajit",
+        "iiest",
+        "gorai",
+        "blog",
+        "computer science",
+        "web development",
+        "machine learning",
     ],
     robots: { index: true, follow: true },
 
     openGraph: {
-        title: "SortAlgo - Index",
-        description:
-            "Interactive Blog Posts On Sorting Algorithms & Computer Science by Subhajit Gorai",
+        title: "Index",
+        description: "Blog Posts by Subhajit Gorai",
         url: "https://dream-world-coder.vercel.app",
         images: ["https://dream-world-coder.vercel.app/preview.png"],
     },
@@ -38,28 +31,22 @@ export default async function Chapters() {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "SortAlgo - Index",
+        name: "Index",
         url: "https://dream-world-coder.vercel.app",
-        description:
-            "Interactive Blog Posts On Sorting Algorithms & Computer Science by Subhajit Gorai",
+        description: "Blog Posts by Subhajit Gorai",
         keywords: [
-            "sorting",
-            "algorithms",
-            "quicksort",
-            "heapsort",
-            "mergesort",
-            "selectionsort",
-            "bubblesort",
-            "heapsort",
-            "bucketsort",
-            "radixsort",
-            "visualisation",
-            "sorting techniques",
+            "subhajit",
+            "iiest",
+            "gorai",
+            "blog",
+            "computer science",
+            "web development",
+            "machine learning",
         ],
         image: "https://dream-world-coder.vercel.app/preview.png",
         publisher: {
-            "@type": "Organization",
-            name: "SortAlgo",
+            "@type": "Person",
+            name: "Subhajit Gorai",
             url: "https://dream-world-coder.vercel.app",
             logo: {
                 "@type": "ImageObject",
@@ -69,11 +56,6 @@ export default async function Chapters() {
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
-            url: "https://dream-world-coder.vercel.app",
-        },
-        isPartOf: {
-            "@type": "WebSite",
-            name: "SortAlgo",
             url: "https://dream-world-coder.vercel.app",
         },
         breadcrumb: {

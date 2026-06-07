@@ -13,6 +13,7 @@ import {
     materialDark,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "katex/dist/katex.min.css";
+import { generateId } from "./TablesOfContent";
 
 interface CodeBlockProps {
     inline?: boolean;
@@ -235,22 +236,34 @@ export function MarkdownRenderer({ content }: { content: string }) {
                         h1: (
                             { children }, // customised for only used once as title, h1 is never used again
                         ) => (
-                            <h1 className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold md:font-serif flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100">
+                            <h1
+                                id={generateId(children)}
+                                className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold md:font-serif flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h1>
                         ),
                         h2: ({ children }) => (
-                            <h2 className="font-serif mt-10 mb-5 leading-tight tracking-tight text-2xl md:text-3xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100">
+                            <h2
+                                id={generateId(children)}
+                                className="font-serif mt-10 mb-5 leading-tight tracking-tight text-2xl md:text-3xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h2>
                         ),
                         h3: ({ children }) => (
-                            <h3 className="font-serif mt-8 mb-4 leading-snug text-xl md:text-2xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100">
+                            <h3
+                                id={generateId(children)}
+                                className="font-serif mt-8 mb-4 leading-snug text-xl md:text-2xl font-bold flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h3>
                         ),
                         h4: ({ children }) => (
-                            <h4 className="sentient-bold font-semibold mt-6 mb-3 leading-snug text-lg md:text-xl flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100">
+                            <h4
+                                id={generateId(children)}
+                                className="sentient-bold font-semibold mt-6 mb-3 leading-snug text-lg md:text-xl flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h4>
                         ),
@@ -266,7 +279,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
                         ),
 
                         p: ({ children }) => (
-                            <p className="my-8 w-full text-base md:text-lg md:leading-[28px] text-neutral-700 dark:text-neutral-300">
+                            <p className="my-8 w-full text-base md:text-lg md:leading-7 text-neutral-700 dark:text-neutral-300">
                                 {children}
                             </p>
                         ),
