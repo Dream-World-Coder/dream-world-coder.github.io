@@ -142,7 +142,7 @@ export default function ChaptersLayout({
                             github.com/Dream-World-Coder/sortalgo.space
                         </a>
                         <br />
-                        <br />© 2025 sortalgo.space. All rights reserved.
+                        <br />© 2026 sortalgo.space. All rights reserved.
                     </div>
                 </div>
             </footer>

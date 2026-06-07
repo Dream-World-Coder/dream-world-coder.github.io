@@ -1,5 +1,5 @@
 ## create file
-content/{}.md
+content/{slug}.md
 
 ## add meta data in top:
 <!--metadata

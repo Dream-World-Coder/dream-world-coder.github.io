@@ -8,23 +8,27 @@ export interface Section {
     chapters: Chapter[];
 }
 
+// keep it for root index page only
+// side bar is toc
+
 export const chapters: Section[] = [
     {
-        title: "Guides",
+        title: "Web Dev",
         chapters: [
             {
                 slug: "wanna-learn-web-dev",
                 title: "Wanna Learn Web Development?",
             },
+            { slug: "why-redis", title: "Why Do I Need Redis?" },
         ],
     },
 
     {
-        title: "Project Explanations",
+        title: "Project Engineering",
         chapters: [
             {
-                slug: "wanna-learn-web-dev",
-                title: "Wanna Learn Web Development?",
+                slug: "1993-to-17007-rps-mern-single-thread",
+                title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale",
             },
         ],
     },
