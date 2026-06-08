@@ -1,5 +1,3 @@
-<img src="./images/graph.png" alt="planner graph"/>
-
 # Computable Poetry
 
 **Generating metrically correct, semantically plausible Bangla poems using formal grammars, constraint satisfaction, and graph-based planning. No machine learning anywhere in the pipeline.**
