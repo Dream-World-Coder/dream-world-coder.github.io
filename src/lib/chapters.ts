@@ -35,6 +35,14 @@ export const chapters: Section[] = [
                 slug: "ttl-cache",
                 title: "Understanding TTL Caching",
             },
+            {
+                slug: "computable-poetry",
+                title: "Computable Poetry"
+            }, 
+            {
+                slug: "trading-r1x",
+                title: "Trading R1x"
+            }
         ],
     },
     {
