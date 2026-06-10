@@ -1,11 +1,12 @@
+export const dynamic = "force-static";
+
 import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "SortAlgo — A deep dive into Sorting Algorithms",
-        short_name: "SortAlgo",
-        description:
-            "Detailed explanations of almost all sorting algorithms such as bubble sort, merge sort, quick sort, insertion sort, and more.",
+        name: "My Blog",
+        short_name: "Blog",
+        description: "Blog by me",
         start_url: "/",
         display: "standalone",
         background_color: "#f8f8f8",
