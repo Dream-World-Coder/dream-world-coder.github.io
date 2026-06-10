@@ -41,8 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-todo.txt
-data.txt
 _images/
 
 dream-world-coder.github.io

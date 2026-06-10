@@ -20,13 +20,13 @@ import {
 // -------------------
 const getPageMetadata = (content: string): ParsedMetaData => {
     let metaData: ParsedMetaData = {
-        title: "Sorting",
-        authors: ["author"],
+        title: "The Invariant;",
+        authors: ["none"],
         dateCreated: "15/11/2025",
         dateEdited: "15/11/2025",
-        description: "sorting algorithms",
-        tags: ["sorting", "algorithms"],
-        slug: "sorting",
+        description: "none",
+        tags: ["none", "none"],
+        slug: "none",
     };
 
     try {
@@ -210,17 +210,16 @@ export default async function ChapterPage({
                         >
                             blog.opencanvas@gmail.com
                         </a>
-                        . I&apos;d love to hear your thoughts on the article,
-                        and improve it based on your suggestions.
+                        . I&apos;d love to hear your thoughts, and improve it.
                         <br />
                         Github:{" "}
                         <a
-                            href="https://github.com/Dream-World-Coder/sortalgo.space"
+                            href="https://github.com/Dream-World-Coder/dream-world-coder.github.io/"
                             target="_blank"
                             rel="noreferrer"
                             className="underline cursor-pointer"
                         >
-                            github.com/Dream-World-Coder/sortalgo.space
+                            Github Repo Page
                         </a>
                     </div>
                 </div>
