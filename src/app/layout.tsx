@@ -20,6 +20,21 @@ export const metadata: Metadata = {
     title,
     description,
     keywords,
+
+    icons: {
+        icon: [
+            {
+                url: "/favicon.ico",
+                sizes: "any",
+            },
+        ],
+        apple: [
+            {
+                url: "/apple-touch-icon.png",
+            },
+        ],
+    },
+
     robots: { index: true, follow: true },
 
     openGraph: {
@@ -46,7 +61,7 @@ export default function RootLayout({
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
-            url: "https://dream-world-coder.vercel.app",
+            url: "https://dream-world-coder.github.io",
         },
     };
 

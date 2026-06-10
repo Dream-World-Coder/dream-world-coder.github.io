@@ -1,6 +1,16 @@
-# Computable Poetry
+<!--metadata
+  title: "Can You Compute a Poetry?"
+  authors: ["Subhajit Gorai"]
+  dateCreated: "14/04/2026"
+  dateEdited: "22/04/2026"
+  description: "Generating metrically correct, semantically plausible Bangla poems using formal grammars, constraint satisfaction, and graph-based planning. Without machine learning."
+  tags: ["automata", "dijkstra", "graph-theory", "graph", "bangla-poems", "k-hop dijkstra", "constraint satisfaction"]
+  slug: "computable-poetry"
+-->
 
-**Generating metrically correct, semantically plausible Bangla poems using formal grammars, constraint satisfaction, and graph-based planning. No machine learning anywhere in the pipeline.**
+# Can You Compute a Poetry?
+
+Generating metrically correct, semantically plausible Bangla poems using formal grammars, constraint satisfaction, and graph-based planning. Without machine learning.
 
 ---
 

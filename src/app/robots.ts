@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
                 allow: "/",
             },
         ],
-        sitemap: "https://dream-world-coder.vercel.app/sitemap.xml",
-        host: "https://dream-world-coder.vercel.app",
+        sitemap: "https://dream-world-coder.github.io/sitemap.xml",
+        host: "https://dream-world-coder.github.io",
     };
 }

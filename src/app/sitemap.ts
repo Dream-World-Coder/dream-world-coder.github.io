@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = "https://dream-world-coder.vercel.app";
+    const baseUrl = "https://dream-world-coder.github.io";
 
     const staticRoutes: MetadataRoute.Sitemap = [
         {

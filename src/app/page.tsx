@@ -10,22 +10,20 @@ export default async function Home() {
                     flex flex-col justify-start items-center relative"
             >
                 <h1 className="md:font-serif capitalize text-3xl text-center mt-20 md:mt-0">
-                    Blog
+                    The Invariant;
                 </h1>
 
                 <h1 className="font-serif capitalize text-center mt-16 md:mt-12 max-w-[30ch] md:max-w-none">
-                    Blog posts on algorithms &amp; Computer Science,
+                    On the algebra of algorithms, the structure of proofs, and
+                    the assumptions hiding inside physics.
                 </h1>
 
                 <p className="my-0 font-serif">
                     by
-                    <a
-                        href="https://sgorai.vercel.app"
-                        className="italic underline"
-                    >
+                    <Link href="/author" className="italic underline">
                         {" "}
                         Subhajit Gorai
-                    </a>
+                    </Link>
                 </p>
 
                 <div className="diagram front-cover my-10">
@@ -49,7 +47,9 @@ export default async function Home() {
           dark:bg-stone-800 dark:text-neutral-300 dark:hover:text-neutral-50
           rounded-2xl border-b border-r border-stone-400 dark:border-stone-700
           hover:border-b-2 hover:border-r-2"
-                >{`Start Reading`}</Link>
+                >
+                    Start Reading
+                </Link>
 
                 <CornerPlusIcons />
             </section>

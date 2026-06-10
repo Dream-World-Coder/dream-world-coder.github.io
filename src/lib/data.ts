@@ -1,12 +1,20 @@
-export const title: string = "Blog, Subhajit Gorai";
-export const description: string = "Blog Posts by Subhajit Gorai";
+export const title: string = "The Invariant; — Subhajit Gorai";
+export const description: string =
+    "On the algebra of algorithms, the structure of proofs, and the assumptions hiding inside physics.";
 export const keywords: string[] = [
-    "subhajit",
-    "iiest",
-    "gorai",
-    "blog",
-    "computer science",
-    "web development",
+    "subhajit gorai",
+    "iiest shibpur",
+    "algorithms",
+    "discrete mathematics",
+    "competitive programming",
     "machine learning",
+    "computer science",
+    "mathematics",
+    "physics",
+    "data structures",
+    "segment trees",
+    "monoids",
+    "algebraic structures",
+    "LLMs",
 ];
-export const url: string = "https://dream-world-coder.vercel.app";
+export const url: string = "https://dream-world-coder.github.io";

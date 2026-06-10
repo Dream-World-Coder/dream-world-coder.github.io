@@ -222,8 +222,6 @@ export default async function ChapterPage({
                         >
                             github.com/Dream-World-Coder/sortalgo.space
                         </a>
-                        <br />
-                        <br />© 2026 sortalgo.space. All rights reserved.
                     </div>
                 </div>
             </footer>
@@ -235,12 +233,15 @@ export const dynamic = "force-static";
 
 export async function generateStaticParams() {
     return [
-        { slug: "1993-to-17007-rps-mern-single-thread" },
         { slug: "wanna-learn-web-dev" },
-        { slug: "why-redis" },
-        { slug: "ttl-cache" },
-        { slug: "stable-and-unstable-sort" },
-        { slug: "minima-extraction" },
+        // { slug: "ttl-cache" },
+        // { slug: "why-redis" },
+
+        { slug: "1993-to-17007-rps-mern-single-thread" },
+        { slug: "computable-poetry" },
+
         { slug: "heap-vs-sorted-array" },
+        // { slug: "stable-and-unstable-sort" },
+        { slug: "minima-extraction" },
     ];
 }
