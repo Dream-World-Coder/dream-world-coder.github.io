@@ -25,16 +25,18 @@
 ## s3. update `src/app/lib/chapters.ts`
 ## s4. update generateStaticParams in `src/app/chapter/[slug]/page.tsx`
 
-> [!note]
-> `slug` occurs 3 times:
->
->   1. file name: content/{slug}.md
->   2. index list: src/app/lib/chapters.ts
->   3. static params: src/app/chapter/[slug]/page.tsx
+---
 
 > [!note]
 > `slug` occurs 3 times:
 >
-> > 1. file name: content/{slug}.md
-> > 2. index list: src/app/lib/chapters.ts
-> > 3. static params: src/app/chapter/[slug]/page.tsx
+>   1. file name: `content/{slug}.md`
+>   2. index list: `src/app/lib/chapters.ts`
+>   3. static params: `src/app/chapter/[slug]/page.tsx`
+
+> [!note]
+> `title` occurs 3 times:
+>
+>   1. In meta tag block, `title: ...`
+>   2. In heading `# ...`
+>   3. In index list: `src/app/lib/chapters.ts`
