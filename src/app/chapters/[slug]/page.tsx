@@ -15,18 +15,17 @@ import { CornerPlusIcons } from "@/components/Decorum";
 import {
     parseTableOfContents,
     TableOfContents,
-} from "@/components/TablesOfContent"; // Adjust path if needed
+} from "@/components/TablesOfContent";
 
 // -------------------
 const getPageMetadata = (content: string): ParsedMetaData => {
     let metaData: ParsedMetaData = {
         title: "The Invariant;",
-        authors: ["none"],
+        authors: ["Subhajit Gorai"],
         dateCreated: "15/11/2025",
         dateEdited: "15/11/2025",
         description: "none",
-        tags: ["none", "none"],
-        slug: "none",
+        tags: ["Subhajit Gorai", "IIEST Shibpur"],
     };
 
     try {

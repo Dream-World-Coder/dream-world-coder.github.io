@@ -5,7 +5,6 @@
   dateEdited: "30/11/2025"
   description: "How to sort, selection sort, heap sort, algorithm, code, visualisation"
   tags: ["selection sort", "heap sort", "sorting", "visualisation", "code"]
-  slug: "minima-extraction"
 -->
 
 # Sorting with Minima Extraction

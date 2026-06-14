@@ -15,7 +15,7 @@ export const chapters: Section[] = [
         title: "Web Dev",
         chapters: [
             {
-                // too basic here
+                // too basic for here
                 slug: "wanna-learn-web-dev",
                 title: "Wanna Learn Web Development?",
             },

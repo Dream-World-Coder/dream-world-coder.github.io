@@ -5,7 +5,6 @@
   dateEdited: "20/11/2025"
   description: "..."
   tags: ["sorting"]
-  slug: "stable-and-unstable-sort"
 -->
 
 # Stable and Unstable Sort

@@ -5,7 +5,6 @@
   dateEdited: "30/11/2025"
   description: "Understanding why heap construction takes O(n) time while sorting requires O(n log n)"
   tags: ["sorting", "heap", "data-structures"]
-  slug: "heap-vs-sorted"
 -->
 
 # Heap vs Sorted Array: Why Building a Heap is Linear

@@ -5,7 +5,6 @@
   dateEdited: "22/04/2026"
   description: "Generating metrically correct, semantically plausible Bangla poems using formal grammars, constraint satisfaction, and graph-based planning. Without machine learning."
   tags: ["automata", "dijkstra", "graph-theory", "graph", "bangla-poems", "k-hop dijkstra", "constraint satisfaction"]
-  slug: "computable-poetry"
 -->
 
 # Can You Compute a Poetry?

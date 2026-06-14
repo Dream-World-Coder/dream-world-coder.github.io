@@ -2,7 +2,7 @@ import { ParsedMetaData } from "./MetaParser";
 
 export function getSchemaData(metaData: ParsedMetaData | null) {
     // converts parsed metadata into schema.org json-ld format
-    // it returns a plain object that you can insert inside:
+    // it returns a plain object that can be inserted inside:
     // <script type="application/ld+json">{...}</script>
 
     // extract values for convenience
@@ -17,7 +17,6 @@ export function getSchemaData(metaData: ParsedMetaData | null) {
         description,
         tags,
         category,
-        slug,
         language,
         readingTime,
     } = metaData;
@@ -49,10 +48,8 @@ export function getSchemaData(metaData: ParsedMetaData | null) {
         alternativeHeadline: subtitle,
         timeRequired: readingTime ? `PT${readingTime}M` : undefined,
 
-        // your slug can be used as identifier
         mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": slug,
         },
     };
 

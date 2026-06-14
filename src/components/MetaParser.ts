@@ -3,22 +3,25 @@
  * @param content :string
  * marker: <!--metadata\n{...}\n-->
  *
- * finds the first occuring such tag.
- <!--metadata
-   title: "" !required
-   subtitle: ""
-   authors: ["",""] !required
-   dateCreated: "dd/mm/yyyy" !required
-   dateEdited: "dd/mm/yyyy" !required
-   description: "" !required
-   tags: ["", ""] !required // use "", not ''
-   category: ""
-   readingTime: ""
-   slug: "" !required
-   language: "en"
-   version: "1.0"
-   draft: false
- -->
+ * finds the first occuring such tag:
+    <!--metadata
+    title: "" !required
+    subtitle: ""
+    description: "" !required
+    tags: ["", ""] !required
+    category: ""
+
+    authors: ["",""] !required
+
+    dateCreated: "dd/mm/yyyy" !required
+    dateEdited: "dd/mm/yyyy" !required
+    version: "1.0"
+    draft: false
+
+    slug: ""
+    readingTime: ""
+    language: "en"
+    -->
  */
 
 export type ParsedMetaData = {
@@ -29,12 +32,12 @@ export type ParsedMetaData = {
     dateEdited: string; // format: dd/mm/yyyy
     description: string;
     tags: string[];
-    slug: string;
 
     // optional
     subtitle?: string;
     category?: string;
     readingTime?: string;
+    slug?: string;
     language?: string; // default: "en"
     version?: string; // default: "1.0"
     draft?: boolean; // default: false
@@ -110,7 +113,6 @@ export default function metaDataParser(content: string): ParsedMetaData {
         "dateEdited",
         "description",
         "tags",
-        "slug",
     ];
 
     for (const field of requiredFields) {

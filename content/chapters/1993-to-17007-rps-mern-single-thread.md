@@ -5,7 +5,6 @@
   dateEdited: "07/06/2026"
   description: "In depth system design of opencanvas to handle 6138 rps in node.js single thread, p95 1ms, p99 2ms."
   tags: [""]
-  slug:"1993-to-17007-rps-mern-single-thread"
 -->
 
 # From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale

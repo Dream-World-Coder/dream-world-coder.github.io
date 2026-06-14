@@ -5,7 +5,6 @@
   dateEdited: "07/06/2026"
   description: "Detailed guide & resources for Web Development."
   tags: ["web-dev"]
-  slug: "wanna-learn-web-dev"
 -->
 
 # Wanna Learn Web Development?
