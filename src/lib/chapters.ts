@@ -14,11 +14,11 @@ export const chapters: Section[] = [
     {
         title: "Web Dev",
         chapters: [
-            {
-                // too basic for here
-                slug: "wanna-learn-web-dev",
-                title: "Wanna Learn Web Development?",
-            },
+            // {
+            //     // too basic for here
+            //     slug: "wanna-learn-web-dev",
+            //     title: "Wanna Learn Web Development?",
+            // },
             // {
             //     slug: "ttl-cache",
             //     title: "Understanding TTL Caching",
@@ -32,27 +32,27 @@ export const chapters: Section[] = [
     {
         title: "Project Engineering",
         chapters: [
-            {
-                slug: "1993-to-17007-rps-mern-single-thread",
-                title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale",
-            },
-            {
-                slug: "computable-poetry",
-                title: "Computable Poetry",
-            },
+            // {
+            //     slug: "1993-to-17007-rps-mern-single-thread",
+            //     title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale",
+            // },
+            // {
+            //     slug: "computable-poetry",
+            //     title: "Computable Poetry",
+            // },
         ],
     },
     {
         title: "Algorithms",
         chapters: [
-            {
-                slug: "heap-vs-sorted-array",
-                title: "Heap vs. Sorted Array, Why Building a Heap is Linear?",
-            },
-            {
-                slug: "minima-extraction",
-                title: "Minima Extraction as Sorting Technique",
-            },
+            // {
+            //     slug: "heap-vs-sorted-array",
+            //     title: "Heap vs. Sorted Array, Why Building a Heap is Linear?",
+            // },
+            // {
+            //     slug: "minima-extraction",
+            //     title: "Minima Extraction as Sorting Technique",
+            // },
         ],
     },
 ];

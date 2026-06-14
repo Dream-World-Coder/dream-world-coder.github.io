@@ -1,3 +1,20 @@
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+    return [
+        { slug: "wanna-learn-web-dev" },
+        // // { slug: "ttl-cache" },
+        // // { slug: "why-redis" },
+        // { slug: "1993-to-17007-rps-mern-single-thread" },
+        // { slug: "computable-poetry" },
+        // { slug: "heap-vs-sorted-array" },
+        // // { slug: "stable-and-unstable-sort" },
+        // { slug: "minima-extraction" },
+    ];
+}
+
+// ===========================================================
+
 import { cache } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -225,21 +242,4 @@ export default async function ChapterPage({
             </footer>
         </div>
     );
-}
-
-export const dynamic = "force-static";
-
-export async function generateStaticParams() {
-    return [
-        { slug: "wanna-learn-web-dev" },
-        // { slug: "ttl-cache" },
-        // { slug: "why-redis" },
-
-        { slug: "1993-to-17007-rps-mern-single-thread" },
-        { slug: "computable-poetry" },
-
-        { slug: "heap-vs-sorted-array" },
-        // { slug: "stable-and-unstable-sort" },
-        { slug: "minima-extraction" },
-    ];
 }
