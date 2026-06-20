@@ -50,6 +50,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const isDeveloping: boolean = true;
+
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
@@ -91,7 +93,11 @@ export default function RootLayout({
                                 "repeating-linear-gradient(135deg, #1c1c1c 0px, #1c1c1c 3px, #252525 5px, #252525 4px)",
                         }}
                     />
-                    {children}
+                    {isDeveloping ? (
+                        <h1 className="text-4xl text-black">Coming Soon...</h1>
+                    ) : (
+                        children
+                    )}
                     <Analytics />
                 </body>
             </ThemeProvider>

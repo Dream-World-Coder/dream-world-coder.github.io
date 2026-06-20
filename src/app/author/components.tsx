@@ -1,3 +1,5 @@
+import { ActivityData } from "./activities";
+
 export function LinkBox({ itm }: { itm: string }) {
     return <span className="border bg-sky-200/40">{itm}</span>;
 }
@@ -35,26 +37,13 @@ export function Affiliation({ role, org, detail, link }: AffiliationProps) {
     );
 }
 
-interface ProjectLink {
-    label: string;
-    href: string;
-}
-
-interface ProjectProps {
-    title: string;
-    period?: string;
-    links: ProjectLink[];
-    stack?: string;
-    children: string;
-}
-
-export function Project({
+export function Activity({
     title,
     period,
-    links,
     stack,
-    children,
-}: ProjectProps) {
+    links,
+    description,
+}: ActivityData) {
     return (
         <div className="max-w-[100ch]">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
@@ -78,7 +67,7 @@ export function Project({
             </p>*/}
             <p
                 className="font-mono text-sm text-neutral-700 leading-tight"
-                dangerouslySetInnerHTML={{ __html: children }}
+                dangerouslySetInnerHTML={{ __html: description }}
             />
         </div>
     );

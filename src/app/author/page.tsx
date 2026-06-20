@@ -1,12 +1,7 @@
 import { CornerPlusIcons } from "@/components/Decorum";
 import Link from "next/link";
-import {
-    SectionLabel,
-    Affiliation,
-    Project as CurrentActivity,
-    LinkBox,
-} from "./components";
-import { projects as activityData } from "./projects";
+import { SectionLabel, Affiliation, Activity, LinkBox } from "./components";
+import { activityData } from "./activities";
 
 export default async function Page() {
     const title = `B.Tech Information Technology | IIEST'27` satisfies string;
@@ -25,19 +20,21 @@ export default async function Page() {
         {
             role: "AEH Intern",
             org: "Accenture",
-            detail: "Oracle Stuff",
+            detail: "worked on oracle stuff -- OAC (Oracle Analytics Cloud), FDI, FAW, ODI. ETL pipelines, designing & modelling.",
             link: "accenture.com",
         },
         {
             role: "Research Fellow",
             org: "TEXMiN IIT(ISM) Dhanbad, NM-ICPS",
-            detail: "ML & CPS",
+            detail: "Making a hazard prediction system for coal mines, using ML & CPS.",
             link: "texmin.in",
         },
         {
             role: "Web Development Lead",
             org: "CODEIIEST, IIEST Shibpur",
-            detail: "",
+            detail: `Had some interesting sessions with fellow _BEings_.
+            Managed development of lots of club & event sites.
+            Co developed the official students senate site.`,
             link: "codeiiest.in",
         },
     ] satisfies { role: string; org: string; detail: string; link: string }[];
@@ -112,38 +109,60 @@ export default async function Page() {
                     </div>
                 </div>
 
-                {/* projects + publications */}
+                {/* all activities */}
                 <div className="mb-12 w-full">
                     <SectionLabel>Recent Works</SectionLabel>
                     <div className="space-y-10">
                         {activityData.map((act) => (
-                            <CurrentActivity
+                            <Activity
                                 key={act.title}
                                 title={act.title}
                                 period={act.period}
-                                links={act.links}
                                 stack={act.stack}
-                            >
-                                {act.description}
-                            </CurrentActivity>
+                                links={act.links}
+                                description={act.description}
+                            />
                         ))}
                     </div>
                 </div>
 
-                {/* CP */}
+                {/* Competitive Programming */}
                 <div className="mb-12 w-full">
                     <SectionLabel>Competitive Programming</SectionLabel>
                     <div className="font-mono text-sm text-neutral-700">
                         <p>love solving these problems</p>
                         <p>
-                            Codeforces Expert • peak 2029
+                            Codeforces Expert • peak 1875
                             <br />
                             CodeChef 5-star • peak 2026
                         </p>
                     </div>
                 </div>
 
-                {/* Links */}
+                {/* Hobbies */}
+                <div className="mb-12 w-full">
+                    <SectionLabel>Hobbies</SectionLabel>
+                    <div className="font-mono text-sm text-neutral-700">
+                        <ul className="flex items-center gap-4">
+                            <li>
+                                Photography:
+                                <a href="url">
+                                    {" "}
+                                    <LinkBox itm="gallery" />
+                                </a>
+                            </li>
+                            <li>
+                                Sketching:
+                                <a href="url">
+                                    {" "}
+                                    <LinkBox itm="desc" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* links */}
                 <div className="w-full">
                     <SectionLabel>Links</SectionLabel>
                     <div className="flex flex-wrap gap-x-3 gap-y-3 font-mono text-sm tracking-wide">
