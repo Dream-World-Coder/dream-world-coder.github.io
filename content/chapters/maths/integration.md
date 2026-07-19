@@ -1,6 +1,6 @@
 <!--metadata
   title: "A Treatise on Integral and Vector Calculus"
-  authors: ["Subhajit Gorai", "claude.ai"]
+  authors: ["Subhajit", "claude.ai"]
   dateCreated: "19/07/2026"
   dateEdited: "19/07/2026"
   description: "Rules, Theorems, Proofs, and Problem-Solving Tactics for JEE Advanced, the Mathematical Olympiads, and the ISI/CMI Entrance Examinations"
@@ -23,7 +23,7 @@ A word on the proofs included here. Some — the Fundamental Theorem of Calculus
 
 - **Part I.** The Foundations of Integration
 - **Part II.** Symmetry in Definite Integration
-- **Part III.** Tactical Substitutions for JEE Advanced
+- **Part III.** Tactical Substitutions 
 - **Part IV.** Feynman's Trick — Differentiation Under the Integral Sign
 - **Part V.** The Weierstrass Substitution
 - **Part VI.** The Gamma and Beta Functions
@@ -158,9 +158,9 @@ For the remaining integral, substitute $u=\cos x,\ du=-\sin x\,dx$; as $x$ runs 
 $$\int_0^\pi\frac{\sin x}{1+\cos^2x}\,dx=\int_{-1}^1\frac{du}{1+u^2}=\big[\arctan u\big]_{-1}^1=\frac\pi4-\left(-\frac\pi4\right)=\frac\pi2.$$
 Therefore $2I=\pi\cdot\frac\pi2=\frac{\pi^2}2$, and
 $$I=\frac{\pi^2}4.$$
-This problem is a superb illustration of *stacking* two techniques — King's Rule to fold the integral onto itself, followed by an elementary substitution — and is a very frequently recurring archetype at Olympiad and JEE Advanced level.
+This problem is a good illustration of *stacking* two techniques — King's Rule to fold the integral onto itself, followed by an elementary substitution — and is a very frequently recurring.
 
-## Part III. Tactical Substitutions for JEE Advanced
+## Part III. Tactical Substitutions
 
 The techniques of this Part share a common spirit: each is a specific, engineered substitution designed to defeat a *specific* algebraic shape that resists the general methods of Part I. Recognising the shape is nine-tenths of the battle.
 
@@ -234,7 +234,7 @@ $$\frac{d}{d\alpha}\int_a^bf(x,\alpha)\,dx=\int_a^b\frac{\partial f}{\partial\al
 **Rule (variable limits).** More generally,
 $$\frac{d}{d\alpha}\int_{p(\alpha)}^{q(\alpha)}f(x,\alpha)\,dx=f\big(q(\alpha),\alpha\big)q'(\alpha)-f\big(p(\alpha),\alpha\big)p'(\alpha)+\int_{p(\alpha)}^{q(\alpha)}\frac{\partial f}{\partial\alpha}(x,\alpha)\,dx.$$
 
-*Remark on rigour.* The interchange of $\dfrac d{d\alpha}$ and $\displaystyle\int$ is not free: it requires, at minimum, that $\dfrac{\partial f}{\partial\alpha}$ be continuous jointly in $x$ and $\alpha$, and — when the interval of integration is infinite or the integrand unbounded — some form of uniform convergence (in a rigorous course, typically supplied by the Dominated Convergence Theorem). At JEE Advanced and Olympiad level, one may apply the rule freely; a careful writer will simply note in passing that the interchange is justified.
+*Remark on rigour.* The interchange of $\dfrac d{d\alpha}$ and $\displaystyle\int$ is not free: it requires, at minimum, that $\dfrac{\partial f}{\partial\alpha}$ be continuous jointly in $x$ and $\alpha$, and — when the interval of integration is infinite or the integrand unbounded — some form of uniform convergence (in a rigorous course, typically supplied by the Dominated Convergence Theorem). At JEE Advanced and Olympiad, one may apply the rule freely; a careful writer will simply note in passing that the interchange is justified.
 
 **Named strategy: Feynman's Trick.** Introduce a parameter $\alpha$ into a difficult integral $I$ — often multiplicatively, as an exponent, or as a limit of integration — so that (i) $I(\alpha)$ is *easy* for some particular value of $\alpha$, and (ii) $I'(\alpha)$, obtained by differentiating under the integral sign, is *elementary*. Integrate $I'(\alpha)$ back up and fix the constant using the easy value from (i).
 

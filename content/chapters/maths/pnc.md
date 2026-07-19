@@ -1,6 +1,6 @@
 <!--metadata
   title: "Permutations and Combinations"
-  authors: ["Subhajit Gorai", "claude.ai"]
+  authors: ["Subhajit", "claude.ai"]
   dateCreated: "19/07/2026"
   dateEdited: "19/07/2026"
   description: "A Comprehensive Treatise for JEE Advanced, Mathematical Olympiads, and the ISI–CMI Entrance Examinations"
