@@ -13,6 +13,8 @@ import {
     materialDark,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "katex/dist/katex.min.css";
+import { deflate } from "pako";
+
 import { generateId } from "./TablesOfContent";
 
 interface CodeBlockProps {
@@ -22,6 +24,25 @@ interface CodeBlockProps {
     // [key: string]: any;
 }
 
+// generate the URL-safe base64 deflate payload for Kroki
+const getKrokiUrl = (lang: string, code: string) => {
+    const data = new TextEncoder().encode(code);
+    const compressed = deflate(data, { level: 9 }); // Use the named import
+
+    // iterate rather than spread operator (...) to prevent stack overflow on large diagrams
+    let result = "";
+    for (let i = 0; i < compressed.length; i++) {
+        result += String.fromCharCode(compressed[i]);
+    }
+
+    const encoded = btoa(result)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+
+    return `https://kroki.io/${lang}/svg/${encoded}`;
+};
+
 export const CodeBlock = ({
     inline,
     className,
@@ -29,71 +50,96 @@ export const CodeBlock = ({
     ...props
 }: CodeBlockProps) => {
     const match = /language-(\w+)/.exec(className || "");
+    const lang = match ? match[1].toLowerCase() : "";
     const codeString = String(children).replace(/\n$/, "");
 
-    return !inline && match ? (
-        // block code
-        <div className="relative my-4 overflow-hidden rounded-sm flex flex-col bg-[#fcfcfc] dark:bg-[#2F2F2F]">
-            {/* codeHeader */}
-            <div className="flex items-center justify-between px-6 pt-2 bg-[#fcfcfc] dark:bg-[#2F2F2F]">
-                {/* language */}
-                <span className="text-sm font-sans text-neutral-700 dark:text-neutral-300">
-                    {match[1]}
-                </span>
-            </div>
+    const isDiagram = ["mermaid", "excalidraw", "plantuml"].includes(lang);
 
-            {/* code card */}
-            <div className="rounded-sm overflow-hidden border-none max-w-[72vw] md:max-w-none">
-                <div className="dark:hidden">
-                    <SyntaxHighlighter
-                        style={oneLight}
-                        language={match[1]}
-                        PreTag="div"
-                        wrapLongLines={false}
-                        showLineNumbers={false}
-                        codeTagProps={{
-                            style: {
-                                fontSize: "0.875rem",
-                                lineHeight: "1.25",
-                            },
-                        }}
-                        customStyle={{
-                            fontSize: "0.875rem",
-                            lineHeight: "1.25",
-                            background: "#fcfcfc",
-                        }}
-                        {...props}
-                    >
-                        {codeString}
-                    </SyntaxHighlighter>
+    if (!inline && match) {
+        // Kroki image for diagram languages
+        if (isDiagram) {
+            return (
+                <div className="relative my-4 flex justify-center bg-[#fcfcfc] dark:bg-[#2F2F2F] p-4 rounded-sm overflow-auto">
+                    <img
+                        src={getKrokiUrl(lang, codeString)}
+                        alt={`${lang} diagram`}
+                        className="max-w-full h-auto"
+                    />
                 </div>
-                <div className="hidden dark:block">
-                    <SyntaxHighlighter
-                        style={materialDark}
-                        language={match[1]}
-                        PreTag="div"
-                        wrapLongLines={false}
-                        showLineNumbers={false}
-                        codeTagProps={{
-                            style: {
+            );
+        }
+
+        // Return standard block code for other languages
+        return (
+            <div className="relative my-4 overflow-hidden rounded-sm flex flex-col bg-[#fcfcfc] dark:bg-[#2F2F2F]">
+                {/* codeHeader */}
+                <div className="flex items-center justify-between px-6 pt-2 bg-[#fcfcfc] dark:bg-[#2F2F2F]">
+                    {/* language */}
+                    <span className="text-sm font-sans text-neutral-700 dark:text-neutral-300">
+                        {match[1]}
+                    </span>
+                </div>
+
+                {/* code card */}
+                <div className="rounded-sm overflow-hidden border-none max-w-[72vw] md:max-w-none">
+                    <div className="dark:hidden">
+                        <SyntaxHighlighter
+                            style={oneLight}
+                            language={match[1]}
+                            PreTag="div"
+                            wrapLongLines={false}
+                            showLineNumbers={false}
+                            codeTagProps={{
+                                style: {
+                                    fontSize: "0.875rem",
+                                    lineHeight: "1.25",
+                                },
+                            }}
+                            customStyle={{
                                 fontSize: "0.875rem",
                                 lineHeight: "1.25",
-                            },
-                        }}
-                        customStyle={{
-                            fontSize: "0.875rem",
-                            lineHeight: "1.25",
-                        }}
-                        {...props}
-                    >
-                        {codeString}
-                    </SyntaxHighlighter>
+                                background: "#fcfcfc",
+                            }}
+                            {...props}
+                        >
+                            {codeString}
+                        </SyntaxHighlighter>
+                    </div>
+                    <div className="hidden dark:block">
+                        <SyntaxHighlighter
+                            style={materialDark}
+                            language={match[1]}
+                            PreTag="div"
+                            wrapLongLines={false}
+                            showLineNumbers={false}
+                            codeTagProps={{
+                                style: {
+                                    fontSize: "0.875rem",
+                                    lineHeight: "1.25",
+                                },
+                            }}
+                            customStyle={{
+                                fontSize: "0.875rem",
+                                lineHeight: "1.25",
+                            }}
+                            {...props}
+                        >
+                            {codeString}
+                        </SyntaxHighlighter>
+                    </div>
                 </div>
             </div>
-        </div>
-    ) : (
-        // inline code
-        <code className="rounded px-1.5 py-0.5 wrap-break-word font-mono text-sm bg-[#f1f1f1] dark:bg-neutral-800 dark:text-neutral-200">
+        );
+    }
+
+    // inline code
+    return (
+        <code
+            className="rounded px-1.5 wrap-break-word font-mono bg-[#f1f1f1] dark:bg-neutral-800 dark:text-neutral-200 whitespace-nowrap"
+            style={{
+                fontSize: "smaller",
+            }}
+        >
             {children}
         </code>
     );
@@ -264,7 +310,8 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         ) => (
                             <h1
                                 id={generateId(children)}
-                                className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold _md:font-serif sentient-regular flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="mt-0 mb-6 md:mt-0 md:mb-16 leading-tight tracking-tight text-4xl md:text-5xl font-semibold md:font-semibold
+                                _md:font-serif sentient-regular  text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h1>
@@ -272,7 +319,8 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h2: ({ children }) => (
                             <h2
                                 id={generateId(children)}
-                                className="mt-10 mb-5 leading-tight tracking-tight text-3xl md:text-4xl font-bold flex items-center gap-2 justify-start sentient-regular text-neutral-900 dark:text-neutral-100"
+                                className="mt-10 mb-5 leading-tight tracking-tight text-3xl md:text-4xl
+                                font-bold sentient-regular text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h2>
@@ -280,7 +328,8 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h3: ({ children }) => (
                             <h3
                                 id={generateId(children)}
-                                className="mt-8 mb-4 leading-snug text-2xl md:text-3xl font-bold flex items-center gap-2 justify-start sentient-regular text-neutral-900 dark:text-neutral-100"
+                                className="mt-8 mb-4 leading-snug text-2xl md:text-3xl
+                                font-bold sentient-regular text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h3>
@@ -288,24 +337,34 @@ export function MarkdownRenderer({ content }: { content: null | string }) {
                         h4: ({ children }) => (
                             <h4
                                 id={generateId(children)}
-                                className="sentient-bold mt-6 mb-3 leading-snug text-xl md:text-2xl flex items-center gap-2 justify-start group text-neutral-900 dark:text-neutral-100"
+                                className="mt-6 mb-3 leading-snug text-xl md:text-2xl
+                                text-neutral-900 dark:text-neutral-100"
                             >
                                 {children}
                             </h4>
                         ),
                         h5: ({ children }) => (
-                            <h5 className="sentient-bold mt-5 mb-3 leading-snug text-base md:text-lg text-neutral-900 dark:text-neutral-100">
+                            <h5
+                                className="mt-5 mb-3 leading-snug text-base md:text-lg
+                                text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h5>
                         ),
                         h6: ({ children }) => (
-                            <h6 className="sentient-regular font-semibold mt-4 mb-2 uppercase tracking-wider text-base text-neutral-900 dark:text-neutral-100">
+                            <h6
+                                className="sentient-regular font-semibold mt-4 mb-2 tracking-wider text-base
+                                text-neutral-900 dark:text-neutral-100"
+                            >
                                 {children}
                             </h6>
                         ),
 
                         p: ({ children }) => (
-                            <p className="my-8 w-full text-base md:text-lg md:leading-7 text-neutral-700 dark:text-neutral-300 sentient-regular">
+                            <p
+                                className="my-8 w-full text-base md:text-lg md:leading-7 text-neutral-700
+                                dark:text-neutral-300 sentient-regular"
+                            >
                                 {children}
                             </p>
                         ),
