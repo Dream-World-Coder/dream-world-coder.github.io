@@ -1,3 +1,5 @@
+// root data
+
 export const title: string = "The Invariant; — Subhajit Gorai";
 export const description: string =
     "On the algebra of algorithms, the structure of proofs, and the assumptions hiding inside physics.";
