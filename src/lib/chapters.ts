@@ -1,3 +1,41 @@
+/**
+ * Rendered Pages : for converting to static html docs
+ * used in `generateStaticParams`
+ */
+
+export const renderedPages = [
+    { slug: "wanna-learn-web-dev" },
+    // { slug: "ttl-cache" },
+    // { slug: "why-redis" },
+
+    { slug: "1993-to-17007-rps-mern-single-thread" },
+    { slug: "computable-poetry" },
+    { slug: "grepvf" },
+
+    { slug: "heap-vs-sorted-array" },
+    // { slug: "stable-and-unstable-sort" },
+    { slug: "minima-extraction" },
+
+    { slug: "gemma" },
+
+    { slug: "markdown" },
+    { slug: "interview" },
+
+    { slug: "pnc" },
+    { slug: "integration" },
+    { slug: "series-and-transformations" },
+    { slug: "number-theory" },
+    // linear algebra : eigenvector eigen val
+    // vector space
+    // theory of eqn
+    // co ordinate geo
+    // random var, statictics
+] satisfies { slug: string }[];
+
+// * ============================= * ============================= * //
+// Table of contents for Index Page
+// * ============================= * ============================= * //
+
 export interface Chapter {
     slug: string;
     title: string;
@@ -8,54 +46,85 @@ export interface Section {
     chapters: Chapter[];
 }
 
-// will keep this file. Easy to give names instead directory
-
+/*
+ * articles will mostly not have sub-articles.
+ */
 export const chapters: Section[] = [
     {
-        title: "Web Dev",
+        title: "Maths",
         chapters: [
-            // {
-            //     // too basic for here
-            //     slug: "wanna-learn-web-dev",
-            //     title: "Wanna Learn Web Development?",
-            // },
-            // {
-            //     slug: "ttl-cache",
-            //     title: "Understanding TTL Caching",
-            // },
-            // {
-            //     slug: "why-redis",
-            //     title: "Why Do I Need Redis?",
-            // },
+            { slug: "pnc", title: "Permutations and Combinations" },
+            { slug: "number-theory", title: "Number Theory" },
+            {
+                slug: "integration",
+                title: "A Treatise on Integral and Vector Calculus",
+            },
+            {
+                slug: "series-and-transformations",
+                title: "Series and Transforms: Taylor, Fourier, and Laplace Methods",
+            },
+            // { slug: "sss", title: "ttt" },
         ],
     },
-    {
-        title: "Project Engineering",
-        chapters: [
-            // {
-            //     slug: "1993-to-17007-rps-mern-single-thread",
-            //     title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale",
-            // },
-            // {
-            //     slug: "computable-poetry",
-            //     title: "Computable Poetry",
-            // },
-        ],
-    },
+
     {
         title: "Algorithms",
         chapters: [
-            // {
-            //     slug: "heap-vs-sorted-array",
-            //     title: "Heap vs. Sorted Array, Why Building a Heap is Linear?",
-            // },
-            // {
-            //     slug: "minima-extraction",
-            //     title: "Minima Extraction as Sorting Technique",
-            // },
+            {
+                slug: "heap-vs-sorted-array",
+                title: "Heap vs. Sorted Array, Why Building a Heap is Linear?",
+            },
+            {
+                slug: "minima-extraction",
+                title: "Minima Extraction as Sorting Technique",
+            },
         ],
     },
+
+    { title: "ML & DL", chapters: [{ slug: "gemma", title: "Gemma" }] },
+
+    {
+        title: "Dev & Backend Systems",
+        chapters: [
+            {
+                slug: "wanna-learn-web-dev",
+                title: "Wanna Learn Web Development?",
+            },
+            {
+                slug: "ttl-cache",
+                title: "Understanding TTL Caching",
+            },
+            {
+                slug: "why-redis",
+                title: "Why Do I Need Redis?",
+            },
+        ],
+    },
+
+    {
+        title: "My Projects",
+        chapters: [
+            {
+                slug: "1993-to-17007-rps-mern-single-thread",
+                title: "From 1,993 To 17,007 Requests Per Second: Optimising a MERN webapp",
+            },
+            {
+                slug: "computable-poetry",
+                title: "Computable Poetry",
+            },
+            { slug: "grepvf", title: "A CVE Checker that can Hack" },
+        ],
+    },
+
+    {
+        title: "For Me",
+        chapters: [{ slug: "interview", title: "OA Analysis" }],
+    },
 ];
+
+// * ============================= * ============================= * //
+//  Next & Prev articles
+// * ============================= * ============================= * //
 
 export function getNextArticle(
     currentSlug: string,
@@ -88,3 +157,15 @@ export function getPrevArticle(
 
     return allChapters[index - 1]; // return { slug, title }
 }
+
+// * ============================= * ============================= * //
+
+/*
+ *
+ *
+ * Keeping this file, as its easy to give names & titles instead lots of dirs
+ *
+ *
+ */
+
+// * ============================= * ============================= * //
