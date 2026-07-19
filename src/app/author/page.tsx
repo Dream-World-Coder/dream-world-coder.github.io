@@ -1,7 +1,8 @@
 import { CornerPlusIcons } from "@/components/Decorum";
 import Link from "next/link";
-import { SectionLabel, Affiliation, Activity, LinkBox } from "./components";
+import { SectionLabel, ExperienceRow, Activity, LinkBox } from "./components";
 import { activityData } from "./activities";
+import { experienceData as exps } from "./experiences";
 
 export default async function Page() {
     const title = `B.Tech Information Technology | IIEST'27` satisfies string;
@@ -9,35 +10,6 @@ export default async function Page() {
     const about =
         `Trying to understand systems, design them, and in search of their limits. Can they adapt? I love Research,
         exploring algorithms and sometimes competitive programming.` satisfies string;
-
-    const exps = [
-        {
-            role: "Research Intern",
-            org: "Chennai Mathematical Institute",
-            detail: "Working on LLMs",
-            link: "www.cmi.ac.in",
-        },
-        {
-            role: "AEH Intern",
-            org: "Accenture",
-            detail: "worked on oracle stuff -- OAC (Oracle Analytics Cloud), FDI, FAW, ODI. ETL pipelines, designing & modelling.",
-            link: "accenture.com",
-        },
-        {
-            role: "Research Fellow",
-            org: "TEXMiN IIT(ISM) Dhanbad, NM-ICPS",
-            detail: "Making a hazard prediction system for coal mines, using ML & CPS.",
-            link: "texmin.in",
-        },
-        {
-            role: "Web Development Lead",
-            org: "CODEIIEST, IIEST Shibpur",
-            detail: `Had some interesting sessions with fellow _BEings_.
-            Managed development of lots of club & event sites.
-            Co developed the official students senate site.`,
-            link: "codeiiest.in",
-        },
-    ] satisfies { role: string; org: string; detail: string; link: string }[];
 
     const links = [
         {
@@ -47,10 +19,6 @@ export default async function Page() {
         {
             label: "LinkedIn",
             href: "https://linkedin.com/in/subhajitgorai",
-        },
-        {
-            label: "Portfolio",
-            href: "https://subhajitgorai.pages.dev",
         },
         {
             label: "Codeforces",
@@ -95,15 +63,15 @@ export default async function Page() {
 
                 {/* exp */}
                 <div className="mb-12 w-full">
-                    <SectionLabel>Currently</SectionLabel>
+                    <SectionLabel>Experience</SectionLabel>
                     <div className="space-y-3">
-                        {exps.map((i) => (
-                            <Affiliation
-                                key={i.role}
-                                role={i.role}
-                                org={i.org}
-                                detail={i.detail}
-                                link={i.link}
+                        {exps.map((exp) => (
+                            <ExperienceRow
+                                key={exp.role}
+                                role={exp.role}
+                                org={exp.org}
+                                detail={exp.detail}
+                                link={exp.link}
                             />
                         ))}
                     </div>
@@ -132,30 +100,27 @@ export default async function Page() {
                     <div className="font-mono text-sm text-neutral-700">
                         <p>love solving these problems</p>
                         <p>
-                            Codeforces Expert • peak 1875
+                            Codeforces Expert • peak 2029 (CM)
                             <br />
                             CodeChef 5-star • peak 2026
                         </p>
+                        link to my problemsheets & problems i made.
                     </div>
                 </div>
 
-                {/* Hobbies */}
+                {/* hobbies */}
                 <div className="mb-12 w-full">
                     <SectionLabel>Hobbies</SectionLabel>
                     <div className="font-mono text-sm text-neutral-700">
                         <ul className="flex items-center gap-4">
                             <li>
-                                Photography:
-                                <a href="url">
+                                Photography & Sketching:
+                                <a
+                                    target="_blank"
+                                    href="https://instagram.com/my.open.canvass"
+                                >
                                     {" "}
-                                    <LinkBox itm="gallery" />
-                                </a>
-                            </li>
-                            <li>
-                                Sketching:
-                                <a href="url">
-                                    {" "}
-                                    <LinkBox itm="desc" />
+                                    <LinkBox itm="Some of them, I posted in Instagram" />
                                 </a>
                             </li>
                         </ul>

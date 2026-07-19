@@ -1,6 +1,11 @@
-export interface ActivityData {
+/*
+ * Mostly Projects
+ * Or Recent Activity that is not a project
+ */
+
+export interface ActivityDataInterface {
     title: string;
-    period?: string; //"Dec 2025 – present"
+    period?: string; //"Dec 2025 – present" // not rendered
     stack?: string;
     links: {
         label: string;
@@ -9,25 +14,79 @@ export interface ActivityData {
     description: string;
 }
 
-export const activityData: ActivityData[] = [
+export const activityData: ActivityDataInterface[] = [
+    // LampLight
     {
         title: "LampLight",
-        links: [{ label: "github", href: "" }],
-        description: "In making",
+        links: [{ label: "GitHub", href: "" }],
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!",
     },
 
+    // Depuzzled
     {
         title: "Depuzzled",
         links: [
             {
-                label: "github",
+                label: "GitHub",
                 href: "https://github.com/Dream-World-Coder/depuzzled",
             },
         ],
         description: `C++ Klotski engine in 739bits.<br/>
-        Inspired by a junior. [link]`,
+        Inspired by a junior. [link]
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!
+        `,
     },
 
+    // GrepVF
+    {
+        title: "GrepVF",
+        links: [
+            {
+                label: "GitHub",
+                href: "",
+            },
+        ],
+        description: `grepVF: find(grep) vulnerabilities(V) & fix(F) <br/>
+        GrepVF is a SAST(Static Application Security Testing) tool, designed to be integrated in the CI/CD pipeline.
+        It can find existing (and possibly undetected) software vulnerabilities alongside suggest fixures for some of them.
+        It uses the same idea as Aroma, VulRAG etc. You can read the detailed architecture here:
+        <a class="underline" href="/chapters/grepvf">A CVE Checker that can Hack<a/>.<br/><br/>
+        <b>Brief overview:</b> We use 4 main engines for detection of different types of vulnerabilities.
+
+        <div class="html-list">
+            <ol>
+                <li>
+                    Entropy Checker: Uses Shannon Entropy to detect exposed keys &
+                    secrets in code.
+                </li>
+                <li>
+                    Dependency Checker: API calls OSV.dev to get info about the version
+                    of the packages used.
+                </li>
+                <li>
+                    Deterministic Engine:
+                    <ul>
+                        <li>
+                            Regex: A book of regex rules for deterministic detection.
+                        </li>
+                        <li>
+                            Semgrep: Lorem ipsum dolor sit amet consectetur adipisicing.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Non Deterministic Engine: Uses Gemma. Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Esse perspiciatis totam asperiores
+                    incidunt iste, amet cumque quia quo nulla, adipisci, accusantium
+                    assumenda eligendi sit suscipit enim eveniet quidem in voluptate?
+                </li>
+            </ol>
+        </div>
+        `,
+    },
+
+    // Poetry
     {
         title: "Computable Poetry",
         stack: "NLP | Formal Grammars | Graph Theory | Constraint Satisfaction",
@@ -36,11 +95,11 @@ export const activityData: ActivityData[] = [
                 label: "Documentation",
                 href: "https://computable-poetry.vercel.app",
             },
-            // {
-            //     label: "github",
-            //     href: "https://github.com/Dream-World-Coder/computable_poetry",
-            // },
-            // { label: "paper", href: "" },
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/computable_poetry",
+            },
+            { label: "paper", href: "" },
         ],
         description: `Can we generate meaningful poetry without any Machine Learning?
         I tried doing it for Bangla Poems. Had to apply lots of tricks but surprisingly Dijkstra came in very handy in it.
@@ -53,6 +112,7 @@ export const activityData: ActivityData[] = [
         But the documentation is more than sufficient, if you want to dive in.`,
     },
 
+    // OpenCanvas
     {
         title: "OpenCanvas",
         stack: "MERN",
@@ -62,7 +122,7 @@ export const activityData: ActivityData[] = [
                 href: "https://opencanvas.institute",
             },
             {
-                label: "github",
+                label: "GitHub",
                 href: "https://github.com/Dream-World-Coder/opencanvas",
             },
         ],
@@ -90,6 +150,7 @@ export const activityData: ActivityData[] = [
         > On a personal note, this is my first repo that had global contributors :)`,
     },
 
+    // DSA_Animations
     {
         title: "DSA Animations",
         period: "Jul 2024 – present",
@@ -100,7 +161,7 @@ export const activityData: ActivityData[] = [
                 href: "https://dsa-experiments.vercel.app",
             },
             {
-                label: "github",
+                label: "GitHub",
                 href: "https://github.com/Dream-World-Coder/DSA_Animations",
             },
         ],
@@ -109,5 +170,84 @@ export const activityData: ActivityData[] = [
         Dijkstra, Floyd Warshall -- are my personal favourites. Do check out if you have a keen interest in these.<br/>
 
         ★ On a personal note this is my first repo that completed 10 github stars :) ★`,
+    },
+
+    // myClassroom
+    {
+        title: "myClassroom",
+        links: [
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/myClassroom",
+            },
+        ],
+        description:
+            "A Webapp to create courses from youtube playlists. Design own courses, study without any ads or distractions. Track course progress, to-do, goals, study hours.",
+    },
+
+    // EncryptEase
+    {
+        title: "EncryptEase",
+        links: [
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/EncryptEase",
+            },
+            {
+                label: "Live",
+                href: "https://encryptease.pythonanywhere.com/",
+            },
+        ],
+        description:
+            "Implemented key based hashing algorithms, for text strings and files.",
+    },
+
+    // rule110
+    {
+        title: "Rule110",
+        links: [
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/rule110",
+            },
+            {
+                label: "Live",
+                href: "https://dream-world-coder.github.io/rule110/",
+            },
+        ],
+        description: "VibeCoded a rule110 visualiser.",
+    },
+
+    // LumiFeed
+    {
+        title: "LumiFeed",
+        links: [
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/LumiFeed",
+            },
+            {
+                label: "Live",
+                href: "https://lumifeed.vercel.app/",
+            },
+        ],
+        description:
+            "A RSS reader and scraper to read news & summaries. Main focus was UI, Ease of Use & Accessibility, kept it the way I wanted after hundereads of changes.",
+    },
+
+    // portfolio
+    {
+        title: "portfolio",
+        links: [
+            {
+                label: "GitHub",
+                href: "https://github.com/Dream-World-Coder/portfolio",
+            },
+            {
+                label: "Live",
+                href: "https://subhajitgorai.pages.dev",
+            },
+        ],
+        description: "My portfolio site. Again UI was the main focus.",
     },
 ];

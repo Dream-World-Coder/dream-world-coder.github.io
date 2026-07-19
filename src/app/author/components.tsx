@@ -1,4 +1,4 @@
-import { ActivityData } from "./activities";
+import type { ActivityDataInterface } from "./activities";
 
 export function LinkBox({ itm }: { itm: string }) {
     return <span className="border bg-sky-200/40">{itm}</span>;
@@ -12,27 +12,25 @@ export function SectionLabel({ children }: { children: React.ReactNode }) {
     );
 }
 
-interface AffiliationProps {
+interface ExpProps {
     role: string;
     org: string;
     detail?: string;
     link: string;
 }
 
-export function Affiliation({ role, org, detail, link }: AffiliationProps) {
+export function ExperienceRow({ role, org, detail, link }: ExpProps) {
+    // org + link
     return (
         <div className="font-mono text-sm text-neutral-700">
             <span className="text-black">{role}</span>
             {" • "}
+
             <a target="_blank" href={"https://" + link}>
                 <LinkBox itm={org} />
             </a>
-            {detail && (
-                <span className="text-neutral-600">
-                    {" • "}
-                    {detail}
-                </span>
-            )}
+
+            {detail && <div className="text-neutral-600">{detail}</div>}
         </div>
     );
 }
@@ -43,7 +41,7 @@ export function Activity({
     stack,
     links,
     description,
-}: ActivityData) {
+}: ActivityDataInterface) {
     return (
         <div className="max-w-[100ch]">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">

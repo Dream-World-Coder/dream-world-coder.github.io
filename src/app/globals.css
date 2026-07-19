@@ -123,3 +123,43 @@ em strong {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+.break_anywhere {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* HTML rendered through dangerouslySetInnerHTML */
+.html-list > ol,
+.html-list > ul {
+    padding-left: 1.5rem;
+}
+
+.html-list ol {
+    list-style-type: decimal;
+}
+
+.html-list ul {
+    list-style-type: disc;
+}
+
+.html-list li {
+    margin: 0.5rem 0;
+    line-height: inherit;
+}
+
+.html-list li > ol,
+.html-list li > ul {
+    margin: 0.5rem 0;
+}
+
+.html-list > ol > li > ul,
+.html-list > ul > li > ol,
+.html-list > ul > li > ul,
+.html-list > ol > li > ol {
+    padding-left: 2.15rem;
+    margin: 0;
+    & li {
+        margin: 0;
+    }
+}
