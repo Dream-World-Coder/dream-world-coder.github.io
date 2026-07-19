@@ -44,3 +44,8 @@ next-env.d.ts
 _images/
 
 dream-world-coder.github.io
+
+# personal
+content/drafts
+**/mine/*
+to-do.txt
