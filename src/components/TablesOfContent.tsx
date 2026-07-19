@@ -62,7 +62,14 @@ export function generateId(children: React.ReactNode): string {
 }
 
 export const parseTableOfContents = (content: string): Heading[] => {
+    // ignoring comments
+    content = content
+        ?.replace(/```[\s\S]*?```/g, "")
+        ?.replace(/<!--[\s\S]*?-->/g, "");
+
+    // ignoring codeblocks
     content = content?.replace(/```[\s\S]*?```/g, "");
+
     if (!content) return [];
 
     const lines = content.split("\n");
