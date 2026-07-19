@@ -1,19 +1,11 @@
 export const dynamic = "force-static";
 
+import { renderedPages } from "@/lib/chapters";
 export async function generateStaticParams() {
-    return [
-        { slug: "wanna-learn-web-dev" },
-        // // { slug: "ttl-cache" },
-        // // { slug: "why-redis" },
-        // { slug: "1993-to-17007-rps-mern-single-thread" },
-        // { slug: "computable-poetry" },
-        // { slug: "heap-vs-sorted-array" },
-        // // { slug: "stable-and-unstable-sort" },
-        // { slug: "minima-extraction" },
-    ];
+    return renderedPages;
 }
 
-// ===========================================================
+// * ============================= * ============================= * //
 
 import { cache } from "react";
 import Image from "next/image";
@@ -34,7 +26,7 @@ import {
     TableOfContents,
 } from "@/components/TablesOfContent";
 
-// -------------------
+// * ============================= * ============================= * //
 const getPageMetadata = (content: string): ParsedMetaData => {
     let metaData: ParsedMetaData = {
         title: "The Invariant;",
@@ -49,6 +41,7 @@ const getPageMetadata = (content: string): ParsedMetaData => {
         metaData = metaDataParser(content);
     } catch (err) {
         console.error(err);
+        // throw new Error("Failed to parse page metadata");
     }
 
     return metaData;
@@ -60,7 +53,8 @@ const getCachedChapter = cache((slug: string) => {
     const metaData = getPageMetadata(content);
     return { content, metaData };
 });
-// -------------------
+
+// * ============================= * ============================= * //
 
 // meta tags
 export async function generateMetadata({
@@ -88,7 +82,10 @@ export async function generateMetadata({
     };
 }
 
-// page
+// * ============================= * ============================= * //
+// main page
+// * ============================= * ============================= * //
+
 export default async function ChapterPage({
     params,
 }: {
@@ -138,7 +135,6 @@ export default async function ChapterPage({
                     <DarkModeBtn />
                 </nav>
 
-                {/* Table of Contents replacing the old sidebar */}
                 <TableOfContents tableOfContents={tocData} />
 
                 {/* main content */}

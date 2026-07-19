@@ -76,21 +76,23 @@ export default async function Chapters() {
                         Index
                     </h1>
 
-                    <ol className="list mt-12 md:mt-24 columns-1 md:columns-2 md:gap-x-36 font-serif md:px-10">
+                    <ol className="list mt-12 font-mono md:px-10 max-w-[80ch] overflow-y-scroll">
                         {chapters.map((section, sid) => (
-                            <li key={section.title} className="pb-4">
+                            <li
+                                key={sid.toString() + section.title}
+                                className="py-2 border-b border-dashed border-neutral-200"
+                            >
                                 <h3 className="font-bold capitalize">
-                                    {sid + 1}. {section.title}
+                                    {section.title}
                                 </h3>
                                 <ol className="pl-4">
                                     {section.chapters.map((chapter, cid) => (
                                         <li key={chapter.slug}>
                                             <Link
                                                 href={`/chapters/${chapter.slug}`}
-                                                className="capitalize hover:underline font-sans md:font-serif"
+                                                className="capitalize hover:underline font-sans"
                                             >
-                                                {sid + 1}.{cid + 1}{" "}
-                                                {chapter.title}
+                                                {cid + 1}. {chapter.title}
                                             </Link>
                                         </li>
                                     ))}
