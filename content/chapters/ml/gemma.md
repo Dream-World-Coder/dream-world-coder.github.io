@@ -1,0 +1,52 @@
+<!--metadata
+  title: "EmbeddingGemma"
+  authors: ["Subhajit Gorai"]
+  dateCreated: "14/04/2026"
+  dateEdited: "22/04/2026"
+  description: ""
+  tags: [""]
+-->
+
+## 1. The contrastive loss (Eq. 2) — the workhorse
+
+$$\mathcal{L}_C = \frac{1}{B}\sum_i -\log \frac{e^{\text{sim}(q_i,p_i^+)/\tau}}{w_i \, e^{\text{sim}(q_i,p_i^-)/\tau} + \sum_j \mathbb{1}_{TN}(i,j)\, e^{\text{sim}(q_i,p_j^+)/\tau}}$$
+
+This is InfoNCE-style softmax cross-entropy: pull $q_i$ toward its true positive $p_i^+$, push it away from everything else in the denominator. Three design choices are worth unpacking:
+
+**In-batch negatives.** Instead of only contrasting each query against its one explicit hard negative, every *other* example's positive passage in the batch doubles as a negative for this query ($\sum_j$ term). This is free — no extra mining, no extra forward passes — you just get $B-1$ additional negatives per example for the cost of one batch. This is *why* batch size matters so much in this recipe (bigger batch → more implicit negatives → sharper contrastive signal), which is exactly why they explicitly increase batch size in pre-finetuning (Section 2.3).
+
+**False-negative masking ($\mathbb{1}_{TN}$).** In-batch negatives are a gamble: what if example $j$'s positive passage is *also* a correct answer to query $i$ (duplicate or near-duplicate passages are common at web scale)? Without masking, the loss would actively punish the model for correctly recognizing that $q_i$ and $p_j^+$ are related — a direct contradiction of the training signal. The mask zeroes out any pair where the queries are identical or positives are identical, which is a cheap surface-level dedup (it won't catch semantic duplicates, only exact ones, but it's better than nothing).
+
+**Hardness weighting ($w_i = \exp(\alpha \cdot \text{sg}(\text{sim}(q_i,p_i^-)))$).** This is the part people usually skim past but it's doing real work. Think about what happens without it: a hard negative that's already far from $q_i$ (easy) contributes almost nothing to the loss (its exponential term is small), while a hard negative that's genuinely close to $q_i$ (hard, informative) also only gets weight 1 — same as the easy one. Multiplying by $w_i$, which grows with how close the negative currently is to the query, means *the model's own current confusion* determines how much that negative matters in the loss. It's an adaptive curriculum baked into a single forward pass, not a separate mining step.
+
+Why the **stop-gradient**? If you let gradient flow through $w_i$, the model has a degenerate shortcut available: it could reduce the loss just by increasing $\text{sim}(q_i, p_i^-)$ in a way that *increases* $w_i$ in the denominator in a self-defeating loop, or more subtly, the weight term becomes a second, uncontrolled objective competing with the "push apart" objective from the main NCE term. Stop-gradient freezes $w_i$ as a scalar coefficient — the model can only reduce the loss by actually reducing $\text{sim}(q_i, p_i^-)$ through the primary contrastive pathway, not by gaming the weighting function itself. This is the same logic as in target networks / EMA teachers elsewhere in ML: the weighting signal is treated as ground truth for this step, not as something to optimize against.
+
+## 2. The spread-out loss (Eq. 4) — fixing anisotropy
+
+$$\mathcal{L}_S = \frac{1}{B(B-1)}\sum_{i\neq j}(q_i^\top q_j)^2 + \frac{1}{B(B-1)}\sum_{i\neq j}(p_i^{+\top}p_j^+)^2$$
+
+This addresses a well-known pathology in learned embedding spaces: **anisotropy**. Contrastively trained embeddings tend to collapse into a narrow cone in representation space — most pairs of embeddings end up with high cosine similarity regardless of semantic content, because nothing in the contrastive loss *directly* penalizes this (contrastive loss only cares about relative ordering within a batch, not the global geometry). A cone-shaped embedding space wastes dimensions: much of the space's capacity to discriminate goes unused, and downstream retrieval metrics degrade because "everything looks similar."
+
+The theoretical anchor (Zhang et al. 2017's GOR) is: if you sampled points *uniformly* on a unit hypersphere in $d$ dimensions, the expected pairwise inner product would be 0 (the "mean" term) and the second moment (expected squared inner product) would converge to a small target value around $1/d$ (the "second moment" term). By directly minimizing $(q_i^\top q_j)^2$ over random in-batch pairs, you're pushing the empirical distribution of the model's embeddings toward that same statistical signature — squared inner products shrinking toward the uniform-sphere target — without explicitly constraining every pair to be orthogonal (which would be far too strong a constraint and would fight the contrastive loss, which *needs* $q_i \cdot p_i^+$ to be large for the true pair).
+
+Why only the second-moment term and not the mean term too? Practically, minimizing the second moment already suppresses large inner products in both directions (positive and negative), which indirectly drags the mean toward its target as a side effect — by Jensen's-inequality-flavored reasoning, controlling the second moment bounds the mean. They found empirically the extra mean term was redundant, so they dropped it for simplicity.
+
+This is also *why* this loss matters for the paper's headline claims about quantization and truncation robustness: embeddings that are spread out (using their dimensions close to statistically uniformly) degrade more gracefully when you truncate to fewer MRL dimensions or round to int4 weights, because information isn't concentrated in a few dominant directions that a naive truncation/quantization step could wipe out. It's also directly relevant to ANN search — algorithms like product quantization or LSH implicitly assume something like a spread, non-degenerate data distribution to partition space efficiently; a collapsed cone makes bucketing/partitioning far less effective.
+
+## 3. The embedding matching (distillation) loss (Eq. 5)
+
+$$\mathcal{L}_D = \mathcal{L}_D^Q + \mathcal{L}_D^{P^+} + \mathcal{L}_D^{P^-}$$
+
+The paper contrasts this against prior distillation work (NV-Retriever, ColBERTv2) that only distills the teacher's **relevance scores** — i.e., you match the teacher's ranking/scalar judgment of how relevant a passage is to a query. That's a very lossy signal: a single scalar per (query, passage) pair collapses everything the teacher "knows" about that pair's relationship into one number.
+
+Embedding matching (following Kim et al. 2023, "EmbedDistill") instead aligns the **geometry** of the student's embedding space directly with the teacher's (Gemini Embedding). Kim et al. employ a projection layer to align teacher and student embedding spaces and perform distillation on the embeddings directly — this matters because EmbeddingGemma's 768-dim space and Gemini Embedding's space aren't the same dimensionality, so you need a learned mapping before you can compare/align vectors directly. What you get from this, that you don't get from score-only distillation, is that the *relative* positions of the teacher's embedding manifold — not just its pairwise judgments — get transferred: the student inherits the finer-grained clustering, angular relationships, and neighborhood structure the (much larger, more powerful) teacher learned from more/richer data. Score matching only teaches "A is more relevant than B"; embedding matching teaches "here's the actual shape of the space that produced that judgment."
+
+**Why also distill on hard negatives**, which the original Kim et al. paper didn't do? EmbeddingGemma's authors frame it as symmetric with the contrastive loss's own use of hard negatives: it isn't just "match query and match positive," it's "learn *how the teacher discriminates*" — i.e., align the specific geometric relationship the teacher has established between a query and its confusable near-miss. That's strictly more informative than aligning only the easy/obviously-correct pairs, same logic as why hard negative mining helps contrastive learning generally: the informative gradient lives near the decision boundary, not far from it.
+
+**Why unweighted (uniform) combination** of the three distillation sub-losses ($\mathcal{L}_D^Q$, $\mathcal{L}_D^{P^+}$, $\mathcal{L}_D^{P^-}$)? This is a simplicity choice — rather than tuning three separate weights (a search space that grows fast when combined with the other two top-level losses), they let all three carry equal importance, relying on the underlying architecture/data mixture to do the heavy lifting rather than loss-weighting.
+
+## How MRL folds into this
+
+This is the part most relevant to your own MRL work, so worth being precise: the paper states they adapt **the contrastive and spread-out losses** using MRL — splitting each into $k$ separate losses, one per nested sub-dimension (e.g., the first 128, 256, 512, and full 768 dims), and then just *summing* them with no extra weighting between granularities. Notice what's *not* mentioned as MRL-adapted: **the embedding matching / distillation loss**. The paper is silent on this, but reading closely, only $\mathcal{L}_C$ and $\mathcal{L}_S$ are explicitly said to be split by MRL truncation — the distillation loss is described only in terms of the full 768-dim alignment with the teacher. That's a meaningful design detail if you're trying to figure out *why* truncated embeddings still perform so well: robustness at low dimensions is being driven by the contrastive signal and the spread-out regularizer existing at every truncation level, not by the teacher-alignment signal, which as far as the text specifies only operates at full dimensionality. If you want, I can dig further into whether Gecko/Gemini Embedding (the models this recipe descends from) applied MRL to distillation losses, which might clarify whether this is a deliberate omission or just unstated.
+
+**How the three interact:** contrastive loss shapes local structure (this pair should be close, that pair should be far), spread-out loss shapes global structure (don't collapse into a cone, use the space), and distillation loss imports structure from a much stronger teacher model that neither of the other two losses has access to on their own. They're not redundant — each is solving a different geometric problem simultaneously, on the same forward pass, over the same batch of embeddings.

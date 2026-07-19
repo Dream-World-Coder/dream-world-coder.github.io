@@ -1,5 +1,5 @@
 <!--metadata
-  title: "From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale"
+  title: "From 1,993 To 17,007 Requests Per Second: Optimising a MERN webapp"
   authors: ["Subhajit Gorai"]
   dateCreated: "08/03/2026"
   dateEdited: "07/06/2026"
@@ -7,7 +7,7 @@
   tags: [""]
 -->
 
-# From 1,993 To 17,007 Requests Per Second: How I Optimised A Node.js + MongoDB Backend At Scale
+# From 1,993 To 17,007 Requests Per Second: Optimising a MERN webapp
 
 ## Introduction
 
