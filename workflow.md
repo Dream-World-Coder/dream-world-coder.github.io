@@ -1,6 +1,6 @@
 ## s1. create file: `content/{slug}.md`
 
-## s2. add meta data in yout md file for meta tags: (will not throw error if omitted)
+## s2. add meta data in yout md file for meta tags: (will throw error if this block is omitted)
 ```txt
 <!--metadata
   title: "" !required
