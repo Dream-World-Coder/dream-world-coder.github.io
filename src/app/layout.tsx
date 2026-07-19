@@ -50,7 +50,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const isDeveloping: boolean = true;
+    const isDeveloping: boolean = !true;
 
     const schemaData = {
         "@context": "https://schema.org",
