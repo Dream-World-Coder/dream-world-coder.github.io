@@ -32,8 +32,8 @@ export const activityData: ActivityDataInterface[] = [
                 href: "https://github.com/Dream-World-Coder/depuzzled",
             },
         ],
-        description: `C++ Klotski engine in 739bits.<br/>
-        Inspired by a junior. [link]
+        description: `<!--C++ Klotski engine in 739bits.<br/>
+        Inspired by a junior. [link]-->
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!
         `,
     },

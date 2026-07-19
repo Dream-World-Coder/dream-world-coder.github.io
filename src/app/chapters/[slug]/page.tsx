@@ -152,7 +152,7 @@ export default async function ChapterPage({
                                               .map((i) => ` & ${i}`)}
                                     <br />
                                     <span className="text-sm opacity-80">
-                                        {metaData?.dateEdited}
+                                        Date: {metaData?.dateEdited}
                                     </span>
                                 </span>
                             </div>

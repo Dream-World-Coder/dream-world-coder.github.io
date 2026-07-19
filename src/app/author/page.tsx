@@ -98,13 +98,14 @@ export default async function Page() {
                 <div className="mb-12 w-full">
                     <SectionLabel>Competitive Programming</SectionLabel>
                     <div className="font-mono text-sm text-neutral-700">
-                        <p>love solving these problems</p>
                         <p>
                             Codeforces Expert • peak 2029 (CM)
                             <br />
                             CodeChef 5-star • peak 2026
                         </p>
-                        link to my problemsheets & problems i made.
+                        <a href="https://github.com/Dream-World-Coder/my-problemsheets">
+                            <LinkBox itm="Some of my curated problemsheets" />
+                        </a>
                     </div>
                 </div>
 
@@ -114,13 +115,13 @@ export default async function Page() {
                     <div className="font-mono text-sm text-neutral-700">
                         <ul className="flex items-center gap-4">
                             <li>
-                                Photography & Sketching:
+                                Photography &amp; Sketching:
                                 <a
                                     target="_blank"
                                     href="https://instagram.com/my.open.canvass"
                                 >
                                     {" "}
-                                    <LinkBox itm="Some of them, I posted in Instagram" />
+                                    <LinkBox itm="Instagram" />
                                 </a>
                             </li>
                         </ul>
