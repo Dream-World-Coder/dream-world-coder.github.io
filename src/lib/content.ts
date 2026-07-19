@@ -2,30 +2,61 @@ import fs from "fs";
 import path from "path";
 
 const contentDirectory = path.join(process.cwd(), "content");
+const chaptersDir = path.join(contentDirectory, "chapters");
 
-export function getHomeContent(): string {
-    const filePath = path.join(contentDirectory, "home.md");
-    return fs.readFileSync(filePath, "utf-8");
+// Recursive helper
+function getAllFiles(dir: string, fileList: string[] = []): string[] {
+    if (!fs.existsSync(dir)) return fileList;
+
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        if (fs.statSync(filePath).isDirectory()) {
+            getAllFiles(filePath, fileList);
+        } else if (file.endsWith(".md")) {
+            fileList.push(filePath);
+        }
+    }
+    return fileList;
+}
+
+// Generate a map of slug -> file path and catch conflicts
+function getFileMap(): Map<string, string> {
+    const allFiles = getAllFiles(chaptersDir);
+    const fileMap = new Map<string, string>();
+
+    for (const file of allFiles) {
+        const slug = path.basename(file, ".md");
+
+        if (fileMap.has(slug)) {
+            throw new Error(
+                `Duplicate filename conflict detected for "${slug}.md".\nFiles found at:\n1) ${fileMap.get(slug)}\n2) ${file}`,
+            );
+        }
+        fileMap.set(slug, file);
+    }
+    return fileMap;
 }
 
 export function getChapterContent(slug?: string | string[]): string {
     if (!slug) return `# Enter a valid url`;
-    const filePath = path.join(contentDirectory, "chapters", `${slug}.md`);
+
+    const fileMap = getFileMap();
+    const filePath = fileMap.get(slug as string);
+
+    if (!filePath) {
+        return `# Chapter Not Found\n\nThe chapter "${slug}" doesn't exist yet.`;
+    }
 
     try {
         return fs.readFileSync(filePath, "utf-8");
     } catch (error) {
-        console.log(error);
-        return `# Chapter Not Found\n\nThe chapter "${slug}" doesn't exist yet.`;
+        console.error(error);
+        return `# Error Loading Chapter\n\nCould not read "${slug}".`;
     }
 }
 
-// get all available chapters
 export function getAllChapterSlugs(): string[] {
-    const chaptersDir = path.join(contentDirectory, "chapters");
-    const files = fs.readdirSync(chaptersDir);
-
-    return files
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => file.replace(".md", ""));
+    const fileMap = getFileMap();
+    return Array.from(fileMap.keys());
 }
