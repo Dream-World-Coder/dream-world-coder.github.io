@@ -1,679 +1,684 @@
 <!--metadata
   title: "Permutations and Combinations"
-  authors: ["Subhajit", "claude.ai"]
-  dateCreated: "19/07/2026"
-  dateEdited: "19/07/2026"
-  description: "A Comprehensive Treatise for JEE Advanced, Mathematical Olympiads, and the ISI–CMI Entrance Examinations"
+  authors: ["Subhajit Gorai", "claude.ai"]
+  dateCreated: "20/07/2026"
+  dateEdited: "20/07/2026"
+  description: "From First Principles to Generating Functions — For the JEE Advanced, ISI/CMI Entrance, and Olympiad Aspirant"
   tags: [""]
 -->
 
-<!-- 
-uses @drafts/pnc-simple-prompt.md
+<!--
+@uses drafts/pnc-better-prompt.md
 -->
 
-# Permutations and Combinations
+# Permutations and Combinations: A Rigorous Treatise on Combinatorics
+
 
 ## Preface
 
-Permutations and Combinations constitute what may justly be called the *calculus of finite arrangements and selections*. Unlike the calculus of the continuum, which studies limits and infinitesimals, this branch of discrete mathematics studies the exact enumeration of possibilities — a task that appears deceptively simple until one is confronted with a genuinely intricate problem. It is precisely this deceptiveness that makes the subject a favourite of examiners: the Joint Entrance Examination (Advanced), the Indian National Mathematical Olympiad, and the Indian Statistical Institute–Chennai Mathematical Institute entrance tests all draw heavily upon it, not merely to test the memorisation of formulae, but to test the *combinatorial imagination* of the candidate.
+Combinatorics has a curious reputation: it is thought of as the branch of mathematics with the fewest prerequisites and the highest difficulty ceiling. Anyone who can count on their fingers can state a combinatorics problem; almost no one can solve the hard ones on sight. There is no vast machinery to hide behind, no theorem so powerful that it renders the problem trivial — every configuration must be understood on its own terms, usually by finding the *right way to look at it*.
 
-This treatise is organised in the manner of a classical textbook: definitions precede theorems, theorems are accompanied by rigorous proofs, and each major topic is illustrated by at least one — usually two — problems of genuine difficulty, worked out in complete detail. The reader is assumed to be already acquainted with elementary set theory and the factorial notation; beyond this, the treatise is self-contained.
+This treatise is written for the reader who has outgrown the "select the correct formula" stage of combinatorics and is ready for the "construct the correct argument" stage — the level demanded by JEE Advanced, the ISI (B.Stat/B.Math) and CMI entrance examinations, and the Olympiad circuit (INMO, IMO). We assume comfort with sets, functions, basic algebra, and mathematical induction. We do **not** re-derive the factorial or explain what a "permutation" is in the elementary sense; instead we build outward from these atoms toward the tools — Inclusion-Exclusion, the Pigeonhole Principle, double counting, and generating functions — that separate contestants who *know* combinatorics from those who *compute* it.
 
-A word on notation: we shall write $n!$ (read "$n$ factorial") for the product $n(n-1)(n-2)\cdots 2 \cdot 1$, with the convention $0! = 1$. This convention is not arbitrary — it is forced upon us by the requirement that the formulae developed below remain valid in the boundary cases $r = 0$ and $r = n$. We shall use the classical Indian-school notation $^nP_r$ and $^nC_r$ interchangeably with the more modern $\binom{n}{r}$ for combinations, the latter being standard in Olympiad literature.
+Every major section follows the same discipline: **Definitions** fix vocabulary, **Theorems** are stated with precision, **Proofs** are given in full wherever they illuminate a counting technique (and are named and cited, rather than silently omitted, when they require machinery — such as Burnside's Lemma — that lies formally outside our scope), **Remarks** and **Tricks** collect the folklore that experienced problem-solvers carry in their heads, **Examples** are fully worked, and each Part closes with one or two **Challenge Problems** — genuinely hard, fully solved, at competition level.
+
+Combinatorics rewards patience and punishes haste. Read the proofs; do not skip to the formulas.
 
 ---
 
 ## Table of Contents
 
-1. The Fundamental Principles of Counting
-2. Permutations
-3. Circular Permutations
-4. Combinations
-5. Fundamental Identities Involving $\binom{n}{r}$
-6. Distribution of Objects — Stars and Bars, and Beyond
-7. The Art of Restricted Arrangements
-8. The Multinomial Theorem
-9. The Principle of Inclusion and Exclusion, and Derangements
-10. A Compendium of Tricks and Shortcuts
-11. Formula Reference Sheet
+- **Conventions and Notation**
+- **Part I — Fundamental Counting Principles & Basic Configurations**
+  - 1.1 The Rule of Sum and the Rule of Product
+  - 1.2 Permutations and Combinations
+  - 1.3 Permutations of a Multiset
+  - 1.4 Circular Permutations
+  - 1.5 Problem-Solving Tricks: Bundling, Gaps, and Lexicographic Rank
+  - 1.6 Challenge Problems
+- **Part II — Distributions, Partitions, and Stars & Bars**
+  - 2.1 The Stars and Bars Theorem
+  - 2.2 Constrained Distributions: Bounds and PIE
+  - 2.3 The Twelvefold Way (Basics)
+  - 2.4 The Multinomial Theorem
+  - 2.5 Challenge Problems
+- **Part III — The Principle of Inclusion–Exclusion & Derangements**
+  - 3.1 PIE: Statement and Proof
+  - 3.2 Derangements
+  - 3.3 Surjections
+  - 3.4 Hidden PIE in Number Theory
+  - 3.5 Challenge Problem: The Problème des Ménages
+- **Part IV — Pigeonhole Principle & Combinatorial Proofs**
+  - 4.1 The Pigeonhole Principle, Basic and Generalized
+  - 4.2 Applications in Number Theory and Geometry
+  - 4.3 Double Counting
+  - 4.4 Key Identities via Combinatorial Proof
+  - 4.5 Challenge Problems
+- **Part V — Generating Functions & Recurrence Relations**
+  - 5.1 Motivation
+  - 5.2 Ordinary Generating Functions: A Working Table
+  - 5.3 Coefficient Extraction
+  - 5.4 Catalan Numbers
+  - 5.5 Challenge Problems
+- **Appendix — Master Formula Sheet**
+- **Closing Remark — The Unifying Theme**
 
 ---
 
-## 1. The Fundamental Principles of Counting
+## Conventions and Notation
 
-All of permutations and combinations rests upon two elementary but far-reaching principles.
-
-> **The Rule of Product (Multiplication Principle).** If a first task can be performed in $m$ ways, and, *no matter how the first task is performed*, a second task can subsequently be performed in $n$ ways, then the two tasks in succession can be performed in $m \times n$ ways.
-
-> **The Rule of Sum (Addition Principle).** If a task can be accomplished by exactly one of $k$ mutually exclusive methods, the $i$-th method admitting $n_i$ possibilities, then the total number of ways of accomplishing the task is $n_1 + n_2 + \cdots + n_k$.
-
-These two principles, simple as they appear, generate the entirety of the subject; every formula that follows is, at bottom, a disciplined bookkeeping device built out of them. Their power lies not in their statement but in the *cleverness of the case-analysis* to which they are applied — and it is this cleverness that the following examples are designed to cultivate.
-
-### Example 1.1 (Hard). Non-attacking labelled rooks.
-
-*In how many ways can 8 distinguishable rooks be placed on a standard $8 \times 8$ chessboard so that no two attack each other (i.e. no two share a row or a column)?*
-
-**Solution.** We first count the number of ways to choose the *squares* on which the rooks stand, ignoring for the moment which rook goes where. Since no two rooks may share a row, each of the 8 rows contains exactly one rook; since no two may share a column, the columns occupied by the rooks, read row by row, must all be distinct. Thus the set of occupied squares corresponds *exactly* to a permutation $\sigma$ of $\{1, 2, \ldots, 8\}$, where the rook in row $i$ sits in column $\sigma(i)$. By the Fundamental Theorem of Permutations (proved in the next section), there are $8!$ such permutations, hence $8!$ ways to select the eight squares.
-
-Having chosen the squares, we must now assign the 8 *distinct, labelled* rooks to these 8 squares — a second, independent task, achievable in $8!$ ways.
-
-By the Rule of Product, the total number of arrangements is
-$$
-8! \times 8! = 40320 \times 40320 = 1{,}625{,}702{,}400.
-$$
-$\blacksquare$
-
-The moral of this example is a recurring one in combinatorics: a complicated arrangement is profitably split into a *structural* choice (here, the permutation determining which squares are used) followed by a *labelling* choice (here, assigning identities to those squares) — a decomposition made rigorous by the multiplication principle.
-
-### Example 1.2 (Hard). Tiling by dominoes — counting by recursion.
-
-*In how many ways can a $2 \times 10$ rectangular board be completely tiled by $1 \times 2$ dominoes (each domino covering exactly two adjacent unit squares, placed either horizontally or vertically)?*
-
-**Solution.** Let $f(n)$ denote the number of tilings of a $2 \times n$ board. We classify all tilings according to how the *rightmost* column is covered — this is the essential combinatorial idea, an application of the addition principle to mutually exclusive cases:
-
-- **Case A:** The rightmost column is covered by a single vertical domino. The remaining $2 \times (n-1)$ board must then be tiled in one of $f(n-1)$ ways.
-- **Case B:** The rightmost column is covered by (the right half of) a horizontal domino. This horizontal domino necessarily occupies both cells of columns $n-1$ and $n$ in one row; for the tiling to be consistent, the *other* row of columns $n-1, n$ must also be covered by a horizontal domino (any vertical domino there would clash). Hence the last two columns are covered by a pair of horizontal dominoes, and the remaining $2\times(n-2)$ board is tiled in $f(n-2)$ ways.
-
-These two cases are exhaustive and mutually exclusive, so by the Rule of Sum,
-$$
-f(n) = f(n-1) + f(n-2), \qquad f(1) = 1, \; f(2) = 2.
-$$
-This is precisely the Fibonacci recursion (shifted in index). Computing successively:
-$$
-f(1)=1,\ f(2)=2,\ f(3)=3,\ f(4)=5,\ f(5)=8,\ f(6)=13,\ f(7)=21,\ f(8)=34,\ f(9)=55,\ f(10)=89.
-$$
-Hence a $2\times 10$ board can be tiled in $\boxed{89}$ ways. $\blacksquare$
-
-> **Remark.** This example illustrates a technique of great importance at the Olympiad level: when direct enumeration is unwieldy, seek a *recursive* application of the fundamental principles by conditioning on the "last" or "boundary" element of the configuration.
-
----
-## 2. Permutations
-
-**Definition 2.1.** A *permutation* of a set of objects is an arrangement of those objects in a definite order. Given $n$ distinct objects, the number of permutations of $r$ of them ($0 \le r \le n$) taken at a time is denoted $^nP_r$.
-
-### Theorem 2.1 (The Fundamental Theorem of Permutations).
-
-$$
-{}^{n}P_r = \frac{n!}{(n-r)!} = n(n-1)(n-2)\cdots(n-r+1).
-$$
-
-**Proof.** We fill $r$ positions, labelled $1$ through $r$, in succession. Position $1$ may be filled by any of the $n$ objects: $n$ choices. Once it is filled, position $2$ may be filled by any of the remaining $n-1$ objects, *regardless of which object filled position 1*: $n-1$ choices. Continuing in this manner, position $k$ admits exactly $n-k+1$ choices, independent of the earlier choices. By repeated application of the Rule of Product,
-$$
-{}^nP_r = n(n-1)(n-2)\cdots(n-r+1) = \frac{n(n-1)\cdots(n-r+1)\,(n-r)(n-r-1)\cdots 1}{(n-r)(n-r-1)\cdots 1} = \frac{n!}{(n-r)!}. \qquad \blacksquare
-$$
-
-### 2.1 Permutations with repetition allowed
-
-If repetition of objects is permitted (each of the $r$ positions may independently be filled by any of the $n$ types), the number of arrangements is, by direct repeated application of the Rule of Product,
-$$
-n^r.
-$$
-
-### 2.2 Permutations of objects not all distinct
-
-**Theorem 2.2.** If there are $n$ objects, of which $p_1$ are alike of a first kind, $p_2$ alike of a second kind, $\ldots$, $p_k$ alike of a $k$-th kind (with $p_1 + p_2 + \cdots + p_k = n$), then the number of distinct linear arrangements of all $n$ objects is
-$$
-\frac{n!}{p_1!\, p_2! \cdots p_k!}.
-$$
-
-**Proof.** Suppose, momentarily, that we render all $n$ objects distinguishable — for instance, by attaching subscripts to the identical copies. There are then $n!$ permutations of these artificially distinguished objects. Now, any arrangement of the *original*, indistinguishable objects arises from exactly $p_1! \, p_2! \cdots p_k!$ of these $n!$ permutations, since the $p_i$ copies of the $i$-th kind can be permuted among themselves in $p_i!$ ways without altering the visible arrangement, and these permutations are independent across the $k$ kinds. Hence the $n!$ artificial permutations are partitioned into blocks of size $p_1! \cdots p_k!$, each block corresponding to one genuine arrangement, so the number of genuine arrangements is $n! / (p_1! \cdots p_k!)$. $\blacksquare$
-
-### Example 2.1 (Hard). No two like letters together — MISSISSIPPI.
-
-*In how many ways can the letters of the word MISSISSIPPI be arranged so that no two S's are adjacent?*
-
-**Solution.** The word contains 11 letters: M (once), I (four times), S (four times), P (twice). We proceed by the *gap method*, a technique of central importance for adjacency-restriction problems.
-
-**Step 1.** First arrange the letters *other than* S — namely M, I, I, I, I, P, P — a multiset of 7 letters with I repeated 4 times and P repeated 2 times. By Theorem 2.2, this can be done in
-$$
-\frac{7!}{4!\,2!} = \frac{5040}{48} = 105 \text{ ways.}
-$$
-
-**Step 2.** Any such arrangement of 7 letters creates $7 + 1 = 8$ "gaps" — one before the first letter, one between each pair of consecutive letters, and one after the last letter — into which the four S's may be inserted, at most one per gap, so that no two S's become adjacent. We must choose 4 of these 8 gaps for the S's; since the S's are identical, this is simply
-$$
-\binom{8}{4} = 70 \text{ ways.}
-$$
-
-**Step 3.** By the Rule of Product, the two independent choices combine to give
-$$
-105 \times 70 = \boxed{7350}
-$$
-arrangements of MISSISSIPPI in which no two S's are adjacent. $\blacksquare$
-
-### Example 2.2 (Hard). Rank of a word with repeated letters — INDIA.
-
-*If all the letters of the word INDIA are arranged in a dictionary (i.e. alphabetical order), find the rank (position) of the word INDIA itself.*
-
-**Solution.** The letters of INDIA, sorted alphabetically, are $\mathrm{A, D, I, I, N}$. The word is $\mathrm{I\,N\,D\,I\,A}$. We determine the rank by fixing the letters of INDIA one position at a time, from left to right, and at each stage counting how many *words* would precede it by virtue of having an alphabetically smaller letter in that position, the remaining positions being filled by all possible arrangements of the leftover letters.
-
-**Position 1.** The letter used is I. Among the multiset $\{A, D, I, I, N\}$, the letters strictly smaller than I are A and D — that is, 2 choices. For each such choice, the remaining 4 letters (which still include I twice) can be arranged in $\dfrac{4!}{2!} = 12$ ways. Contribution: $2 \times 12 = 24$.
-
-**Position 2** (having fixed position 1 as I). Remaining multiset: $\{A, D, I, N\}$ — all distinct now, since only one I remains. The actual letter is N. Letters smaller than N: A, D, I — that is 3 choices, each leaving 3 distinct letters to arrange in $3! = 6$ ways. Contribution: $3 \times 6 = 18$.
-
-**Position 3** (having fixed I, N). Remaining multiset: $\{A, D, I\}$. Actual letter: D. Letters smaller than D: only A — 1 choice, leaving 2 letters to arrange in $2! = 2$ ways. Contribution: $1 \times 2 = 2$.
-
-**Position 4** (having fixed I, N, D). Remaining multiset: $\{A, I\}$. Actual letter: I. Letters smaller than I: only A — 1 choice, leaving 1 letter, $1! = 1$ arrangement. Contribution: $1 \times 1 = 1$.
-
-**Position 5.** Remaining letter is forced to be A; no letter precedes it. Contribution: $0$.
-
-Summing the contributions and adding $1$ for the word INDIA itself,
-$$
-\text{Rank} = 24 + 18 + 2 + 1 + 0 + 1 = \boxed{46}.
-$$
-$\blacksquare$
-
-> **Trick.** This algorithm — fix a prefix, count smaller completions, advance — generalises to arbitrary words, with or without repeated letters, and is one of the most reliably tested tricks in the JEE syllabus. Always remember to divide the completions by the factorial of the multiplicities of any letters *remaining* after the prefix is fixed.
-
----
-
-## 3. Circular Permutations
-
-**Definition 3.1.** A *circular permutation* is an arrangement of objects around a closed curve (conventionally a circle), in which arrangements that differ only by an overall rotation are considered identical.
-
-### Theorem 3.1. The number of circular permutations of $n$ distinct objects is $(n-1)!$.
-
-**Proof.** Line up the $n$ objects in the $n!$ possible linear orders. Each circular arrangement, when "cut open" at each of its $n$ positions in turn, gives rise to exactly $n$ distinct linear arrangements (rotations of one another). Hence the $n!$ linear arrangements are partitioned into groups of $n$ rotationally-equivalent arrangements, and the number of genuinely distinct circular arrangements is $n!/n = (n-1)!$.
-
-Equivalently, and more usefully in practice: fix one particular object's position arbitrarily (this uses up the rotational degree of freedom); the remaining $n-1$ objects are then arranged in the $n-1$ places relative to the fixed object, in $(n-1)!$ ways. $\blacksquare$
-
-**Corollary 3.1.1.** If clockwise and anticlockwise arrangements are *not* distinguished (as with beads on a necklace, viewable from either side), the count is $\dfrac{(n-1)!}{2}$.
-
-### Example 3.1 (Hard). Alternate seating with a gender restriction.
-
-*In how many ways can 4 married couples (8 people, all distinct) be seated around a circular table so that no two women sit next to each other?*
-
-**Solution.** First seat the 4 men around the circular table. By Theorem 3.1, this can be done in $(4-1)! = 3! = 6$ ways.
-
-Once the men are seated, they create exactly 4 gaps between consecutive men (the rotational symmetry has already been used up in seating the men, so these 4 gaps are now *distinguishable* positions). To ensure no two women are adjacent, each woman must occupy a separate gap — and since there are exactly 4 gaps for exactly 4 women, every gap is used. The 4 distinct women can be placed into these 4 distinguishable gaps in $4! = 24$ ways.
-
-By the Rule of Product, the total number of arrangements is
-$$
-3! \times 4! = 6 \times 24 = \boxed{144}.
-$$
-$\blacksquare$
-
-### Example 3.2 (Hard, enrichment). The Problème des Ménages.
-
-*In how many ways can $n$ married couples be seated alternately (men and women in alternating seats) around a circular table of $2n$ labelled seats, such that **no husband sits next to his own wife**?*
-
-This celebrated problem, first posed by Édouard Lucas, is considerably harder than Example 3.1 because the forbidden condition (spouse-adjacency) depends on the *specific pairing* of individuals, not merely on gender. It is solved by the Principle of Inclusion and Exclusion (Section 9), applied to a clever auxiliary counting problem: one shows that the number of ways to seat the $n$ women, *given that the men already occupy the alternate seats in some fixed arrangement*, so that no woman sits beside her husband, equals
-$$
-U_n = \sum_{k=0}^{n} (-1)^k\, \frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!,
-$$
-a quantity known as the $n$-th **ménage number**. (The coefficient $\frac{2n}{2n-k}\binom{2n-k}{k}$ itself counts the ways of choosing $k$ mutually non-adjacent seats, for the husbands to be excluded from sitting beside their wives, out of $2n$ seats arranged in a circle — the same "no two adjacent, in a circle" coefficient derived in Theorem 4.4 below.)
-
-Let us verify this formula for small $n$ by direct computation, which also serves as a check on Theorem 4.4:
-
-For $n = 3$ (so $2n = 6$):
-$$
-U_3 = \binom{6}{0}\cdot\tfrac{6}{6}\cdot 3! - \binom{5}{1}\cdot\tfrac{6}{5}\cdot 2! + \binom{4}{2}\cdot\tfrac{6}{4}\cdot 1! - \binom{3}{3}\cdot\tfrac{6}{3}\cdot 0! = 6 - 12 + 9 - 2 = 1.
-$$
-
-For $n = 4$ (so $2n=8$):
-$$
-U_4 = 1\cdot\tfrac{8}{8}\cdot 4! - \binom{7}{1}\tfrac{8}{7}\cdot 3! + \binom{6}{2}\tfrac{8}{6}\cdot 2! - \binom{5}{3}\tfrac{8}{5}\cdot 1! + \binom{4}{4}\tfrac{8}{4}\cdot 0! = 24 - 48 + 40 - 16 + 2 = 2.
-$$
-
-The complete number of seatings (accounting for the $n!$ ways of arranging the men themselves among the alternate seats, and a factor of $2$ for the choice of which alternating set of seats is designated "male") is then $2 \cdot n! \cdot U_n$. For $n=3$: $2 \cdot 6 \cdot 1 = 12$ full seatings; for $n=4$: $2 \cdot 24 \cdot 2 = 96$.
-
-> **Remark.** This problem is included not because it is typically examinable in full at the JEE level, but because it beautifully unites *every* major technique of this treatise — circular permutations, the non-consecutive-selection identity, and inclusion–exclusion — and has genuinely appeared, in restricted special cases, in Olympiad and ISI–CMI entrance papers. A student who can reconstruct the derivation of $U_n$ has essentially mastered the subject.
-
----
-## 4. Combinations
-
-**Definition 4.1.** A *combination* is a selection of objects in which order is immaterial. The number of ways of selecting $r$ objects from $n$ distinct objects is denoted $^nC_r$ or $\binom{n}{r}$.
-
-### Theorem 4.1.
-
-$$
-\binom{n}{r} = \frac{n!}{r!\,(n-r)!}.
-$$
-
-**Proof.** Consider the process of forming a permutation of $r$ objects chosen from $n$: this may be broken into two stages — first *selecting* the $r$ objects (in $\binom{n}{r}$ ways, by definition), and then *arranging* the chosen $r$ objects in order ($r!$ ways, by Theorem 2.1 applied to the chosen subset). By the Rule of Product,
-$$
-{}^nP_r = \binom{n}{r} \cdot r!, \qquad \text{so} \qquad \binom{n}{r} = \frac{{}^nP_r}{r!} = \frac{n!}{r!(n-r)!}. \qquad \blacksquare
-$$
-
-### 4.1 Non-consecutive selections — a pair of important theorems
-
-These results, though less universally emphasised in school textbooks, appear with great regularity in Olympiad and ISI–CMI papers, and are worth deriving with full rigour.
-
-**Theorem 4.2 (Linear case).** The number of ways to choose $r$ objects from $n$ objects arranged in a row, no two of the chosen objects being adjacent, is $\binom{n-r+1}{r}$.
-
-**Proof.** Suppose $r$ objects are chosen and $n - r$ are not. Arrange the $n-r$ *unchosen* objects in a row; this creates $n - r + 1$ gaps (including the two ends). To ensure no two chosen objects are adjacent, at most one chosen object may be placed in each gap. We therefore choose $r$ of these $n-r+1$ gaps to receive a chosen object: $\binom{n-r+1}{r}$ ways. $\blacksquare$
-
-**Theorem 4.3 (Circular case).** The number of ways to choose $r$ objects from $n$ objects arranged in a circle, no two of the chosen objects being adjacent, is
-$$
-\frac{n}{n-r}\binom{n-r}{r}.
-$$
-
-**Proof.** Label the seats $1, 2, \ldots, n$ around the circle. We split into two exhaustive, mutually exclusive cases according to whether seat $1$ is chosen.
-
-*Case A: seat 1 is not chosen.* Removing seat 1 leaves a *line* of $n - 1$ seats ($2, 3, \ldots, n$) in which we must choose $r$ mutually non-adjacent seats. By Theorem 4.2 (applied to this line of length $n-1$), this can be done in $\binom{(n-1)-r+1}{r} = \binom{n-r}{r}$ ways.
-
-*Case B: seat 1 is chosen.* Then seats $2$ and $n$ (its circular neighbours) cannot be chosen. This leaves a line of $n - 3$ seats ($3, 4, \ldots, n-1$) from which we must choose the remaining $r - 1$ mutually non-adjacent seats: by Theorem 4.2, $\binom{(n-3)-(r-1)+1}{r-1} = \binom{n-r-1}{r-1}$ ways.
-
-Adding the two cases,
-$$
-\binom{n-r}{r} + \binom{n-r-1}{r-1}.
-$$
-Now invoke the elementary identity $\binom{m-1}{k-1} = \frac{k}{m}\binom{m}{k}$ (an immediate consequence of the factorial formula) with $m = n-r,\ k=r$, giving $\binom{n-r-1}{r-1} = \frac{r}{n-r}\binom{n-r}{r}$. Hence the total is
-$$
-\binom{n-r}{r}\left(1 + \frac{r}{n-r}\right) = \binom{n-r}{r}\cdot\frac{n}{n-r} = \frac{n}{n-r}\binom{n-r}{r}. \qquad \blacksquare
-$$
-
-### Example 4.1 (Hard). Selecting non-adjacent seats around a round table.
-
-*10 chairs are placed around a circular table and numbered $1$ through $10$. In how many ways can 4 of the chairs be selected so that no two selected chairs are adjacent?*
-
-**Solution.** Directly apply Theorem 4.3 with $n = 10, r = 4$:
-$$
-\frac{10}{10-4}\binom{10-4}{4} = \frac{10}{6}\binom{6}{4} = \frac{10}{6}\times 15 = \boxed{25}.
-$$
-$\blacksquare$
-
-### Example 4.2 (Hard). Lattice paths avoiding a forbidden point.
-
-*A particle starts at the lattice point $(0,0)$ and moves to $(6,6)$, at each step moving one unit either to the right or upward. How many such paths avoid passing through the point $(3,3)$?*
-
-**Solution.** Every path from $(0,0)$ to $(6,6)$ consists of a sequence of 12 moves, 6 of them "Right" (R) and 6 of them "Up" (U), in some order; conversely, every such sequence of moves determines a unique path. Hence the total number of paths equals the number of ways to arrange 6 R's and 6 U's in a row of length 12 — a direct application of Theorem 2.2 (or, equivalently, of choosing which 6 of the 12 moves are "Right"):
-$$
-\binom{12}{6} = 924.
-$$
-
-Now we discard the paths that pass through $(3,3)$. Such a path decomposes, by the Rule of Product, into an independent path from $(0,0)$ to $(3,3)$ followed by an independent path from $(3,3)$ to $(6,6)$. Each leg is itself a lattice path with 3 R's and 3 U's, hence counted by $\binom{6}{3} = 20$. So the number of paths through $(3,3)$ is
-$$
-\binom{6}{3}\times\binom{6}{3} = 20 \times 20 = 400.
-$$
-
-By complementary counting, the number of paths *avoiding* $(3,3)$ is
-$$
-924 - 400 = \boxed{524}.
-$$
-$\blacksquare$
-
-> **Trick.** The identification of "monotone lattice paths" with "arrangements of R's and U's" is one of the most productive bijections in combinatorics; it converts geometric path-counting problems directly into combination-counting problems, and pairs naturally with complementary counting when obstacles are present.
-
----
-## 5. Fundamental Identities Involving $\binom{n}{r}$
-
-The combinatorial coefficients satisfy a rich lattice of identities. We collect the most important ones, with proofs, before applying them to two genuinely hard problems.
-
-**(i) Symmetry.** $\displaystyle \binom{n}{r} = \binom{n}{n-r}$.
-*Proof.* Choosing $r$ objects to include is equivalent to choosing the $n-r$ objects to exclude — a bijection between the two families of subsets. $\blacksquare$
-
-**(ii) Pascal's Identity.** $\displaystyle \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$.
-*Proof (combinatorial).* Fix a particular object, say $X$, among the $n$. Every $r$-subset either contains $X$ or does not. If it contains $X$, the remaining $r-1$ elements are chosen from the other $n-1$ objects: $\binom{n-1}{r-1}$ ways. If it does not contain $X$, all $r$ elements are chosen from the other $n-1$ objects: $\binom{n-1}{r}$ ways. These cases are exhaustive and mutually exclusive. $\blacksquare$
-*Proof (algebraic).* Direct manipulation of the factorial formula, left as a routine exercise for the reader; both proofs are worth internalising, as the combinatorial argument generalises far more readily.
-
-**(iii) The Absorption Identity.** $\displaystyle r\binom{n}{r} = n\binom{n-1}{r-1}$.
-*Proof.* Count, in two ways, the number of ways to select a committee of $r$ people from $n$ and then designate one member of the committee as *leader*. Method 1: choose the committee first ($\binom{n}{r}$ ways), then the leader from among its $r$ members ($r$ ways): total $r\binom{n}{r}$. Method 2: choose the leader first ($n$ ways), then the remaining $r-1$ committee members from the other $n-1$ people ($\binom{n-1}{r-1}$ ways): total $n\binom{n-1}{r-1}$. Since both methods count the same objects, the two expressions are equal. $\blacksquare$
-
-**(iv) Sum over all subsets.** $\displaystyle \sum_{r=0}^{n}\binom{n}{r} = 2^n$, since each of the $n$ objects is independently either included or excluded from a subset.
-
-**(v) Alternating sum.** $\displaystyle \sum_{r=0}^{n}(-1)^r\binom{n}{r} = 0$ for $n \ge 1$ (immediate from the Binomial Theorem applied to $(1-1)^n$).
-
-**(vi) Vandermonde's Identity.** $\displaystyle \sum_{k=0}^{r}\binom{m}{k}\binom{n}{r-k} = \binom{m+n}{r}$.
-*Proof.* Suppose a group of $m+n$ people consists of $m$ men and $n$ women. The right side counts the ways of choosing a committee of $r$ people from the entire group. The left side counts the same thing by conditioning on $k$, the number of men on the committee: choose $k$ men from $m$ (in $\binom{m}{k}$ ways) and $r-k$ women from $n$ (in $\binom{n}{r-k}$ ways), and sum over all admissible $k$. $\blacksquare$
-
-**(vii) Sum of squares.** $\displaystyle \sum_{r=0}^{n}\binom{n}{r}^2 = \binom{2n}{n}$.
-*Proof.* Apply Vandermonde's Identity with $m=n$ and total selection size $r=n$: $\sum_{k=0}^n \binom{n}{k}\binom{n}{n-k} = \binom{2n}{n}$. By symmetry (identity (i)), $\binom{n}{n-k} = \binom{n}{k}$, so the left side is $\sum_k \binom{n}{k}^2$. $\blacksquare$
-
-**(viii) The Hockey Stick Identity.** $\displaystyle \sum_{i=r}^{n}\binom{i}{r} = \binom{n+1}{r+1}$.
-*Proof.* By induction on $n$, using Pascal's Identity. The base case $n=r$ reads $\binom{r}{r} = \binom{r+1}{r+1} = 1$, true. Assume $\sum_{i=r}^{n-1}\binom{i}{r} = \binom{n}{r+1}$. Then
-$$
-\sum_{i=r}^{n}\binom{i}{r} = \binom{n}{r+1} + \binom{n}{r} = \binom{n+1}{r+1},
-$$
-the last step being Pascal's Identity. $\blacksquare$
-
-### Example 5.1 (Hard). A weighted identity.
-
-*Prove that $\displaystyle \sum_{k=1}^{n} k\binom{n}{k}^2 = n\binom{2n-1}{n-1}$.*
-
-**Solution.** By the Absorption Identity, $k\binom{n}{k} = n\binom{n-1}{k-1}$. Substituting into one factor of $\binom{n}{k}^2 = \binom{n}{k}\binom{n}{k}$,
-$$
-\sum_{k=1}^{n} k\binom{n}{k}^2 = \sum_{k=1}^n n\binom{n-1}{k-1}\binom{n}{k} = n\sum_{k=1}^{n}\binom{n-1}{k-1}\binom{n}{k}.
-$$
-Put $j = k - 1$, and use symmetry $\binom{n}{k} = \binom{n}{n-k}$:
-$$
-\sum_{k=1}^n \binom{n-1}{k-1}\binom{n}{k} = \sum_{j=0}^{n-1}\binom{n-1}{j}\binom{n}{n-1-j}.
-$$
-This is precisely the left side of Vandermonde's Identity with $m = n-1$, second block size $n$, and total selection $r = n-1$:
-$$
-\sum_{j=0}^{n-1}\binom{n-1}{j}\binom{n}{(n-1)-j} = \binom{(n-1)+n}{n-1} = \binom{2n-1}{n-1}.
-$$
-Therefore $\sum_{k=1}^n k\binom{n}{k}^2 = n\binom{2n-1}{n-1}$, as required. $\blacksquare$
-
-*(Check, $n=2$: LHS $= 1\cdot\binom{2}{1}^2 + 2\cdot\binom{2}{2}^2 = 4 + 2 = 6$; RHS $= 2\binom{3}{1} = 6$. ✓.)*
-
-### Example 5.2 (Hard). Deriving the sum-of-squares formula combinatorially.
-
-*Using combinatorial identities alone (no induction, no telescoping sums of powers directly), derive the classical formula $\displaystyle \sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}$.*
-
-**Solution.** The key observation is that every positive integer $k$ can be written in terms of binomial coefficients:
-$$
-k^2 = 2\binom{k}{2} + \binom{k}{1},
-$$
-which is immediate from $2\binom{k}{2} = k(k-1) = k^2 - k$. Summing from $k=1$ to $n$ (noting $\binom{1}{2}=0$, so the sum may harmlessly start at $k=1$):
-$$
-\sum_{k=1}^n k^2 = 2\sum_{k=1}^{n}\binom{k}{2} + \sum_{k=1}^n \binom{k}{1}.
-$$
-Both sums on the right are now instances of the Hockey Stick Identity (viii):
-$$
-\sum_{k=1}^n \binom{k}{2} = \binom{n+1}{3}, \qquad \sum_{k=1}^n \binom{k}{1} = \binom{n+1}{2}.
-$$
-Hence
-$$
-\sum_{k=1}^n k^2 = 2\binom{n+1}{3} + \binom{n+1}{2} = \frac{(n+1)n(n-1)}{3} + \frac{n(n+1)}{2} = n(n+1)\left[\frac{n-1}{3} + \frac{1}{2}\right] = \frac{n(n+1)(2n+1)}{6}.
-$$
-$\blacksquare$
-
-> **Remark.** This technique — expressing a power $k^p$ as a combination of binomial coefficients $\binom{k}{1}, \binom{k}{2}, \ldots$ and then telescoping via the Hockey Stick Identity — generalises to derive the sum of cubes, fourth powers, and so on, and is the combinatorialist's alternative to Faulhaber's formula.
-
----
-
-## 6. Distribution of Objects — Stars and Bars, and Beyond
-
-We now turn to a class of problems concerning the *distribution* of objects into groups or boxes — problems that require care in distinguishing whether the objects are identical or distinct, and whether the boxes (recipients) are identical or distinct.
-
-### Theorem 6.1 (Stars and Bars). 
-
-The number of ways to distribute $n$ *identical* objects into $r$ *distinct* boxes, empty boxes permitted, is
-$$
-\binom{n+r-1}{r-1}.
-$$
-
-**Proof.** Represent the $n$ identical objects by $n$ stars, and use $r-1$ bars to partition them into $r$ (possibly empty) groups — one group per box. A distribution then corresponds exactly to an arrangement of $n$ stars and $r-1$ bars in a row, and by Theorem 2.2 the number of such arrangements is $\dfrac{(n+r-1)!}{n!\,(r-1)!} = \binom{n+r-1}{r-1}$, since the arrangement is determined entirely by choosing which $r-1$ of the $n+r-1$ positions hold bars. $\blacksquare$
-
-**Corollary 6.1.1.** If no box may be empty, the count is $\binom{n-1}{r-1}$ (place $r-1$ bars strictly *between* stars, into the $n-1$ internal gaps, rather than anywhere in the row).
-
-> **Remark (Beggar's Method).** Theorem 6.1 is often introduced via the following equivalent story: $n$ identical coins (stars and bars problem) are to be distributed among $r$ beggars, each of whom may receive zero or more coins. This gives the technique its popular name in Indian coaching literature.
-
-### Example 6.1 (Hard). Stars and bars combined with an upper bound.
-
-*Find the number of non-negative integer solutions of $x_1 + x_2 + x_3 + x_4 = 20$ subject to the constraints $x_1 \le 5$ and $x_2 \le 6$.*
-
-**Solution.** We use inclusion–exclusion (formally justified in Section 9) on top of Theorem 6.1.
-
-Let $S$ be the total number of non-negative solutions with *no* upper bounds:
-$$
-S = \binom{20+3}{3} = \binom{23}{3} = 1771.
-$$
-
-Let $A$ be the set of solutions violating $x_1 \le 5$, i.e. with $x_1 \ge 6$. Substituting $x_1' = x_1 - 6 \ge 0$, we need $x_1' + x_2+x_3+x_4 = 14$, giving $|A| = \binom{14+3}{3} = \binom{17}{3} = 680$.
-
-Let $B$ be the set of solutions violating $x_2 \le 6$, i.e. $x_2 \ge 7$. Substituting $x_2' = x_2 - 7$, we need sum $= 13$, giving $|B| = \binom{13+3}{3} = \binom{16}{3} = 560$.
-
-Let $A \cap B$ require both $x_1 \ge 6$ and $x_2 \ge 7$ simultaneously. Substituting both, the remaining sum is $20 - 6 - 7 = 7$, giving $|A\cap B| = \binom{7+3}{3} = \binom{10}{3} = 120$.
-
-By the Principle of Inclusion–Exclusion, the number of *valid* solutions (satisfying both upper bounds) is
-$$
-S - |A| - |B| + |A\cap B| = 1771 - 680 - 560 + 120 = \boxed{651}.
-$$
-$\blacksquare$
-
-### Example 6.2 (Hard). Distinct objects into identical boxes — Stirling numbers.
-
-*In how many ways can 5 distinct toys be distributed into 3 identical, indistinguishable boxes, so that no box is empty?*
-
-**Solution.** Since the boxes are *identical*, we are really counting the number of ways to partition the set of 5 toys into 3 non-empty, unordered blocks. This count is called a **Stirling number of the second kind**, written $S(5,3)$.
-
-Such numbers may be computed by the inclusion–exclusion formula (derived formally in Section 9):
-$$
-S(n,k) = \frac{1}{k!}\sum_{i=0}^{k}(-1)^i \binom{k}{i}(k-i)^n.
-$$
-For $n=5, k=3$:
-$$
-S(5,3) = \frac{1}{3!}\left[\binom{3}{0}3^5 - \binom{3}{1}2^5 + \binom{3}{2}1^5 - \binom{3}{3}0^5\right] = \frac{1}{6}\left[243 - 96 + 3 - 0\right] = \frac{150}{6} = \boxed{25}.
-$$
-$\blacksquare$
-
-> **Trick — a taxonomy of four distribution problems.** Students frequently confuse the four basic cases; it is worth fixing them permanently:
->
-> | Objects | Boxes | Empty boxes allowed? | Formula |
-> |---|---|---|---|
-> | Identical | Distinct | Yes | $\binom{n+r-1}{r-1}$ |
-> | Identical | Distinct | No | $\binom{n-1}{r-1}$ |
-> | Distinct | Distinct | Yes | $r^n$ |
-> | Distinct | Distinct | No | $\displaystyle\sum_{i=0}^{r}(-1)^i\binom{r}{i}(r-i)^n$ (inclusion–exclusion; equals $r!\,S(n,r)$) |
-> | Distinct | Identical | No | $S(n,r)$ (Stirling number of the second kind) |
-
----
-## 7. The Art of Restricted Arrangements
-
-Many of the hardest examination problems are ordinary permutation or combination problems dressed in a restrictive condition — objects that must (or must not) be adjacent, or must appear in a specified relative order. Three techniques handle the overwhelming majority of such problems.
-
-**The Gap Method.** To keep certain objects mutually non-adjacent, first arrange the *remaining* objects, then insert the restricted objects into the gaps created (as in Example 2.1).
-
-**The Grouping (or "Glueing") Method.** To force certain objects to remain *together*, glue them into a single composite unit, arrange the units, then multiply by the number of internal arrangements of the glued unit.
-
-**The Relative-Order Method.** If $k$ specified objects (possibly repeated) are required to appear in one specific relative order among themselves (though not necessarily adjacent), first count all arrangements ignoring the order restriction, then divide by the number of ways those $k$ objects could have been ordered among themselves — since exactly a $\frac{1}{k!}$ fraction (or, with repeated letters, a $\frac{1}{(\text{number of distinct orderings})}$ fraction) will exhibit the required order, by symmetry.
-
-### Example 7.1 (Hard). Relative order with repeated letters — ARRANGEMENT.
-
-*How many arrangements of the letters of the word ARRANGEMENT have all four vowels appearing in alphabetical order (though not necessarily adjacent to one another)?*
-
-**Solution.** ARRANGEMENT has 11 letters: A(2), R(2), N(2), G(1), E(2), M(1), T(1) — the vowels are A, A, E, E and the consonants are R, R, N, N, G, M, T.
-
-**Step 1.** Choose which 4 of the 11 positions will be occupied by vowels: $\binom{11}{4} = 330$ ways.
-
-**Step 2.** Arrange the 7 consonants (R repeated twice, N repeated twice) in the remaining 7 positions:
-$$
-\frac{7!}{2!\,2!} = \frac{5040}{4} = 1260 \text{ ways.}
-$$
-
-**Step 3.** Fill the 4 chosen vowel-positions with A, A, E, E *in alphabetical order* — since alphabetical order for the multiset $\{A,A,E,E\}$ is uniquely $A,A,E,E$, there is exactly **1** way to do this (not $4!$, since the order is fully prescribed).
-
-By the Rule of Product,
-$$
-330 \times 1260 \times 1 = \boxed{415{,}800}.
-$$
-
-**Verification via the Relative-Order Method.** The total number of arrangements of ARRANGEMENT, ignoring order restrictions, is $\dfrac{11!}{2!\,2!\,2!\,2!} = \dfrac{39916800}{16} = 2{,}494{,}800$. Among the $4!/(2!\,2!) = 6$ distinct relative orderings in which the multiset $\{A,A,E,E\}$ could appear in the four vowel-slots, exactly one is alphabetical; by symmetry, exactly $\frac{1}{6}$ of all arrangements exhibit this order:
-$$
-\frac{2{,}494{,}800}{6} = 415{,}800. \checkmark
-$$
-$\blacksquare$
-
-### Example 7.2 (Hard). Combining the gap method with complementary counting.
-
-*In how many ways can 5 distinct boys and 5 distinct girls be seated in a row of 10 chairs so that (a) no two girls are seated next to each other, and (b) two particular boys, $X$ and $Y$, are not seated next to each other?*
-
-**Solution.** We first count the arrangements satisfying condition (a) alone, then subtract those that violate (b).
-
-**Satisfying (a) alone.** Seat the 5 boys first, in $5! = 120$ ways. This creates 6 gaps (before, between, and after the boys). We must place the 5 distinct girls into 5 of these 6 gaps, at most one girl per gap (to keep them mutually non-adjacent), and order matters since the girls are distinct and the gaps are now distinguishable positions:
-$$
-{}^6P_5 = \frac{6!}{1!} = 720 \text{ ways.}
-$$
-So the count satisfying (a) is
-$$
-5! \times {}^6P_5 = 120 \times 720 = 86{,}400.
-$$
-
-**Satisfying (a) but violating (b), i.e. $X$ and $Y$ adjacent.** Glue $X$ and $Y$ into a single block (2 internal orders: $XY$ or $YX$). We now have 4 "boy-units" (the $XY$-block plus the other 3 boys) to arrange: $4! = 24$ ways, times 2 for the internal order of the block, giving $4! \times 2 = 48$.
-
-These 4 units create exactly 5 gaps. Since we need all 5 distinct girls placed with no two adjacent, and there are *exactly* 5 gaps available, every gap must receive exactly one girl: $5! = 120$ ways.
-
-So the count satisfying (a) but violating (b) is
-$$
-48 \times 120 = 5760.
-$$
-
-**Final count**, by complementary counting within the arrangements satisfying (a):
-$$
-86{,}400 - 5{,}760 = \boxed{80{,}640}.
-$$
-$\blacksquare$
-
----
-
-## 8. The Multinomial Theorem
-
-### Theorem 8.1 (Multinomial Theorem).
-
-$$
-(x_1 + x_2 + \cdots + x_k)^n = \sum_{\substack{n_1+n_2+\cdots+n_k = n \\ n_i \ge 0}} \frac{n!}{n_1!\,n_2!\cdots n_k!}\, x_1^{n_1}x_2^{n_2}\cdots x_k^{n_k}.
-$$
-
-**Proof.** Expanding the product $(x_1+\cdots+x_k)^n = (x_1+\cdots+x_k)(x_1+\cdots+x_k)\cdots(x_1+\cdots+x_k)$ ($n$ factors) by repeated distribution, each term of the expansion arises from choosing one $x_i$ from each of the $n$ factors and multiplying the choices together. The coefficient of $x_1^{n_1}x_2^{n_2}\cdots x_k^{n_k}$ (where $\sum n_i = n$) is precisely the number of ways to assign, to each of the $n$ factors, a label from $\{1,\ldots,k\}$ such that label $i$ is used exactly $n_i$ times — which, by Theorem 2.2, is $\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$. $\blacksquare$
-
-The multinomial coefficient $\dfrac{n!}{n_1!\cdots n_k!}$ has the same combinatorial meaning as in Theorem 2.2: it is simultaneously the number of distinguishable arrangements of a multiset, and the number of ways to partition $n$ distinct objects into labelled groups of prescribed sizes $n_1, \ldots, n_k$.
-
-### Example 8.1 (Hard). Extracting a coefficient — a disguised stars-and-bars problem.
-
-*Find the coefficient of $x^{15}$ in the expansion of $(x + x^2 + x^3 + x^4 + x^5 + x^6)^4$.*
-
-**Solution.** This expression models the number of ways to roll four ordinary six-faced dice so that the total shown is $15$ — a classic reformulation. Write
-$$
-(x+x^2+\cdots+x^6)^4 = x^4(1+x+x^2+x^3+x^4+x^5)^4 = x^4\left(\frac{1-x^6}{1-x}\right)^4.
-$$
-We require the coefficient of $x^{15}$ in this, which equals the coefficient of $x^{11}$ in $(1-x^6)^4(1-x)^{-4}$.
-
-Expand $(1-x^6)^4 = 1 - 4x^6 + 6x^{12} - 4x^{18} + x^{24}$; only the first two terms can contribute to the coefficient of $x^{11}$ (since $12 > 11$). Recall the standard expansion (from Theorem 6.1, "stars and bars"):
-$$
-(1-x)^{-4} = \sum_{j\ge 0}\binom{j+3}{3}x^j.
-$$
-Therefore the coefficient of $x^{11}$ is
-$$
-\underbrace{\binom{11+3}{3}}_{\text{from the "1" term}} - 4\underbrace{\binom{5+3}{3}}_{\text{from the "}-4x^6\text{" term, needing }x^5} = \binom{14}{3} - 4\binom{8}{3} = 364 - 4(56) = 364 - 224 = \boxed{140}.
-$$
-$\blacksquare$
-
-> **Trick.** Whenever a problem restricts a variable to a bounded range (here, each die face lies in $\{1,\ldots,6\}$, i.e. each summand $x_i$ satisfies $1 \le x_i \le 6$), the generating-function coefficient extraction and the inclusion–exclusion "stars and bars with upper bounds" technique of Example 6.1 are two faces of the *same* underlying computation. Fluency in translating between them is a significant time-saver.
-
----
-## 9. The Principle of Inclusion and Exclusion, and Derangements
-
-### Theorem 9.1 (Principle of Inclusion and Exclusion).
-
-For finite sets $A_1, A_2, \ldots, A_n$,
-$$
-\left|\bigcup_{i=1}^n A_i\right| = \sum_i |A_i| - \sum_{i<j}|A_i \cap A_j| + \sum_{i<j<k}|A_i\cap A_j \cap A_k| - \cdots + (-1)^{n+1}|A_1\cap A_2\cap\cdots\cap A_n|.
-$$
-
-**Proof.** It suffices to show that every element of $\bigcup A_i$ is counted exactly once by the right-hand side. Suppose an element $x$ lies in exactly $m \ge 1$ of the sets $A_1,\ldots,A_n$. Then $x$ is counted in the term $\sum_{|S|=t} |\bigcap_{i \in S} A_i|$ exactly $\binom{m}{t}$ times (once for each $t$-subset $S$ of the $m$ sets containing $x$). Its net contribution to the right-hand side is therefore
-$$
-\sum_{t=1}^{m}(-1)^{t+1}\binom{m}{t} = -\sum_{t=1}^m (-1)^t \binom{m}{t} = -\left[(1-1)^m - \binom{m}{0}\right] = -[0 - 1] = 1,
-$$
-using identity (v) of Section 5. Since $x$ contributes exactly $1$ to the right-hand side, and $x \in \bigcup A_i$ contributes exactly $1$ to the left-hand side, the two sides agree for every element, and hence are equal. $\blacksquare$
-
-### 9.1 Derangements
-
-**Definition 9.1.** A *derangement* of $\{1, 2, \ldots, n\}$ is a permutation $\sigma$ with no fixed point, i.e. $\sigma(i) \ne i$ for every $i$. The number of derangements of $n$ objects is denoted $D_n$ or $!n$.
-
-### Theorem 9.2.
-
-$$
-D_n = n!\sum_{k=0}^{n}\frac{(-1)^k}{k!}.
-$$
-
-**Proof.** Let $A_i$ ($1 \le i \le n$) be the set of permutations of $\{1,\ldots,n\}$ that fix the point $i$ (i.e. $\sigma(i) = i$); note $|A_i| = (n-1)!$, since the remaining $n-1$ points may be permuted freely. More generally, for any $t$-subset $S = \{i_1,\ldots,i_t\}$, $\left|\bigcap_{i\in S} A_i\right| = (n-t)!$, since fixing $t$ points leaves the remaining $n-t$ points free. By symmetry there are $\binom{n}{t}$ such $t$-subsets. By the Principle of Inclusion–Exclusion (Theorem 9.1), the number of permutations having *at least one* fixed point is
-$$
-\left|\bigcup_i A_i\right| = \sum_{t=1}^{n}(-1)^{t+1}\binom{n}{t}(n-t)!.
-$$
-The number of derangements is the complement within all $n!$ permutations:
-$$
-D_n = n! - \sum_{t=1}^n (-1)^{t+1}\binom{n}{t}(n-t)! = n! + \sum_{t=1}^n (-1)^t \binom{n}{t}(n-t)! = \sum_{t=0}^n (-1)^t\binom{n}{t}(n-t)!.
-$$
-Since $\binom{n}{t}(n-t)! = \dfrac{n!}{t!}$, this simplifies to
-$$
-D_n = \sum_{t=0}^n (-1)^t \frac{n!}{t!} = n!\sum_{t=0}^n \frac{(-1)^t}{t!}. \qquad \blacksquare
-$$
-
-The first few values, computed directly from this formula, are
-$$
-D_1 = 0,\quad D_2 = 1,\quad D_3 = 2,\quad D_4 = 9,\quad D_5 = 44,\quad D_6 = 265.
-$$
-
-**Corollary 9.2.1.** The number of permutations of $n$ objects with *exactly* $k$ fixed points is $\displaystyle \binom{n}{k}D_{n-k}$ — choose which $k$ points are fixed ($\binom{n}{k}$ ways), and derange the remaining $n-k$ points so that none of *them* is fixed either ($D_{n-k}$ ways).
-
-### Example 9.1 (Hard). Exactly two correct letters.
-
-*Six distinct letters are to be placed into six correspondingly addressed envelopes, one letter per envelope, at random. In how many ways can this be done so that exactly 2 letters go into their correct envelopes?*
-
-**Solution.** By Corollary 9.2.1 with $n=6, k=2$:
-$$
-\binom{6}{2}D_{4} = 15 \times 9 = \boxed{135}.
-$$
-$\blacksquare$
-
-### Example 9.2 (Hard). Distinct objects into distinct non-empty boxes.
-
-*In how many ways can 7 distinct balls be placed into 3 distinct boxes so that no box is left empty?*
-
-**Solution.** By inclusion–exclusion, exactly as in the derivation of Theorem 9.2: let $A_i$ be the (unrestricted) set of the $3^7$ total distributions in which box $i$ is empty. Then $|A_i| = 2^7$ (each ball has only 2 remaining box-choices), $|A_i \cap A_j| = 1^7$ (all balls forced into the single remaining box), and $|A_1\cap A_2\cap A_3| = 0$. By Theorem 9.1, the number of distributions leaving *at least one* box empty is
-$$
-\binom{3}{1}2^7 - \binom{3}{2}1^7 + \binom{3}{3}0^7 = 3(128) - 3(1) + 0 = 384 - 3 = 381.
-$$
-Hence the number of distributions with **no** box empty is
-$$
-3^7 - 381 = 2187 - 381 = \boxed{1806}.
-$$
-
-*(As a check, this equals $3!\cdot S(7,3)$, since distributing 7 distinct balls into 3 distinct non-empty boxes is the same as first partitioning them into 3 non-empty unlabelled blocks — $S(7,3) = 301$ — and then assigning the 3 distinct box-labels to the 3 blocks in $3!$ ways: $301\times 6 = 1806$. ✓)* $\blacksquare$
-
----
-
-## 10. A Compendium of Tricks and Shortcuts
-
-The following is a high-density summary, intended for rapid recall in the closing minutes before an examination.
-
-- **Fix, then arrange.** In any circular problem, immediately fix one object's position to eliminate rotational symmetry before counting the rest; this converts a circular problem into a linear one.
-
-- **Gap method for "no two together."** Arrange the unrestricted objects first; insert restricted objects into the gaps created.
-
-- **Glue method for "always together."** Bind the required objects into a single composite block; arrange the blocks; multiply by the internal permutations of the glued block.
-
-- **Divide for fixed relative order.** If $k$ objects must appear in one specific relative order (not necessarily adjacent), compute the unrestricted count and divide by the number of distinct orderings those $k$ objects admit among themselves.
-
-- **Complementary counting.** "At least one," "at most," and "not all" conditions are frequently easier to compute by subtracting the complementary (forbidden) count from the total, rather than attacking the condition head-on.
-
-- **Beggar's method / stars and bars.** Whenever objects are *identical* and being *distributed*, immediately suspect Theorem 6.1 rather than $r^n$ (which is for *distinguishable* placements of *distinct* objects, or ordered sequences).
-
-- **Grouping vs. distributing.** Be careful to distinguish "dividing $n$ distinct objects into groups of specified, distinguishable roles" (a multinomial coefficient, Theorem 8.1) from "dividing $n$ distinct objects into groups of equal, indistinguishable roles" — the latter requires an *additional* division by $k!$ for the $k$ indistinguishable groups, to avoid overcounting group-orderings that lead to the same partition.
-
-- **Bijection first.** Whenever a problem seems to resist direct formula application (lattice paths, ballot-type problems, tiling problems), search for a bijection to a simpler, already-solved combinatorial object — arrangements of R's and U's, sequences of $+1/-1$, or binary strings are common targets.
-
-- **"Exactly $k$" via "choose $k$, then derange/restrict the rest."** As in Corollary 9.2.1, problems asking for exactly $k$ objects satisfying a property are usually $\binom{n}{k}$ times the count of the remaining $n-k$ satisfying the "none" version of the same property.
-
-- **Absorption identity for weighted sums.** Any sum involving a factor of $k$ or $k^2$ multiplying $\binom{n}{k}$ (or its square) should immediately suggest the Absorption Identity $k\binom{n}{k}=n\binom{n-1}{k-1}$, as in Example 5.1.
-
-- **Non-consecutive selection formulas.** Memorise both Theorem 4.2 (linear, $\binom{n-r+1}{r}$) and Theorem 4.3 (circular, $\frac{n}{n-r}\binom{n-r}{r}$) — the circular version in particular is frequently forgotten under time pressure, yet appears repeatedly in seating and scheduling problems.
-
-- **Rank-of-a-word algorithm.** For dictionary-rank problems, fix letters one position at a time from the left, and at each stage count (smaller available letters) $\times$ (arrangements of the remaining multiset); add 1 at the end for the word itself.
-
-- **Watch for hidden generating functions.** Coefficient-extraction problems (Example 8.1) are almost always disguised stars-and-bars-with-bounds problems, and vice versa; either technique should be available on demand.
-
----
-
-## 11. Formula Reference Sheet
-
-| Concept | Formula |
+| Symbol | Meaning |
 |---|---|
-| Permutations of $n$ taken $r$ | $^nP_r = \dfrac{n!}{(n-r)!}$ |
-| Permutations with repetition | $n^r$ |
-| Permutations of a multiset | $\dfrac{n!}{p_1!\,p_2!\cdots p_k!}$ |
-| Circular permutations | $(n-1)!$ |
-| Circular permutations (mirror-equivalent) | $\dfrac{(n-1)!}{2}$ |
-| Combinations | $\displaystyle \binom{n}{r} = \frac{n!}{r!(n-r)!}$ |
-| Non-consecutive selection (line) | $\displaystyle \binom{n-r+1}{r}$ |
-| Non-consecutive selection (circle) | $\displaystyle \frac{n}{n-r}\binom{n-r}{r}$ |
-| Pascal's Identity | $\displaystyle \binom{n}{r} = \binom{n-1}{r-1}+\binom{n-1}{r}$ |
-| Absorption Identity | $\displaystyle r\binom{n}{r} = n\binom{n-1}{r-1}$ |
-| Vandermonde's Identity | $\displaystyle \sum_k \binom{m}{k}\binom{n}{r-k} = \binom{m+n}{r}$ |
-| Sum of squares of $\binom{n}{r}$ | $\displaystyle \sum_r \binom{n}{r}^2 = \binom{2n}{n}$ |
-| Hockey Stick Identity | $\displaystyle \sum_{i=r}^n \binom{i}{r} = \binom{n+1}{r+1}$ |
-| Identical objects, distinct boxes, empty allowed | $\displaystyle \binom{n+r-1}{r-1}$ |
-| Identical objects, distinct boxes, no empty | $\displaystyle \binom{n-1}{r-1}$ |
-| Distinct objects, distinct boxes, no empty | $\displaystyle \sum_{i=0}^r (-1)^i\binom{r}{i}(r-i)^n$ |
-| Stirling number of the 2nd kind | $\displaystyle S(n,k) = \frac{1}{k!}\sum_{i=0}^k (-1)^i \binom{k}{i}(k-i)^n$ |
-| Multinomial Theorem | $\displaystyle (x_1+\cdots+x_k)^n = \sum \frac{n!}{n_1!\cdots n_k!}x_1^{n_1}\cdots x_k^{n_k}$ |
-| Inclusion–Exclusion (2 sets) | $|A\cup B| = |A|+|B|-|A\cap B|$ |
-| Derangements | $\displaystyle D_n = n!\sum_{k=0}^n \frac{(-1)^k}{k!}$ |
-| Exactly $k$ fixed points | $\displaystyle \binom{n}{k}D_{n-k}$ |
+| $[n]$ | The set $\{1, 2, \ldots, n\}$ |
+| $\lvert S \rvert$ or $\#S$ | Cardinality of the finite set $S$ |
+| $n!$ | $n$ factorial, with $0! = 1$ |
+| $n^{\underline{r}}$ | Falling factorial $n(n-1)\cdots(n-r+1)$, $r$ terms |
+| $^nP_r$, $P(n,r)$ | Number of $r$-permutations of $n$ distinct objects; $P(n,r) = n^{\underline{r}}$ |
+| $^nC_r$, $\binom{n}{r}$ | Number of $r$-combinations of $n$ distinct objects |
+| $\binom{n}{n_1, n_2, \ldots, n_k}$ | Multinomial coefficient $\dfrac{n!}{n_1! n_2! \cdots n_k!}$ |
+| $S_n$ | The symmetric group: all permutations (bijections) of $[n]$ |
+| $D_n$ | The number of derangements of $[n]$ |
+| $S(n,k)$ | Stirling number of the second kind: ways to partition an $n$-set into $k$ nonempty unlabeled blocks |
+| $C_n$ | The $n$-th Catalan number |
+| $\phi(N)$ | Euler's totient function |
+| $\mathbb{Z}_{\ge 0}$ | Non-negative integers |
+| $[x^n]\,f(x)$ | The coefficient of $x^n$ in the power series $f(x)$ |
+| $\blacksquare$ | End of proof |
+
+Throughout, "arrangement" means an ordered sequence and "selection" or "collection" means an unordered set (or multiset, when explicitly noted). Unless stated otherwise, all objects within a single problem are assumed *distinguishable* — the moment objects become identical, we say so explicitly, because this is precisely where most counting errors are born.
 
 ---
 
-## Closing Remarks
+## Part I — Fundamental Counting Principles & Basic Configurations
 
-The reader who has worked through the proofs and hard examples above will have noticed a recurring truth: the entire edifice of permutations and combinations rests on remarkably few load-bearing ideas — the multiplication and addition principles, the gap and glueing techniques, complementary counting, and the principle of inclusion and exclusion. Mastery of the subject at the JEE Advanced, Olympiad, or ISI–CMI level is therefore less a matter of memorising an ever-growing list of formulae, and more a matter of training oneself to recognise *which* of these few ideas, and in what combination, a given problem is silently asking to be solved by. The ménage problem of Section 3, in particular, was included as a reminder that even the most intimidating-looking competition problem is, upon dissection, nothing more than these same elementary principles applied with sufficient patience and care.
+### 1.1 The Rule of Sum and the Rule of Product
+
+Everything in enumerative combinatorics is ultimately built from two axioms about finite sets.
+
+> **Axiom 1.1 (Rule of Sum).** If a finite set $A$ is partitioned into disjoint subsets $A_1, A_2, \ldots, A_k$ (that is, $A = A_1 \cup \cdots \cup A_k$ and $A_i \cap A_j = \emptyset$ for $i \ne j$), then
+> $$|A| = |A_1| + |A_2| + \cdots + |A_k|.$$
+> Combinatorially: if a task can be accomplished in exactly one of $k$ *mutually exclusive* ways, and the $i$-th way can be done in $n_i$ ways, the task can be done in $n_1 + n_2 + \cdots + n_k$ ways.
+
+> **Axiom 1.2 (Rule of Product).** Suppose a procedure consists of $k$ successive stages, and no matter which choices are made at stages $1, \ldots, i-1$, stage $i$ always offers exactly $n_i$ choices. Then the total number of ways to complete the whole procedure is
+> $$n_1 \times n_2 \times \cdots \times n_k.$$
+
+**Remark (Independent vs. dependent choices).** The Rule of Product does *not* require that the choices be "independent" in the sense of being unaffected by earlier stages — it only requires that the *number* of available choices at each stage be constant, regardless of what was chosen earlier. For instance, "choose a letter, then choose a different letter from the same alphabet of 26" has $26 \times 25$ outcomes: the second stage's *count* (25) is fixed even though the specific available letters depend on the first choice. When even the count of choices varies with earlier decisions, the product rule fails outright and one must fall back on casework (repeated application of the Sum Rule) or a cleverer bijection.
+
+**Example 1.1.** A password consists of 4 characters: the first two must be distinct uppercase letters, the last two must be distinct digits (0–9), and additionally the password must not start with the letter 'Q'. Count the passwords.
+
+*Solution.* Stage 1 (first letter, $\ne Q$): 25 choices. Stage 2 (second letter, distinct from the first): 25 choices (26 minus the one already used — note 'Q' is now available again unless it was excluded only from stage 1). Stage 3 (first digit): 10 choices. Stage 4 (second digit, distinct): 9 choices. By the Product Rule: $25 \times 25 \times 10 \times 9 = 56{,}250$. $\blacksquare$
+
+---
+
+### 1.2 Permutations and Combinations
+
+> **Definition 1.1.** An **$r$-permutation** of a set of $n$ distinct objects is an ordered sequence of $r$ of those objects, no repetitions. We write $^nP_r$ or $P(n,r)$ for the count.
+
+> **Theorem 1.1.** $\displaystyle P(n,r) = n^{\underline{r}} = n(n-1)(n-2)\cdots(n-r+1) = \frac{n!}{(n-r)!}, \qquad 0 \le r \le n.$
+
+*Proof.* Fill the $r$ positions in sequence. Position 1 may be filled in $n$ ways; having used one object, position 2 has $n-1$ remaining choices; and so on, until position $r$, which has $n-r+1$ choices. The Rule of Product gives the product of these $r$ terms. $\blacksquare$
+
+> **Definition 1.2.** An **$r$-combination** of a set of $n$ distinct objects is an *unordered* selection of $r$ of them. We write $^nC_r$ or $\binom{n}{r}$ for the count.
+
+> **Theorem 1.2.** $\displaystyle \binom{n}{r} = \frac{n!}{r!\,(n-r)!}.$
+
+*Proof.* Every $r$-combination corresponds to exactly $r!$ distinct $r$-permutations (obtained by ordering its elements in every possible way), and every $r$-permutation arises from exactly one $r$-combination this way. This is a $r!$-to-one correspondence from permutations to combinations, so $P(n,r) = r!\,\binom{n}{r}$, and the result follows by Theorem 1.1. $\blacksquare$
+
+> **Theorem 1.3 (Symmetry).** $\displaystyle \binom{n}{r} = \binom{n}{n-r}.$
+
+*Algebraic proof.* Immediate from $\binom{n}{r} = \dfrac{n!}{r!(n-r)!}$, which is symmetric under $r \leftrightarrow n-r$.
+
+*Combinatorial (bijective) proof.* Choosing $r$ elements **to include** in a subset is the same act as choosing the complementary $n-r$ elements **to exclude**. The map $S \mapsto [n]\setminus S$ is a bijection between $r$-subsets and $(n-r)$-subsets of $[n]$. $\blacksquare$
+
+**Remark.** The two proofs above illustrate the central methodological split in this subject: an *algebraic* proof manipulates a formula; a *combinatorial* (or *bijective*, or *story*) proof exhibits the equality as an obvious restatement of the same counting problem. Competition mathematics prizes the second kind enormously, both because it is more robust (it generalizes without re-deriving algebra) and because it is frequently the only tractable route when the objects involved are not simple integers.
+
+> **Theorem 1.4 (Pascal's Identity).** $\displaystyle \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}, \qquad 1 \le r \le n-1.$
+
+*Combinatorial proof.* Fix a distinguished element $x$ in the $n$-set. Every $r$-subset either contains $x$ (in which case the other $r-1$ elements are chosen from the remaining $n-1$: $\binom{n-1}{r-1}$ ways) or does not contain $x$ (in which case all $r$ elements come from the remaining $n-1$: $\binom{n-1}{r}$ ways). These two cases are disjoint and exhaustive, so the Rule of Sum gives the identity. $\blacksquare$
+
+---
+
+### 1.3 Permutations of a Multiset
+
+> **Theorem 1.5 (Multiset Permutations).** Given $n$ objects consisting of $k$ distinguishable *types*, with $n_i$ indistinguishable copies of type $i$ (so $n_1 + n_2 + \cdots + n_k = n$), the number of distinguishable linear arrangements of all $n$ objects is
+> $$\frac{n!}{n_1!\,n_2! \cdots n_k!}.$$
+
+*Proof.* Temporarily label the $n_i$ copies of type $i$ as distinct (e.g. subscript them $1, 2, \ldots, n_i$), producing $n$ fully distinguishable objects, which admit $n!$ linear arrangements. In this inflated count, every genuine arrangement of the original multiset has been counted once for each way of permuting the labels *within* each type — that is, $n_1! \, n_2! \cdots n_k!$ times, since permuting the fake labels within a type produces the same multiset-arrangement. Hence the number of genuinely distinct arrangements is $n! / (n_1! \cdots n_k!)$. $\blacksquare$
+
+**Example 1.2.** The number of distinct arrangements of the letters of `COMBINATORICS` (13 letters: C×2, O×2, M×1, B×1, I×2, N×1, A×1, T×1, R×1, S×1) is
+$$\frac{13!}{2!\,2!\,2!} = \frac{6{,}227{,}020{,}800}{8} = 778{,}377{,}600.$$
+
+---
+
+### 1.4 Circular Permutations
+
+> **Theorem 1.6.** The number of ways to arrange $n$ distinct objects around a circle, where arrangements related by rotation are considered identical, is $(n-1)!$.
+
+*Proof.* Every circular arrangement corresponds to exactly $n$ linear arrangements (start reading at any of the $n$ positions), and every linear arrangement of the $n$ objects gives rise to exactly one circular arrangement. This is an $n$-to-one correspondence from the $n!$ linear arrangements to the circular ones, so the count is $n!/n = (n-1)!$. Equivalently: fix one object's seat arbitrarily to kill the rotational symmetry, then arrange the remaining $n-1$ objects in the remaining $n-1$ seats in $(n-1)!$ ways. $\blacksquare$
+
+> **Remark (Necklaces vs. Garlands — reflection symmetry).** A circular arrangement in which *reflections* (flipping the whole arrangement over, as one physically can with a necklace or a garland of flowers, but not with people seated at a table) are also considered identical is sometimes called a **bracelet** or **necklace** arrangement, as opposed to a **garland**/table arrangement where only rotations are identified. Since reflection is an additional symmetry of order 2 (and is a genuine, non-trivial symmetry whenever $n \ge 3$), the count for $n \ge 3$ distinct objects is
+> $$\frac{(n-1)!}{2}.$$
+> *Caution:* this simple halving trick works because for $n \ge 3$ *distinct* objects, no arrangement is its own mirror image, so every reflection pairs two genuinely different rotational-arrangements into one bracelet. If the objects repeat (a multiset) or $n$ is small, some arrangements may be symmetric under reflection, and the naive halving overcounts the reduction; the fully general tool for such symmetric counting is **Burnside's Lemma** (equivalently, the Cauchy–Frobenius Orbit-Counting Theorem), which we state without proof here, as its proof requires group-action machinery beyond our scope:
+> $$\text{(number of arrangements up to a symmetry group } G\text{)} = \frac{1}{|G|}\sum_{g \in G} |\text{Fix}(g)|.$$
+> We will use this freely by name whenever a problem's symmetry group is non-trivial enough to demand it.
+
+**Trick (Restricted circular arrangements).** Circular restriction problems ("$A$ and $B$ must/must not sit together", "men and women must alternate") are almost always solved by combining Theorem 1.6 with the Bundling or Gap tricks of §1.5, applied *after* fixing one object to linearize the circle. We will do exactly this in Challenge Problem 1.2 below and again with the Problème des Ménages in Part III.
+
+---
+
+### 1.5 Problem-Solving Tricks
+
+#### The Tie/Bundle Method (objects always together)
+
+**Trick.** To count arrangements of $n$ distinct objects in which a specified subset of $k$ of them must all be *mutually adjacent* (in some order, forming an unbroken block), glue them into a single "super-object." This leaves $n - k + 1$ units to arrange (the block, plus the $n-k$ remaining individual objects), and the block's internal order can be permuted in $k!$ ways independently. Hence:
+$$\text{(linear case)} \quad (n-k+1)! \times k!, \qquad \text{(circular case)} \quad (n-k)! \times k!.$$
+(The circular count uses $((n-k+1)-1)! = (n-k)!$ by Theorem 1.6 applied to the $n-k+1$ units.)
+
+#### The Gap Method (objects never together)
+
+**Trick.** To count arrangements of $n$ distinct objects in which $k$ specified objects are pairwise **non-adjacent** (no two of the $k$ special objects stand next to each other), first arrange the remaining $n-k$ objects: $(n-k)!$ ways. This creates $n-k+1$ "gaps" — one before, one after, and one between each pair of consecutive objects — into which the $k$ special objects must be inserted, at most one per gap (to guarantee no two specials are adjacent), and in order:
+$$(n-k)! \times P(n-k+1,\, k).$$
+
+**Example 1.3.** In how many ways can 5 boys and 3 girls be arranged in a row so that no two girls are adjacent?
+
+*Solution.* Arrange the 5 boys: $5! = 120$ ways, creating 6 gaps. Place the 3 girls into 3 of these 6 gaps, in order: $P(6,3) = 6 \times 5 \times 4 = 120$. Total: $120 \times 120 = 14{,}400$. $\blacksquare$
+
+#### Lexicographic (Dictionary) Rank
+
+**Trick.** To find the rank of a word $w$ among all *distinct* permutations of its letters, arranged in dictionary order: process $w$ left to right. At each position $i$, for every letter *strictly smaller* (alphabetically) than $w_i$ still available in the remaining multiset, count how many arrangements of the *remaining* letters (after placing that smaller letter at position $i$) are possible — this is a multiset-permutation count via Theorem 1.5 — and add this to a running total. After placing $w_i$ itself (not counted, since we want words *before* $w$) and consuming it from the multiset, proceed to position $i+1$. After all positions are processed, the rank of $w$ is
+$$\text{rank}(w) = 1 + \sum_{i=1}^{n} (\text{count of smaller-first words matching } w_1 \cdots w_{i-1}\text{ at position } i).$$
+
+We defer a complete worked instance of this trick — with repeated letters, which is where the bookkeeping becomes genuinely delicate — to Challenge Problem 1.1 below.
+
+---
+
+### 1.6 Challenge Problems
+
+> **Challenge Problem 1.1.** Find the rank of the word **MISSISSIPPI** among all of its distinct letter-permutations, arranged in dictionary order.
+
+*Solution.* The letters are $\{M{:}1,\ I{:}4,\ S{:}4,\ P{:}2\}$, total length $11$, and the alphabetical order of the letters present is $I < M < P < S$. We apply the lexicographic-rank algorithm of §1.5, tracking the *remaining* multiset at each step.
+
+| Pos. | Letter | Remaining multiset *before* this position | Smaller letters available, and arrangements of the rest | Contribution |
+|---|---|---|---|---|
+| 1 | M | $I{:}4,M{:}1,P{:}2,S{:}4$ | $I$: remaining $I{:}3,M{:}1,P{:}2,S{:}4$ (10 letters); arrangements $=\dfrac{10!}{3!1!2!4!}=12600$ | $12600$ |
+| 2 | I | $I{:}4,P{:}2,S{:}4$ | none smaller than $I$ | $0$ |
+| 3 | S | $I{:}3,P{:}2,S{:}4$ | $I$: $\dfrac{8!}{2!2!4!}=420$; $\quad P$: $\dfrac{8!}{3!1!4!}=280$ | $700$ |
+| 4 | S | $I{:}3,P{:}2,S{:}3$ | $I$: $\dfrac{7!}{2!2!3!}=210$; $\quad P$: $\dfrac{7!}{3!1!3!}=140$ | $350$ |
+| 5 | I | $I{:}3,P{:}2,S{:}2$ | none smaller than $I$ | $0$ |
+| 6 | S | $I{:}2,P{:}2,S{:}2$ | $I$: $\dfrac{5!}{1!2!2!}=30$; $\quad P$: $\dfrac{5!}{2!1!2!}=30$ | $60$ |
+| 7 | S | $I{:}2,P{:}2,S{:}1$ | $I$: $\dfrac{4!}{1!2!1!}=12$; $\quad P$: $\dfrac{4!}{2!1!1!}=12$ | $24$ |
+| 8 | I | $I{:}2,P{:}2$ | none smaller than $I$ | $0$ |
+| 9 | P | $I{:}1,P{:}2$ | $I$: $\dfrac{2!}{2!}=1$ | $1$ |
+| 10 | P | $I{:}1,P{:}1$ | $I$: $\dfrac{1!}{1!}=1$ | $1$ |
+| 11 | I | $I{:}1$ | none smaller than $I$ | $0$ |
+
+Summing the contributions: $12600+0+700+350+0+60+24+0+1+1+0 = 13736$.
+
+$$\text{rank(MISSISSIPPI)} = 13736 + 1 = \boxed{13737}. \qquad \blacksquare$$
+
+**Remark.** The pattern of zero contributions at every position where the actual letter placed is the *smallest remaining* letter ($I$, at positions 2, 5, 8, 11) is not a coincidence — it is the reason MISSISSIPPI is comparatively "early" in the dictionary relative to its length; each such position forces the running sum to pause. Recognizing this in advance is a useful sanity check against arithmetic slips.
+
+> **Challenge Problem 1.2.** Nine people, including a group of $3$ siblings and (separately) a pair of rivals, are to be seated around a circular table (rotations identified, reflections distinct). The siblings insist on sitting together as an unbroken block; the two rivals refuse to sit next to each other. How many seating arrangements are possible?
+
+*Solution.* We compute (arrangements with siblings together) $-$ (arrangements with siblings together *and* rivals also together), by inclusion–exclusion on the single "bad" event.
+
+**Step 1 — Siblings together, no other restriction.** Bundle the 3 siblings into one block (Tie Method). This leaves $9 - 3 + 1 = 7$ units to seat circularly: $(7-1)! = 6! = 720$ ways, times $3! = 6$ internal orderings of the block:
+$$720 \times 6 = 4320.$$
+
+**Step 2 — Siblings together AND the two rivals also adjacent (to be subtracted).** Now bundle the rivals into a second block as well. We have the siblings-block, the rivals-block, and $9 - 3 - 2 = 4$ remaining individuals: $4 + 2 = 6$ units total, arranged circularly in $(6-1)! = 5! = 120$ ways, times $3!=6$ (siblings' internal order) times $2! = 2$ (rivals' internal order):
+$$120 \times 6 \times 2 = 1440.$$
+
+**Step 3 — Subtract.**
+$$4320 - 1440 = \boxed{2880}.$$
+$\blacksquare$
+
+---
+
+## Part II — Distributions, Partitions, and Stars & Bars
+
+### 2.1 The Stars and Bars Theorem
+
+> **Theorem 2.1 (Stars and Bars — non-negative case).** The number of solutions in non-negative integers to
+> $$x_1 + x_2 + \cdots + x_k = n$$
+> is $\displaystyle \binom{n+k-1}{k-1}$.
+
+*Proof.* Represent a solution as a row of $n$ identical stars ($\star$) separated into $k$ groups by $k-1$ bars ($|$): the number of stars in the $i$-th group is $x_i$. Conversely, every arrangement of $n$ stars and $k-1$ bars in a row corresponds to exactly one solution. So we are counting arrangements of a multiset of $n+k-1$ symbols, of which $n$ are stars and $k-1$ are bars — by Theorem 1.5, this is
+$$\frac{(n+k-1)!}{n!\,(k-1)!} = \binom{n+k-1}{k-1}. \qquad \blacksquare$$
+
+This device is affectionately called the **Beggars' Method**: $n$ identical coins ("stars") are to be distributed among $k$ beggars, separated by $k-1$ dividers.
+
+> **Theorem 2.2 (Stars and Bars — positive case).** The number of solutions in *positive* integers to $x_1 + \cdots + x_k = n$ (assuming $n \ge k$) is $\displaystyle \binom{n-1}{k-1}$.
+
+*Proof.* Substitute $y_i = x_i - 1 \ge 0$. The equation becomes $y_1 + \cdots + y_k = n - k$, with $y_i \ge 0$. By Theorem 2.1, this has $\binom{(n-k)+k-1}{k-1} = \binom{n-1}{k-1}$ solutions, and the substitution is a bijection. $\blacksquare$
+
+---
+
+### 2.2 Constrained Distributions: Bounds and PIE
+
+**Lower bounds ($x_i \ge a_i$).** Substitute $y_i = x_i - a_i \ge 0$; the equation $\sum x_i = n$ becomes $\sum y_i = n - \sum a_i$, reducing to Theorem 2.1 (provided $n \ge \sum a_i$, else there are $0$ solutions).
+
+**Upper bounds ($x_i \le b_i$) — requires PIE.** Let $U$ be the set of all non-negative-integer solutions to $\sum_{i=1}^{k} x_i = n$ (ignoring upper bounds), counted by Theorem 2.1. Let $A_i \subseteq U$ be the "bad" event that $x_i \ge b_i + 1$ (violates its upper bound). We want $|U| - |A_1 \cup \cdots \cup A_k|$, computed via the Principle of Inclusion–Exclusion (proved formally in §3.1): for a subset $S \subseteq [k]$, the intersection $\bigcap_{i \in S} A_i$ forces $x_i \ge b_i + 1$ for each $i \in S$, which (after the shift $x_i \mapsto x_i - (b_i+1)$ for $i \in S$) is itself a Stars-and-Bars count with total $n - \sum_{i \in S}(b_i + 1)$, namely $\binom{n - \sum_{i\in S}(b_i+1) + k - 1}{k-1}$ (interpreted as $0$ if the top is negative). Hence:
+$$\left|\bigcup_i A_i\right| = \sum_{\emptyset \ne S \subseteq [k]} (-1)^{|S|+1} \binom{n - \sum_{i \in S}(b_i+1) + k - 1}{k-1},$$
+giving the number of valid (bounded) solutions as
+$$N = \sum_{S \subseteq [k]} (-1)^{|S|} \binom{n - \sum_{i \in S}(b_i+1) + k - 1}{k-1}.$$
+
+**Inequality constraints ($x_1 + \cdots + x_k \le n$).** Introduce a non-negative *slack variable* $x_{k+1} \ge 0$ so that $x_1 + \cdots + x_k + x_{k+1} = n$ exactly; this converts the inequality into an equality in $k+1$ variables, reducing again to Theorem 2.1.
+
+**Trick (Complementary/Conjugate Substitution).** When the target sum $n$ is *close to* the sum of the upper bounds $B = \sum b_i$ — specifically when the "deficit" $B - n$ is small — it is often far faster to substitute $y_i = b_i - x_i \ge 0$. The constraint becomes $\sum y_i = B - n$ with $y_i \le b_i$, and if $B-n$ is small enough that no single $y_i$ could exceed its own bound $b_i$ except in one or two easily-enumerated edge cases, the PIE collapses to a tiny calculation. We use exactly this shortcut in Challenge Problem 2.1.
+
+---
+
+### 2.3 The Twelvefold Way (Basics)
+
+Distributing $n$ objects into $k$ boxes is, formally, choosing a function $f$ from an $n$-set to a $k$-set. The count depends on three binary choices: whether the $n$ objects are **distinguishable**, whether the $k$ boxes are **distinguishable**, and whether $f$ is required to be **arbitrary**, **injective** (at most one object per box — needs $n \le k$), or **surjective** (every box non-empty — needs $n \ge k$). This gives Rota's **Twelvefold Way**:
+
+| Objects (rows) / Boxes (columns) | Any function | Injective ($n\le k$) | Surjective ($n \ge k$) |
+|---|---|---|---|
+| **Distinct objects, distinct boxes** | $k^n$ | $k^{\underline{n}}$ | $k!\,S(n,k)$ |
+| **Distinct objects, identical boxes** | $\displaystyle\sum_{j=0}^{k} S(n,j)$ | $[n \le k]$ | $S(n,k)$ |
+| **Identical objects, distinct boxes** | $\dbinom{n+k-1}{k-1}$ | $\dbinom{k}{n}$ | $\dbinom{n-1}{k-1}$ |
+| **Identical objects, identical boxes** | $p_{\le k}(n)$ | $[n \le k]$ | $p_k(n)$ |
+
+Here $S(n,k)$ is the **Stirling number of the second kind** — the number of ways to partition an $n$-set into $k$ non-empty, unlabeled blocks — and $p_k(n)$ is the number of ways to partition the integer $n$ into exactly $k$ positive parts (with $p_{\le k}(n) = \sum_{j=0}^k p_j(n)$ counting partitions into *at most* $k$ parts). The bracket $[n \le k]$ is the Iverson bracket, equal to $1$ if true and $0$ otherwise.
+
+The Stirling numbers satisfy the recurrence
+$$S(n,k) = k\,S(n-1,k) + S(n-1,k-1),$$
+by considering whether element $n$ joins one of the $k$ existing blocks of a partition of $[n-1]$ into $k$ blocks (that block can be chosen in $k$ ways), or forms a new singleton block on top of a partition of $[n-1]$ into $k-1$ blocks. Dividing the surjection count (Theorem 3.3, ahead) by $k!$ (to un-label the boxes) gives the closed form
+$$S(n,k) = \frac{1}{k!}\sum_{j=0}^{k} (-1)^j \binom{k}{j} (k-j)^n,$$
+which we will derive as a Principle of Inclusion–Exclusion consequence in §3.3.
+
+**Row 3 of the table is precisely the connective tissue between Part II and Part III** — the count of ways to distribute distinct objects into distinct non-empty boxes *is* the count of surjective functions, our next major topic.
+
+---
+
+### 2.4 The Multinomial Theorem
+
+> **Theorem 2.3 (Multinomial Theorem).** For a positive integer $n$,
+> $$(x_1 + x_2 + \cdots + x_k)^n = \sum_{\substack{n_1 + n_2 + \cdots + n_k = n \\ n_i \ge 0}} \binom{n}{n_1, n_2, \ldots, n_k} x_1^{n_1} x_2^{n_2} \cdots x_k^{n_k}, \qquad \binom{n}{n_1,\ldots,n_k} := \frac{n!}{n_1! n_2! \cdots n_k!}.$$
+
+*Proof.* Expanding the product $(x_1 + \cdots + x_k)^n = \underbrace{(x_1+\cdots+x_k)(x_1+\cdots+x_k)\cdots(x_1+\cdots+x_k)}_{n \text{ factors}}$ by full distributivity produces one term for every way of choosing, from *each* of the $n$ factors, one of the $k$ variables — i.e. one term for every function from an $n$-set (the factors) to a $k$-set (the variables). Collecting terms with the same monomial $x_1^{n_1}\cdots x_k^{n_k}$ means counting the functions in which exactly $n_i$ of the $n$ factors chose variable $x_i$ — by Theorem 1.5 (equivalently, row 1 of the Twelvefold Way with distinguishable factors and a fixed "type profile"), this is $\dfrac{n!}{n_1!\cdots n_k!}$. $\blacksquare$
+
+**Corollary (Number of terms).** The number of *distinct monomials* appearing in the expansion equals the number of non-negative integer solutions to $n_1 + \cdots + n_k = n$, which by Theorem 2.1 is $\displaystyle \binom{n+k-1}{k-1}$ — the Multinomial Theorem and Stars-and-Bars are two faces of the same coin.
+
+**Example 2.1.** Find the coefficient of $x^2y^3z^4$ in the expansion of $(x+y+z)^9$.
+
+*Solution.* Since $2+3+4=9$, the coefficient is $\dbinom{9}{2,3,4} = \dfrac{9!}{2!\,3!\,4!} = \dfrac{362880}{2\cdot 6\cdot 24} = \dfrac{362880}{288} = 1260$. $\blacksquare$
+
+---
+
+### 2.5 Challenge Problems
+
+> **Challenge Problem 2.1.** Find the number of non-negative integer solutions to
+> $$x_1 + x_2 + x_3 + x_4 = 15, \qquad x_1 \le 3,\ x_2 \le 5,\ x_3 \le 4,\ x_4 \le 7.$$
+
+*Solution via direct PIE.* By §2.2, with $b_1{+}1, b_2{+}1, b_3{+}1, b_4{+}1 = 4,6,5,8$:
+
+$$N = \sum_{S \subseteq \{1,2,3,4\}} (-1)^{|S|} \binom{15 - \sum_{i \in S}(b_i+1) + 3}{3}.$$
+
+- $|S|=0$: $\binom{18}{3} = 816$.
+- $|S|=1$: subtract $4,6,5,8$ respectively $\to$ remainders $11,9,10,7$, giving $\binom{14}{3}+\binom{12}{3}+\binom{13}{3}+\binom{10}{3} = 364+220+286+120 = 990$.
+- $|S|=2$: the six pairwise sums are $10,9,12,11,14,13$, giving remainders $5,6,3,4,1,2$: $\binom{8}{3}+\binom{9}{3}+\binom{6}{3}+\binom{7}{3}+\binom{4}{3}+\binom{5}{3} = 56+84+20+35+4+10 = 209$.
+- $|S|=3$: sums $15,18,17,19$ for $\{1,2,3\},\{1,2,4\},\{1,3,4\},\{2,3,4\}$; only $\{1,2,3\}$ gives a non-negative remainder ($0$), contributing $\binom{3}{3}=1$; the rest vanish.
+- $|S|=4$: sum $=23 > 15$, contributes $0$.
+
+$$N = 816 - 990 + 209 - 1 + 0 = 34.$$
+
+**Cross-check via the Complementary Substitution trick.** Set $y_i = b_i - x_i \ge 0$. Then $\sum y_i = \sum b_i - 15 = 19 - 15 = 4$, with $y_i \le b_i$. Since the total deficit is only $4$, and the smallest bound is $b_1 = 3$, the *only* way any $y_i$'s own bound could be violated is $y_1 \ge 4$ (impossible for $y_2,y_3,y_4$ since their bounds $5,4,7$ all exceed $4$, except $y_3\le 4$ is exactly tight and cannot be exceeded by a total of only $4$ either). Unconstrained solutions to $\sum y_i = 4$ in 4 non-negative variables: $\binom{4+3}{3} = \binom{7}{3} = 35$. Subtract the single bad case $y_1 \ge 4$ (forcing $y_1 = 4, y_2=y_3=y_4=0$, exactly $1$ solution): $35 - 1 = 34$. $\blacksquare$
+
+Both methods agree: $\boxed{N = 34}$.
+
+> **Challenge Problem 2.2.** Find the coefficient of $x^{25}$ in $(1 + x + x^2 + \cdots + x^7)^6$.
+
+*Solution.* Write $1+x+\cdots+x^7 = \dfrac{1-x^8}{1-x}$, so we want $[x^{25}]\,(1-x^8)^6 (1-x)^{-6}$. Expand each factor:
+$$(1-x^8)^6 = \sum_{j=0}^{6} \binom{6}{j}(-1)^j x^{8j}, \qquad (1-x)^{-6} = \sum_{m \ge 0} \binom{m+5}{5} x^m$$
+(the second expansion is Theorem 2.1 in generating-function clothing — see §5.2). The coefficient of $x^{25}$ in the product is
+$$\sum_{j=0}^{3} (-1)^j \binom{6}{j} \binom{25-8j+5}{5} \qquad (\text{only } j=0,1,2,3 \text{ keep } 25-8j \ge 0).$$
+
+- $j=0$: $\binom{6}{0}\binom{30}{5} = 1 \times 142506$.
+- $j=1$: $-\binom{6}{1}\binom{22}{5} = -6 \times 26334 = -158004$.
+- $j=2$: $\binom{6}{2}\binom{14}{5} = 15 \times 2002 = 30030$.
+- $j=3$: $-\binom{6}{3}\binom{6}{5} = -20 \times 6 = -120$.
+
+$$142506 - 158004 + 30030 - 120 = \boxed{14412}. \qquad \blacksquare$$
+
+---
+
+## Part III — The Principle of Inclusion–Exclusion & Derangements
+
+### 3.1 PIE: Statement and Proof
+
+> **Theorem 3.1 (Principle of Inclusion–Exclusion).** For finite sets $A_1, \ldots, A_n$ inside a universe,
+> $$\left| \bigcup_{i=1}^n A_i \right| = \sum_{i} |A_i| - \sum_{i<j} |A_i \cap A_j| + \sum_{i<j<l}|A_i \cap A_j \cap A_l| - \cdots + (-1)^{n+1} |A_1 \cap \cdots \cap A_n|,$$
+> i.e. $\displaystyle \left|\bigcup_{i=1}^n A_i\right| = \sum_{\emptyset \ne S \subseteq [n]} (-1)^{|S|+1} \left| \bigcap_{i \in S} A_i \right|.$
+
+*Proof (via the Binomial Theorem).* We show every element of the universe contributes equally to both sides. An element $x$ that lies in *none* of the $A_i$ contributes $0$ to the left side and $0$ to every intersection term on the right, so both sides agree ($0=0$) for such $x$.
+
+Now suppose $x$ lies in exactly $k \ge 1$ of the sets $A_1, \ldots, A_n$. On the left side, $x$ is counted exactly once (union membership is Boolean). On the right side, for a given size $j$ ($1 \le j \le k$), $x$ belongs to $\bigcap_{i \in S} A_i$ precisely for those $S$ of size $j$ that are subsets of the $k$-element index set on which $x$ lies — there are $\binom{k}{j}$ such $S$. So $x$'s total contribution to the right side is
+$$\sum_{j=1}^{k} (-1)^{j+1} \binom{k}{j}.$$
+By the Binomial Theorem, $\displaystyle\sum_{j=0}^{k} (-1)^j \binom{k}{j} = (1-1)^k = 0$ for $k \ge 1$, so $\displaystyle\sum_{j=1}^k (-1)^j \binom{k}{j} = -\binom{k}{0} = -1$, hence $\displaystyle\sum_{j=1}^{k}(-1)^{j+1}\binom{k}{j} = 1$. Thus $x$ contributes exactly $1$ to the right side as well, matching the left side. Since both sides agree term-by-term for every element of the universe, the two sets have equal cardinality. $\blacksquare$
+
+---
+
+### 3.2 Derangements
+
+> **Definition 3.1.** A **derangement** of $[n]$ is a permutation $\sigma \in S_n$ with no fixed point: $\sigma(i) \ne i$ for all $i$. Write $D_n$ for the number of derangements of $[n]$.
+
+> **Theorem 3.2 (Closed form).** $\displaystyle D_n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}.$
+
+*Proof.* Let $A_i \subseteq S_n$ be the set of permutations *fixing* point $i$: $A_i = \{\sigma : \sigma(i)=i\}$. Then $D_n = n! - |A_1 \cup \cdots \cup A_n|$. For any $k$-subset $\{i_1,\ldots,i_k\} \subseteq [n]$, $|A_{i_1} \cap \cdots \cap A_{i_k}| = (n-k)!$ (the $k$ points are fixed; the other $n-k$ are freely permuted). By Theorem 3.1,
+$$\left|\bigcup_i A_i\right| = \sum_{k=1}^{n} (-1)^{k+1} \binom{n}{k} (n-k)!.$$
+So
+$$D_n = n! - \sum_{k=1}^{n}(-1)^{k+1}\binom{n}{k}(n-k)! = \sum_{k=0}^{n} (-1)^k \binom{n}{k}(n-k)!$$
+(the $k=0$ term of this last sum is exactly $n!$). Now $\binom{n}{k}(n-k)! = \dfrac{n!}{k!(n-k)!}(n-k)! = \dfrac{n!}{k!}$, so
+$$D_n = \sum_{k=0}^{n} (-1)^k \frac{n!}{k!} = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}. \qquad \blacksquare$$
+
+**Remark.** As $n \to \infty$, $\sum_{k=0}^n \frac{(-1)^k}{k!} \to e^{-1}$, so $D_n \approx n!/e$; in fact $D_n$ is always the integer nearest to $n!/e$. This is a favourite "surprising constant" result in olympiad folklore.
+
+> **Theorem 3.3 (Recurrence I).** $D_n = n D_{n-1} + (-1)^n$ for $n \ge 1$ (with $D_0 = 1$).
+
+*Proof (from the closed form).*
+$$D_n - nD_{n-1} = n!\sum_{k=0}^{n}\frac{(-1)^k}{k!} - n\cdot(n-1)!\sum_{k=0}^{n-1}\frac{(-1)^k}{k!} = n!\left[\sum_{k=0}^{n}\frac{(-1)^k}{k!} - \sum_{k=0}^{n-1}\frac{(-1)^k}{k!}\right] = n! \cdot \frac{(-1)^n}{n!} = (-1)^n. \qquad \blacksquare$$
+
+> **Theorem 3.4 (Recurrence II).** $D_n = (n-1)\bigl(D_{n-1} + D_{n-2}\bigr)$ for $n \ge 2$.
+
+*Combinatorial proof.* Consider a derangement $\sigma$ of $[n]$, and examine $\sigma(1) = k$ for some $k \ne 1$; there are $n-1$ choices for $k$. Split into two cases:
+
+- **Case (a): $\sigma(k) = 1$.** Elements $1$ and $k$ swap. The remaining $n-2$ elements $[n]\setminus\{1,k\}$ must be deranged *among themselves* (none can be a fixed point, and none of them can map to $1$ or $k$ either, but since $1,k$ are already fully accounted for by the swap, this is exactly a derangement of an $(n-2)$-set): $D_{n-2}$ ways.
+- **Case (b): $\sigma(k) \ne 1$.** Define a new permutation $\tau$ of the $(n-1)$-set $\{2,3,\ldots,n\}$ by $\tau(k) = \sigma(k)$ (whenever $\sigma(k) \ne 1$, i.e. everywhere except possibly at $k$ itself, and there $\sigma(k)\ne1$ by assumption) and $\tau(j) = \sigma(j)$ for $j \ne 1, k$. One checks this $\tau$ is precisely a derangement of $\{2,\ldots,n\}$: no element maps to itself, because $\sigma$ didn't, and the only subtlety — that $\tau(k)$ might now "want" to equal $1$, which is not in the domain — cannot happen since we assumed $\sigma(k)\ne 1$. This correspondence is a bijection onto derangements of an $(n-1)$-set: $D_{n-1}$ ways.
+
+Since the two cases are disjoint and exhaustive for each fixed value $k=\sigma(1)$, and there are $n-1$ choices of $k$, we obtain $D_n = (n-1)(D_{n-1}+D_{n-2})$. $\blacksquare$
+
+---
+
+### 3.3 Surjections
+
+> **Theorem 3.5.** The number of surjective functions from an $m$-set onto an $n$-set (with $m \ge n$) is
+> $$\text{Sur}(m,n) = \sum_{k=0}^{n} (-1)^k \binom{n}{k}(n-k)^m.$$
+
+*Proof.* Let the codomain be $[n]$ and let $A_i$ be the set of functions $f: [m] \to [n]$ that *miss* value $i$ (i.e. $i \notin f([m])$). We want $n^m - |A_1 \cup \cdots \cup A_n|$. For a $k$-subset of indices, $\bigcap_{i \in S} A_i$ is the set of functions avoiding all $k$ values in $S$, i.e. functions into a codomain of size $n-k$: there are $(n-k)^m$ such functions. By PIE,
+$$\left|\bigcup A_i\right| = \sum_{k=1}^n (-1)^{k+1}\binom{n}{k}(n-k)^m,$$
+so the surjection count is $n^m - \sum_{k=1}^n(-1)^{k+1}\binom nk(n-k)^m = \sum_{k=0}^n (-1)^k\binom nk (n-k)^m$. $\blacksquare$
+
+**Corollary.** $S(m,n) = \dfrac{\text{Sur}(m,n)}{n!}$, since each un-ordered partition of $[m]$ into $n$ non-empty blocks corresponds to exactly $n!$ surjections (assign the $n$ labeled boxes to the $n$ blocks in every order). This recovers the closed form for Stirling numbers cited in §2.3.
+
+---
+
+### 3.4 Hidden PIE in Number Theory
+
+**Trick.** Counting integers coprime to $N$ is a PIE problem in disguise: if $N = p_1^{a_1}\cdots p_r^{a_r}$, let $A_i \subseteq [N]$ be the multiples of $p_i$ in $[1,N]$. An integer is coprime to $N$ iff it lies in none of the $A_i$.
+
+> **Theorem 3.6 (Euler's Totient Formula).** $\displaystyle \phi(N) = N \prod_{i=1}^{r}\left(1 - \frac{1}{p_i}\right).$
+
+*Proof.* $|A_i| = N/p_i$ (the multiples of $p_i$ up to $N$), and more generally $\left|\bigcap_{i \in S} A_i\right| = N/\prod_{i \in S} p_i$ (multiples of $\prod_{i\in S} p_i$, since the $p_i$ are distinct primes). By PIE,
+$$\phi(N) = N - \left|\bigcup_i A_i\right| = N + \sum_{\emptyset \ne S \subseteq [r]} (-1)^{|S|} \frac{N}{\prod_{i \in S} p_i} = N\sum_{S \subseteq [r]} \prod_{i \in S}\left(\frac{-1}{p_i}\right) = N\prod_{i=1}^r\left(1 - \frac1{p_i}\right),$$
+where the last step is simply expanding the product $\prod_i\left(1 - \frac{1}{p_i}\right)$ via distributivity and recognizing each resulting term as the contribution from one subset $S$. $\blacksquare$
+
+**Remark.** This is a template worth internalizing: *any* "count things avoiding all of several divisibility/adjacency/collision conditions" problem is a candidate for exactly this PIE-on-primes (or PIE-on-forbidden-events) machinery — we will see it again, in a much richer combinatorial disguise, in the Challenge Problem below.
+
+---
+
+### 3.5 Challenge Problem: The Problème des Ménages
+
+> **Challenge Problem 3.1.** In how many ways can $4$ married couples be seated around a circular table with $8$ pre-designated alternating seats (4 "male" seats, 4 "female" seats), such that men and women alternate and **no spouse sits next to their own partner**? (Rotations of the whole table are considered identical seatings; reflections are considered distinct.)
+
+This is the classical **Problème des Ménages**, first posed by Édouard Lucas. For general $n$ couples it is solved by a technique — reducing the adjacency-avoidance condition to counting non-attacking rook placements (equivalently, matchings) on a forbidden board that turns out to be a cycle graph, then applying PIE — that we now carry out in full for $n=4$; the same argument produces the general **Touchard formula** as a by-product.
+
+*Solution.*
+
+**Step 1 — Fix the men.** Using up the rotational symmetry, seat man $M_1$ at seat $1$; the remaining $3$ men are then arranged in the other $3$ male seats in $(4-1)! = 3! = 6$ ways (Theorem 1.6). Fix, for the moment, one such reference arrangement: $M_1, M_2, M_3, M_4$ at seats $1,3,5,7$ respectively (going around the table), with female seats $2,4,6,8$ interleaved.
+
+**Step 2 — Identify the forbidden board.** Seat $2$ lies between $M_1$ and $M_2$, so it is forbidden to $W_1$ and $W_2$ (their respective wives); seat $4$ (between $M_2, M_3$) is forbidden to $W_2, W_3$; seat $6$ (between $M_3,M_4$) is forbidden to $W_3,W_4$; and seat $8$ (between $M_4$ and $M_1$, wrapping around) is forbidden to $W_4, W_1$. Drawing an edge between each wife and each of her two forbidden seats produces exactly an $8$-cycle:
+$$W_1 - s_2 - W_2 - s_4 - W_3 - s_6 - W_4 - s_8 - W_1.$$
+
+**Step 3 — PIE over the forbidden board (rook polynomial method).** We must count bijections {wives} $\to$ {female seats} avoiding all $8$ forbidden (wife, seat) pairs. By the general PIE-for-forbidden-positions formula,
+$$N = \sum_{k=0}^{4} (-1)^k\, r_k\, (4-k)!,$$
+where $r_k$ is the number of ways to choose $k$ forbidden pairs *no two of which share a wife or a seat* — i.e., $r_k$ is the number of matchings of size $k$ in the forbidden graph, here the $8$-cycle $C_8$.
+
+The number of $k$-matchings in a cycle $C_m$ ($m$ vertices) is the classical formula
+$$r_k = \frac{m}{m-k}\binom{m-k}{k} \qquad (k \ge 1), \qquad r_0 = 1.$$
+For $m = 8$:
+$$r_0=1,\quad r_1 = \frac{8}{7}\binom{7}{1}=8, \quad r_2=\frac86\binom62=20,\quad r_3=\frac85\binom53=16,\quad r_4=\frac84\binom44=2.$$
+
+*(Sanity checks: $r_1=8$ correctly counts the $8$ edges of $C_8$ — i.e. the $8$ forbidden pairs themselves. $r_2$: choosing any $2$ of the $8$ edges gives $\binom82=28$ pairs, of which exactly $8$ share a vertex — one "adjacent pair" per vertex of the cycle — leaving $28-8=20$, confirming $r_2=20$. $r_4=2$ correctly counts the two perfect matchings of an $8$-cycle: the "odd" edges and the "even" edges.)*
+
+**Step 4 — Compute.**
+$$N = r_0\cdot4! - r_1\cdot3! + r_2\cdot2! - r_3\cdot1! + r_4\cdot0! = 1(24) - 8(6) + 20(2) - 16(1) + 2(1) = 24-48+40-16+2 = 2.$$
+
+So, with the men fixed in the reference arrangement, there are exactly $N=2$ valid ways to seat the wives.
+
+**Step 5 — Assemble the total.** By the symmetry of the construction, this count of $2$ is the same for *every* one of the $3! = 6$ arrangements of the men (relabeling the men merely relabels which wife is forbidden which seat, without changing the combinatorial structure of the cycle). Hence the total number of valid seatings is
+$$M_4 = 3! \times N = 6 \times 2 = \boxed{12}. \qquad \blacksquare$$
+
+**Remark (The general formula).** Nothing in Steps 2–4 used $n=4$ specifically; repeating the argument for general $n$ couples (forbidden board $=$ the cycle $C_{2n}$) yields
+$$U_n = \sum_{k=0}^{n} (-1)^k \frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!, \qquad M_n = (n-1)!\, U_n,$$
+which is precisely **Touchard's formula** (1934) for the ménage numbers. One can check $U_3=1$ (giving $M_3 = 2!\cdot1=2$) and $U_4=2$ as derived above — matching the known ménage sequence $1,2,13,80,579,\ldots$ for $n=3,4,5,6,7$.
+
+---
+
+## Part IV — Pigeonhole Principle & Combinatorial Proofs
+
+### 4.1 The Pigeonhole Principle, Basic and Generalized
+
+> **Theorem 4.1 (Basic Pigeonhole Principle, PHP).** If $n+1$ objects are placed into $n$ boxes, some box contains at least $2$ objects.
+
+*Proof.* If every box contained at most $1$ object, the total number of objects would be at most $n$, contradicting that there are $n+1$. $\blacksquare$
+
+> **Theorem 4.2 (Generalized PHP).** If $N$ objects are placed into $k$ boxes, some box contains at least $\left\lceil N/k \right\rceil$ objects.
+
+*Proof.* Suppose, for contradiction, every box contains at most $\left\lceil N/k\right\rceil - 1$ objects. Then the total is at most $k\left(\left\lceil N/k\right\rceil - 1\right) < k \cdot \frac{N}{k} = N$ (using $\lceil N/k \rceil < N/k + 1$), a contradiction. $\blacksquare$
+
+**Remark.** PHP is trivial to *state* and often extraordinarily hard to *apply* — the entire difficulty of a PHP olympiad problem is almost always in the construction of the right "boxes." This is a recurring meta-skill: a good PHP proof is really a good *partition*.
+
+---
+
+### 4.2 Applications in Number Theory and Geometry
+
+**Example 4.1 (Number theory).** Given any $n$ integers $a_1, \ldots, a_n$ (not necessarily distinct), prove that some non-empty subset of *consecutive* terms $a_i, a_{i+1}, \ldots, a_j$ has sum divisible by $n$.
+
+*Proof.* Consider the $n+1$ partial sums $s_0 = 0,\ s_1 = a_1,\ s_2 = a_1+a_2,\ \ldots,\ s_n = a_1+\cdots+a_n$, and reduce each modulo $n$. There are $n+1$ partial sums but only $n$ residue classes mod $n$, so by PHP two of them are congruent: $s_p \equiv s_q \pmod n$ for some $p < q$. Then $s_q - s_p = a_{p+1} + a_{p+2} + \cdots + a_q \equiv 0 \pmod n$, and this is a sum of consecutive terms. $\blacksquare$
+
+**Example 4.2 (Geometry).** Any $5$ points placed inside (or on the boundary of) a unit square contain two points at distance at most $\dfrac{\sqrt2}{2}$.
+
+*Proof.* Partition the unit square into $4$ congruent sub-squares of side $\frac12$ (a $2\times2$ grid). By PHP, since $5$ points are placed into $4$ regions, some sub-square contains at least $2$ of the points. The diameter (maximum possible distance between two points) of a $\frac12 \times \frac12$ square is its diagonal, $\sqrt{\left(\frac12\right)^2+\left(\frac12\right)^2} = \frac{\sqrt2}{2}$. So those two points are at distance at most $\frac{\sqrt2}2$. $\blacksquare$
+
+---
+
+### 4.3 Double Counting
+
+**Trick (Double Counting / "Counting in Two Ways").** To prove a combinatorial identity $L = R$, invent a *set of objects* (often pairs, or configurations satisfying a property) whose cardinality can be computed in two different ways — one way naturally yielding $L$, the other naturally yielding $R$. Since both computations count the *same* set, $L=R$. This is often called a **story proof**: rather than manipulating symbols, one tells a combinatorial story that is self-evidently counted two ways.
+
+---
+
+### 4.4 Key Identities via Combinatorial Proof
+
+> **Theorem 4.3 (Vandermonde's Identity).** $\displaystyle \sum_{k=0}^{r} \binom{m}{k}\binom{n}{r-k} = \binom{m+n}{r}.$
+
+*Proof (story).* Consider a group of $m$ men and $n$ women, from which we choose a committee of $r$ people; the right side counts this directly. Alternatively, classify by the number $k$ of men on the committee ($0 \le k \le r$): choose $k$ men ($\binom mk$ ways) and the remaining $r-k$ members from the women ($\binom{n}{r-k}$ ways), then sum over all valid $k$. Both computations count exactly the set of $r$-person committees, so the sums are equal. $\blacksquare$
+
+> **Theorem 4.4 (Hockey Stick Identity).** $\displaystyle \sum_{i=r}^{n} \binom{i}{r} = \binom{n+1}{r+1}.$
+
+*Proof (story).* The right side counts $(r+1)$-element subsets of $[n+1] = \{1, \ldots, n+1\}$. Classify such a subset by its *largest* element, say $i+1$ (so $r \le i \le n$): the remaining $r$ elements are chosen from $\{1,\ldots,i\}$, in $\binom{i}{r}$ ways. Summing over the possible largest elements gives $\sum_{i=r}^{n}\binom ir$, which must equal $\binom{n+1}{r+1}$. $\blacksquare$
+
+> **Theorem 4.5.** $\displaystyle \sum_{k=0}^{n}\binom{n}{k}^2 = \binom{2n}{n}.$
+
+*Proof (story).* Consider a group of $n$ "red" and $n$ "blue" people ($2n$ total), from which we choose a committee of $n$ people; the right side, $\binom{2n}{n}$, counts this directly. Alternatively, classify by the number $k$ of red people on the committee: choose $k$ reds ($\binom nk$ ways) and $n-k$ blues ($\binom{n}{n-k}$ ways). By the symmetry $\binom{n}{n-k}=\binom nk$ (Theorem 1.3), this is $\binom nk^2$; summing over $k$ gives $\sum_k \binom nk^2$. (This is also simply Vandermonde's Identity, Theorem 4.3, with $m=n$ and $r=n$, using the symmetry substitution $k \to n-k$ in one factor.) $\blacksquare$
+
+---
+
+### 4.5 Challenge Problems
+
+> **Challenge Problem 4.1 (Ramsey's Theorem, $R(3,3)=6$).** Prove that among any $6$ people at a party, either $3$ of them are pairwise mutual acquaintances, or $3$ of them are pairwise mutual strangers.
+
+*Solution.* Model the party as the complete graph $K_6$ on $6$ vertices, with each edge colored **red** (acquainted) or **blue** (strangers). We must show some triangle is monochromatic.
+
+Fix any vertex $v$. It has $5$ edges to the other vertices. By the Generalized PHP (Theorem 4.2) with $N=5$ objects (edges) into $k=2$ boxes (colors), some color — say red, without loss of generality — is used on at least $\lceil 5/2 \rceil = 3$ of these edges. Let $a,b,c$ be three vertices joined to $v$ by red edges.
+
+Now examine the triangle on $\{a,b,c\}$:
+- If **any** edge among $ab$, $bc$, $ca$ is red — say $ab$ — then $v,a,b$ form an all-red triangle (since $va, vb, ab$ are all red).
+- If **none** of $ab,bc,ca$ is red, all three are blue, and $a,b,c$ form an all-blue triangle.
+
+Either way, a monochromatic triangle exists among the $6$ people. $\blacksquare$
+
+**Remark (Sharpness).** The bound $6$ is tight: on $5$ vertices, colour the edges of a pentagon (a $5$-cycle) red and the edges of the complementary pentagram (the other $5$-cycle) blue. Neither the red graph nor the blue graph — each being a $5$-cycle — contains a triangle, since a $5$-cycle has no chords. So $5$ people can avoid a monochromatic triangle entirely, proving $R(3,3) = 6$ exactly, not just $R(3,3) \le 6$.
+
+> **Challenge Problem 4.2 (Subset-of-a-subset identity).** Prove, for $0 \le m \le n$, that
+> $$\sum_{k=m}^{n} \binom{n}{k}\binom{k}{m} = \binom{n}{m}\,2^{n-m}.$$
+
+*Solution (double counting).* Consider the set of all pairs $(S,T)$ with $T \subseteq S \subseteq [n]$ and $|T| = m$ — i.e., a "small" $m$-subset $T$ nested inside a "large" subset $S$ of arbitrary size.
+
+**Count 1 (condition on $S$ first).** Choose $S$ to have size $k$ (for $m \le k \le n$): $\binom nk$ ways. Then choose $T \subseteq S$ with $|T|=m$: $\binom km$ ways. Summing over $k$: $\displaystyle\sum_{k=m}^n \binom nk \binom km$.
+
+**Count 2 (condition on $T$ first).** Choose $T$ directly: $\binom nm$ ways. Then $S$ must be any superset of $T$ within $[n]$ — equivalently, freely choose, for each of the remaining $n-m$ elements of $[n]\setminus T$, whether or not it belongs to $S$: $2^{n-m}$ ways. Total: $\binom nm 2^{n-m}$.
+
+Both counts enumerate the same set of pairs $(S,T)$, so they are equal:
+$$\sum_{k=m}^{n} \binom nk \binom km = \binom nm 2^{n-m}. \qquad \blacksquare$$
+
+---
+
+## Part V — Generating Functions & Recurrence Relations
+
+### 5.1 Motivation
+
+A **generating function** encodes an entire infinite sequence $(a_0, a_1, a_2, \ldots)$ as the coefficients of a single formal power series
+$$A(x) = \sum_{n \ge 0} a_n x^n.$$
+"Formal" is the operative word: we manipulate $A(x)$ algebraically without worrying about convergence, treating $x$ as a bookkeeping symbol rather than a number. The power of this idea is that combinatorial *operations* on structures translate into *algebraic* operations on generating functions:
+
+- **Disjoint choice** (either structure of type $A$ or of type $B$, Rule of Sum) $\leftrightarrow$ **addition**: $A(x) + B(x)$.
+- **Independent combination** (a structure of type $A$ together with an independent structure of type $B$, sizes adding) $\leftrightarrow$ **multiplication** (convolution): $A(x)B(x)$, since $[x^n](A(x)B(x)) = \sum_{k=0}^n a_k b_{n-k}$.
+- **Shifting a sequence** $\leftrightarrow$ multiplying by a power of $x$.
+- **Summing a sequence's partial sums** $\leftrightarrow$ multiplying by $\dfrac{1}{1-x}$.
+- **Weighted-by-index sums** ($\sum n a_n x^{n-1}$, etc.) $\leftrightarrow$ **differentiation**: $A'(x)$.
+
+A hard counting problem often becomes an easy algebra problem once translated into this language — this is the central promise of the method, and Part V is devoted to cashing in on it.
+
+---
+
+### 5.2 Ordinary Generating Functions: A Working Table
+
+| Sequence $(a_n)$ | OGF $A(x) = \sum a_n x^n$ |
+|---|---|
+| $1,1,1,1,\ldots$ | $\dfrac{1}{1-x}$ |
+| $1,1,\ldots,1$ ($n+1$ terms, then $0$) | $\dfrac{1-x^{n+1}}{1-x}$ |
+| $\binom{n+r-1}{r-1}$ (Stars-and-Bars, $r$ fixed) | $\dfrac{1}{(1-x)^r}$ |
+| $\binom{n}{k}$, $k=0,\ldots,n$ fixed $n$ | $(1+x)^n$ |
+| $1, 0, 1, 0, \ldots$ | $\dfrac{1}{1-x^2}$ |
+| Fibonacci $F_n$ ($F_0=0,F_1=1$) | $\dfrac{x}{1-x-x^2}$ |
+| Catalan $C_n$ | $\dfrac{1-\sqrt{1-4x}}{2x}$ (derived in §5.4) |
+
+*Derivation of the Stars-and-Bars row.* By the **Generalized Binomial Theorem**, for any real $\alpha$ (not necessarily a positive integer),
+$$(1+y)^\alpha = \sum_{n\ge0} \binom{\alpha}{n} y^n, \qquad \binom{\alpha}{n} := \frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}.$$
+Take $\alpha = -r$, $y=-x$: $\binom{-r}{n}(-1)^n = \dfrac{(-r)(-r-1)\cdots(-r-n+1)}{n!}(-1)^n = \dfrac{r(r+1)\cdots(r+n-1)}{n!} = \binom{n+r-1}{n} = \binom{n+r-1}{r-1}$. Hence $(1-x)^{-r} = \sum_{n\ge0}\binom{n+r-1}{r-1}x^n$ — reproducing Theorem 2.1 purely algebraically, with no combinatorial argument at all. This is the generating-function *proof* of Stars and Bars, complementing the bijective proof of §2.1.
+
+**Remark (OGF vs. EGF).** The table above concerns *ordinary* generating functions, appropriate when we are counting unlabeled or unordered structures (or extracting raw coefficients). When objects being combined are *labeled* and order-sensitive interleavings matter (as in permutations), the natural tool is instead the **exponential generating function** $\hat A(x) = \sum a_n \frac{x^n}{n!}$ — for instance, $\hat{}$-GF of $n! \leftrightarrow \frac{1}{1-x}$ while the derangement numbers satisfy $\hat D(x) = \frac{e^{-x}}{1-x}$. We do not develop EGF machinery further here, but flag it as the natural next tool beyond this treatise.
+
+---
+
+### 5.3 Coefficient Extraction
+
+**Trick.** Once a counting sequence is recognized as $[x^n]$ of some closed-form generating function, the problem reduces to algebraic manipulation: partial fractions (for rational functions, isolating simple poles), the Generalized Binomial Theorem (for $(1\pm x)^\alpha$-type factors), or known series expansions ($e^x$, $\ln(1-x)$, etc.).
+
+**Example 5.1.** Recover the bounded Stars-and-Bars count of §2.2 via generating functions: the number of solutions to $x_1+x_2+x_3=n$ with each $0 \le x_i \le 4$ is $[x^n]\,(1+x+x^2+x^3+x^4)^3 = [x^n]\left(\dfrac{1-x^5}{1-x}\right)^3$. Expanding, $(1-x^5)^3(1-x)^{-3} = \left(\sum_{j=0}^3 \binom3j(-1)^jx^{5j}\right)\left(\sum_{m\ge0}\binom{m+2}{2}x^m\right)$, and for a given $n$ one reads off $[x^n] = \sum_j (-1)^j\binom3j\binom{n-5j+2}{2}$ (terms with $5j>n$ vanish) — precisely the PIE formula of §2.2, now derived as an automatic consequence of multiplying two known series rather than as a fresh combinatorial argument.
+
+---
+
+### 5.4 Catalan Numbers
+
+> **Definition 5.1.** The **Catalan numbers** $C_0, C_1, C_2, \ldots$ are defined by $C_0 = 1$ and the recurrence
+> $$C_n = \sum_{i=0}^{n-1} C_i\, C_{n-1-i}, \qquad n \ge 1.$$
+
+The Catalan numbers are the single most ubiquitous integer sequence in enumerative combinatorics after the binomial coefficients themselves; the recurrence above arises, essentially unchanged, from at least the following combinatorial models:
+
+- **Balanced bracket sequences.** $C_n$ counts sequences of $n$ pairs of balanced parentheses, e.g. for $n=2$: `()()`, `(())`. (The recurrence: split at the position where the first bracket closes, after some $i$ balanced pairs nested inside it and $n-1-i$ balanced pairs following it.)
+- **Monotone lattice paths.** $C_n$ counts paths from $(0,0)$ to $(n,n)$ using unit right/up steps that never rise strictly above the diagonal $y=x$.
+- **Triangulations of a convex polygon.** $C_n$ counts triangulations of a convex $(n+2)$-gon into $n$ triangles using non-crossing diagonals.
+- **Binary trees.** $C_n$ counts binary trees with $n$ internal (non-leaf) nodes.
+
+> **Theorem 5.1 (Closed form).** $\displaystyle C_n = \frac{1}{n+1}\binom{2n}{n}.$
+
+We give the full generating-function derivation of this closed form as our first Challenge Problem below, exactly as requested by a purely-analytic route (no combinatorial bijection to the binomial coefficient is used).
+
+---
+
+### 5.5 Challenge Problems
+
+> **Challenge Problem 5.1.** Derive $\displaystyle C_n = \frac{1}{n+1}\binom{2n}{n}$ using only the Catalan recurrence, its generating function, and the Generalized Binomial Theorem.
+
+*Solution.* Let $C(x) = \sum_{n\ge0} C_n x^n$. The recurrence $C_n = \sum_{i=0}^{n-1} C_i C_{n-1-i}$ (for $n\ge1$) says that the sequence $(C_n)_{n\ge1}$ is the convolution of $(C_n)_{n\ge0}$ with itself, shifted up by one index — precisely the statement $\sum_{n\ge1} C_n x^n = x\, C(x)^2$ (multiplying by $x$ implements the "shift by one" and $C(x)^2$ implements the convolution, by the multiplication rule of §5.1). Since $\sum_{n\ge1}C_nx^n = C(x)-C_0 = C(x)-1$, we get the **functional equation**
+$$C(x) - 1 = x\,C(x)^2 \quad\Longleftrightarrow\quad x\,C(x)^2 - C(x) + 1 = 0.$$
+
+Solving this quadratic (in the unknown $C(x)$) via the quadratic formula:
+$$C(x) = \frac{1 \pm \sqrt{1-4x}}{2x}.$$
+We must choose the sign so that $C(x)$ is finite (equal to $C_0=1$) as $x \to 0$. Expanding $\sqrt{1-4x} = 1 - 2x - 2x^2 - \cdots$ near $x=0$: the "$+$" branch gives $\dfrac{1+\sqrt{1-4x}}{2x} \to \dfrac{2}{2x} \to \infty$ — discard it. The "$-$" branch gives a removable singularity:
+$$C(x) = \frac{1-\sqrt{1-4x}}{2x}.$$
+
+Now expand $\sqrt{1-4x} = (1-4x)^{1/2}$ via the Generalized Binomial Theorem: $(1-4x)^{1/2} = \sum_{k\ge0}\binom{1/2}{k}(-4x)^k$. For $k \ge 1$,
+$$\binom{1/2}{k} = \frac{\frac12\left(-\frac12\right)\left(-\frac32\right)\cdots\left(\frac12-k+1\right)}{k!} = \frac{(-1)^{k-1}}{2^k\,k!}\cdot\bigl[1\cdot 3\cdot5\cdots(2k-3)\bigr],$$
+(the first factor $\tfrac12$ is positive; the remaining $k-1$ factors are negative, contributing sign $(-1)^{k-1}$). Using $1\cdot3\cdot5\cdots(2k-3) = \dfrac{(2k-2)!}{2^{k-1}(k-1)!}$ (splitting $(2k-2)!$ into its odd and even factors), we get
+$$\binom{1/2}{k} = \frac{(-1)^{k-1}}{2^k\,k!}\cdot\frac{(2k-2)!}{2^{k-1}(k-1)!} = \frac{(-1)^{k-1}(2k-2)!}{2^{2k-1}\,k!\,(k-1)!}.$$
+Multiplying by $(-4)^k = (-1)^k 2^{2k}$:
+$$\binom{1/2}{k}(-4)^k = \frac{(-1)^{2k-1}\cdot 2^{2k-(2k-1)}(2k-2)!}{k!(k-1)!} = \frac{-2\,(2k-2)!}{k!(k-1)!} = -\frac{2}{k}\binom{2k-2}{k-1}$$
+(using $\frac{(2k-2)!}{k!(k-1)!} = \frac1k\cdot\frac{(2k-2)!}{(k-1)!(k-1)!} = \frac1k\binom{2k-2}{k-1}$).
+
+So $(1-4x)^{1/2} = 1 - 2\sum_{k\ge1} \dfrac1k\binom{2k-2}{k-1}x^k$, giving
+$$1 - \sqrt{1-4x} = 2\sum_{k\ge1}\frac1k\binom{2k-2}{k-1}x^k \quad\Longrightarrow\quad C(x) = \frac{1-\sqrt{1-4x}}{2x} = \sum_{k\ge1}\frac1k\binom{2k-2}{k-1}x^{k-1}.$$
+Re-indexing $n=k-1$:
+$$C(x) = \sum_{n\ge0} \frac{1}{n+1}\binom{2n}{n}x^n \quad\Longrightarrow\quad C_n = \frac{1}{n+1}\binom{2n}{n}.$$
+*(Check: $C_0=1, C_1=1, C_2=2, C_3=5$, matching the recurrence directly.)* $\blacksquare$
+
+> **Challenge Problem 5.2.** Solve the linear recurrence $a_0=0,\ a_1=1,\ a_n = 4a_{n-1}-4a_{n-2}\ (n\ge2)$ using its ordinary generating function.
+
+*Solution.* Let $A(x)=\sum_{n\ge0}a_nx^n$. Multiply the recurrence $a_n - 4a_{n-1}+4a_{n-2}=0$ (valid for $n\ge2$) by $x^n$ and sum over $n \ge 2$:
+$$\sum_{n\ge2}a_nx^n - 4x\sum_{n\ge2}a_{n-1}x^{n-1} + 4x^2\sum_{n\ge2}a_{n-2}x^{n-2} = 0$$
+$$\bigl(A(x)-a_0-a_1x\bigr) - 4x\bigl(A(x)-a_0\bigr) + 4x^2 A(x) = 0.$$
+Substituting $a_0=0,\ a_1=1$: $\bigl(A(x)-x\bigr) - 4xA(x) + 4x^2A(x) = 0$, i.e. $A(x)\bigl(1-4x+4x^2\bigr) = x$. Since $1-4x+4x^2=(1-2x)^2$,
+$$A(x) = \frac{x}{(1-2x)^2}.$$
+By the Generalized Binomial Theorem (or by differentiating $\frac{1}{1-y}=\sum y^n$ once, term-by-term, in $y$), $\dfrac{1}{(1-y)^2} = \sum_{n\ge0}(n+1)y^n$; setting $y=2x$:
+$$\frac{1}{(1-2x)^2} = \sum_{n\ge0}(n+1)2^n x^n \quad\Longrightarrow\quad A(x) = x\sum_{n\ge0}(n+1)2^nx^n = \sum_{m\ge1} m\,2^{m-1}x^m$$
+(re-indexing $m=n+1$). Hence
+$$a_n = n\cdot 2^{n-1} \quad (n \ge 0).$$
+*(Check: $a_1 = 1\cdot 1=1$ ✓; $a_2=4(1)-4(0)=4$, formula gives $2\cdot2=4$ ✓; $a_3=4(4)-4(1)=12$, formula gives $3\cdot4=12$ ✓.)* $\blacksquare$
+
+---
+
+## Appendix — Master Formula Sheet
+
+**Fundamental Principles**
+- Rule of Sum: disjoint cases add. Rule of Product: sequential independent-count stages multiply.
+
+**Part I — Basic Configurations**
+$$P(n,r) = \frac{n!}{(n-r)!}, \qquad \binom{n}{r} = \frac{n!}{r!(n-r)!}, \qquad \binom nr = \binom{n}{n-r}, \qquad \binom nr = \binom{n-1}{r-1}+\binom{n-1}{r}$$
+$$\text{Multiset permutations: } \frac{n!}{n_1!n_2!\cdots n_k!} \qquad\qquad \text{Circular: } (n-1)! \ \ \left[\text{bracelet: } \tfrac{(n-1)!}{2},\ n\ge3\right]$$
+$$\text{Bundle (together): } (n-k+1)!\,k! \qquad\qquad \text{Gap (apart): } (n-k)!\cdot P(n-k+1,k)$$
+
+**Part II — Distributions**
+$$\sum x_i = n,\ x_i\ge0:\ \binom{n+k-1}{k-1} \qquad\qquad \sum x_i=n,\ x_i\ge1:\ \binom{n-1}{k-1}$$
+$$\text{Upper-bounded PIE: } \sum_{S\subseteq[k]}(-1)^{|S|}\binom{n-\sum_{i\in S}(b_i+1)+k-1}{k-1}$$
+$$\text{Multinomial: } (x_1+\cdots+x_k)^n=\sum \binom{n}{n_1,\ldots,n_k}\prod x_i^{n_i}, \qquad \#\text{terms}=\binom{n+k-1}{k-1}$$
+
+*Twelvefold Way* — see table in §2.3 for all twelve cases (distinct/identical objects × distinct/identical boxes × arbitrary/injective/surjective).
+
+**Part III — PIE & Derangements**
+$$\left|\bigcup A_i\right| = \sum_{\emptyset\ne S}(-1)^{|S|+1}\left|\bigcap_{i\in S}A_i\right|$$
+$$D_n = n!\sum_{k=0}^n\frac{(-1)^k}{k!}, \qquad D_n = nD_{n-1}+(-1)^n, \qquad D_n=(n-1)(D_{n-1}+D_{n-2})$$
+$$\text{Surjections}(m,n) = \sum_{k=0}^n(-1)^k\binom nk(n-k)^m, \qquad S(m,n)=\frac{\text{Sur}(m,n)}{n!}$$
+$$\phi(N) = N\prod_{p\mid N}\left(1-\frac1p\right) \qquad\qquad \text{Ménage: } U_n=\sum_{k=0}^n(-1)^k\frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!,\ M_n=(n-1)!U_n$$
+
+**Part IV — Pigeonhole & Identities**
+$$\text{PHP: } N \text{ objects}, k \text{ boxes} \Rightarrow \text{some box} \ge \lceil N/k\rceil$$
+$$\sum_{k=0}^r\binom mk\binom n{r-k}=\binom{m+n}r \ \text{(Vandermonde)}, \qquad \sum_{i=r}^n\binom ir=\binom{n+1}{r+1}\ \text{(Hockey Stick)}, \qquad \sum_{k=0}^n\binom nk^2=\binom{2n}n$$
+
+**Part V — Generating Functions**
+$$\frac1{1-x}\leftrightarrow(1,1,1,\ldots), \qquad \frac1{(1-x)^r}\leftrightarrow\binom{n+r-1}{r-1}, \qquad (1+x)^n\leftrightarrow\binom nk$$
+$$C_n = \sum_{i=0}^{n-1}C_iC_{n-1-i},\quad C(x)=\frac{1-\sqrt{1-4x}}{2x}, \quad C_n=\frac1{n+1}\binom{2n}n$$
+
+---
+
+## Closing Remark — The Unifying Theme
+
+It is worth pausing, at the very end, on something remarkable that has happened quietly across Part V: a problem about counting — the most *discrete* possible kind of mathematics, where objects are indivisible and answers are integers — has been solved by borrowing the tools of *continuous* mathematics. We built a formal power series, treated it as an algebraic (indeed, analytic) object, applied the quadratic formula to it as though it were an ordinary real number, expanded a square root using a theorem originally about real exponents, and out fell an exact integer sequence, term by term.
+
+This is not a trick unique to the Catalan numbers. It is the governing idea of an entire branch of mathematics — *analytic combinatorics* — in which the coefficients of a generating function are recovered not just by algebraic expansion but by contour integration and the calculus of residues; in which asymptotics of combinatorial sequences (how fast does $D_n$, or $C_n$, or the number of graphs on $n$ vertices, actually grow?) are read off from the location and nature of a generating function's singularities on the complex plane; and in which a discrete symmetry-counting problem (as in Burnside's Lemma, invoked briefly in Part I) is resolved by summing an *analytic* average over a continuous group action.
+
+The lesson is this: the wall between "discrete" and "continuous" mathematics is far thinner than the undergraduate curriculum suggests. A sequence of integers is, secretly, a function; a counting identity is, secretly, an algebraic identity between power series; and the machinery of polynomials, roots, and calculus — built for the continuum — turns out to be exactly the right lens through which to view the finite and the exact. Whenever a combinatorics problem feels intractable by direct bijection or casework, it is always worth asking: *what does this look like as a coefficient?*
+
+$\blacksquare$

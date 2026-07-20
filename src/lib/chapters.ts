@@ -25,11 +25,10 @@ export const renderedPages = [
     { slug: "integration" },
     { slug: "series-and-transformations" },
     { slug: "number-theory" },
-    // linear algebra : eigenvector eigen val
-    // vector space
+    { slug: "linear-algebra" },
+    { slug: "probablity-theory" },
     // theory of eqn
     // co ordinate geo
-    // random var, statictics
 ] satisfies { slug: string }[];
 
 // * ============================= * ============================= * //
@@ -63,6 +62,8 @@ export const chapters: Section[] = [
                 slug: "series-and-transformations",
                 title: "Series and Transforms: Taylor, Fourier, and Laplace Methods",
             },
+            { slug: "linear-algebra", title: "Linear Algebra" },
+            { slug: "probablity-theory", title: "Probability Theory" },
             // { slug: "sss", title: "ttt" },
         ],
     },
