@@ -163,3 +163,11 @@ em strong {
         margin: 0;
     }
 }
+
+/*
+    latex
+*/
+.katex-display {
+    height: fit-content;
+    overflow: auto hidden;
+}
