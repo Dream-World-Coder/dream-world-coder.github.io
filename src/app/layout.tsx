@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     description,
     keywords,
 
+    alternates: {
+        canonical: url,
+    },
+
     icons: {
         icon: [
             {
@@ -63,7 +67,7 @@ export default function RootLayout({
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
-            url: "https://dream-world-coder.github.io",
+            url: `${url}/author`,
         },
     };
 

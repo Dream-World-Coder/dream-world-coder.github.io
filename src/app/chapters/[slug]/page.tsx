@@ -25,6 +25,7 @@ import {
     parseTableOfContents,
     TableOfContents,
 } from "@/components/TablesOfContent";
+import { url } from "@/lib/data";
 
 // * ============================= * ============================= * //
 const getPageMetadata = (content: string): ParsedMetaData => {
@@ -64,12 +65,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { slug } = await params;
     const { metaData } = getCachedChapter(slug);
+    const pageUrl = `${url}/chapters/${slug}`;
 
     return {
         title: metaData.title,
         description: metaData.description,
         keywords: metaData.tags,
         authors: metaData.authors.map((name) => ({ name })),
+        alternates: {
+            canonical: pageUrl,
+        },
         openGraph: {
             title: metaData.title,
             description: metaData.description,
@@ -78,6 +83,7 @@ export async function generateMetadata({
             modifiedTime: metaData.dateEdited,
             authors: metaData.authors,
             tags: metaData.tags,
+            url: pageUrl,
         },
     };
 }

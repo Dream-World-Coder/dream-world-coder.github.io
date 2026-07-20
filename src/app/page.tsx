@@ -2,7 +2,7 @@ import { CornerPlusIcons } from "@/components/Decorum";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function HomePage() {
     return (
         <div className="flex md:items-center justify-center size-full h-screen py-4 md:py-0">
             <section

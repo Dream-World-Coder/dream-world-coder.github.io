@@ -11,11 +11,12 @@ export const metadata: Metadata = {
     description,
     keywords,
     robots: { index: true, follow: true },
+    alternates: { canonical: `${url}/chapters` },
 
     openGraph: {
         title,
         description,
-        url,
+        url: `${url}/chapters`,
         images: [`${url}/preview.png`],
     },
 };
@@ -25,14 +26,14 @@ export default async function IndexPage() {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: title,
-        url,
+        url: `${url}/chapters`,
         description,
         keywords,
         image: `${url}/preview.png`,
         author: {
             "@type": "Person",
             name: "Subhajit Gorai",
-            url,
+            url: `${url}/author`,
         },
         breadcrumb: {
             "@type": "BreadcrumbList",
@@ -41,7 +42,7 @@ export default async function IndexPage() {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: url,
+                    item: `${url}/chapters`,
                 },
             ],
         },
