@@ -448,7 +448,7 @@ The lookup is *content-addressed* because compatibility is learned from $q_i$ an
 ![i#w.400](/images/transformer/d3.png)
 
 **Structural Block Diagram — the full Decoder ($N$ layers):**
-![i#w.400](/images/transformer/d4.png)
+![i#w.450](/images/transformer/d4.png)
 
 **Implementation Note.** This matches `TransformerDecoderLayer.forward` (three residual sub-layers, `norm1`/`norm2`/`norm3` applied in Post-LN order exactly as in Part 2.2) and `Decoder.forward` (embedding, scaling, positional encoding, sequential layer stack each receiving the *same* `memory` tensor, final `LayerNorm`).
 
@@ -874,6 +874,6 @@ if __name__ == "__main__":
 
 ## References and Reading Notes
 
-1. Vaswani, A., Shazeer, N., Parmar, N., *et al.* (2017). [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762). The primary source for the scaled dot-product formula, multi-head construction, sinusoidal encodings, Post-LN sub-layers, and decoder masking.
-2. Alammar, J. (2018; updated). [*The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/). Used here for pedagogical intuition about projected queries, keys, values, multiple representation subspaces, and decoder focus; the mathematical claims in this text are established independently by the equations above.
-3. Rush, S. (2018). [*The Annotated Transformer*](https://nlp.seas.harvard.edu/annotated-transformer/). A valuable code-oriented companion to the original paper. It is particularly useful for comparing vectorized attention, masks, residual wrappers, and the distinction between a pedagogical implementation and a historical architecture specification.
+1. Vaswani, A., Shazeer, N., Parmar, N., *et al.* (2017). [Attention Is All You Need](https://arxiv.org/abs/1706.03762). The primary source for the scaled dot-product formula, multi-head construction, sinusoidal encodings, Post-LN sub-layers, and decoder masking.
+2. Alammar, J. (2018; updated). [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/). Used here for pedagogical intuition about projected queries, keys, values, multiple representation subspaces, and decoder focus; the mathematical claims in this text are established independently by the equations above.
+3. Rush, S. (2018). [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/). A valuable code-oriented companion to the original paper. It is particularly useful for comparing vectorized attention, masks, residual wrappers, and the distinction between a pedagogical implementation and a historical architecture specification.
