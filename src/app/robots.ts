@@ -1,6 +1,7 @@
 export const dynamic = "force-static";
 
 import type { MetadataRoute } from "next";
+import { url } from "@/lib/data";
 
 export default function robots(): MetadataRoute.Robots {
     return {
@@ -10,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
                 allow: "/",
             },
         ],
-        sitemap: "https://dream-world-coder.github.io/sitemap.xml",
-        host: "https://dream-world-coder.github.io",
+        sitemap: `${url}/sitemap.xml`,
+        host: `${url}`,
     };
 }

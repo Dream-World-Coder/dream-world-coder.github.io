@@ -3,6 +3,8 @@
  * Or Recent Activity that is not a project
  */
 
+import { url } from "@/lib/data";
+
 export interface ActivityDataInterface {
     title: string;
     period?: string; //"Dec 2025 – present" // not rendered
@@ -212,7 +214,7 @@ export const activityData: ActivityDataInterface[] = [
             },
             {
                 label: "Live",
-                href: "https://dream-world-coder.github.io/rule110/",
+                href: `${url}/rule110/`,
             },
         ],
         description: "VibeCoded a rule110 visualiser.",
