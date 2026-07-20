@@ -1,14 +1,10 @@
 <!--metadata
   title: "Permutations and Combinations"
-  authors: ["Subhajit Gorai", "claude.ai"]
+  authors: ["Subhajit Gorai"]
   dateCreated: "20/07/2026"
   dateEdited: "20/07/2026"
   description: "From First Principles to Generating Functions — For the JEE Advanced, ISI/CMI Entrance, and Olympiad Aspirant"
-  tags: [""]
--->
-
-<!--
-@uses drafts/pnc-better-prompt.md
+  tags: ["permutations and combinations", "pnc", "mathematics", "olympiad", "jee", "isi", "iit", "gate", "ml"]
 -->
 
 # Permutations and Combinations: A Rigorous Treatise on Combinatorics
@@ -646,30 +642,39 @@ $$a_n = n\cdot 2^{n-1} \quad (n \ge 0).$$
 - Rule of Sum: disjoint cases add. Rule of Product: sequential independent-count stages multiply.
 
 **Part I — Basic Configurations**
-$$P(n,r) = \frac{n!}{(n-r)!}, \qquad \binom{n}{r} = \frac{n!}{r!(n-r)!}, \qquad \binom nr = \binom{n}{n-r}, \qquad \binom nr = \binom{n-1}{r-1}+\binom{n-1}{r}$$
-$$\text{Multiset permutations: } \frac{n!}{n_1!n_2!\cdots n_k!} \qquad\qquad \text{Circular: } (n-1)! \ \ \left[\text{bracelet: } \tfrac{(n-1)!}{2},\ n\ge3\right]$$
-$$\text{Bundle (together): } (n-k+1)!\,k! \qquad\qquad \text{Gap (apart): } (n-k)!\cdot P(n-k+1,k)$$
+$$P(n,r) = \frac{n!}{(n-r)!}, \qquad \binom{n}{r} = \frac{n!}{r!(n-r)!}, \qquad \binom nr = \binom{n}{n-r}, \\ \binom nr = \binom{n-1}{r-1}+\binom{n-1}{r}$$
+
+$$\text{Multiset permutations: } \frac{n!}{n_1!n_2!\cdots n_k!} \\ \text{Circular: } (n-1)!  \qquad\qquad \text{bracelet: } \tfrac{(n-1)!}{2},\ n\ge3$$
+
+$$\text{Bundle (together): } (n-k+1)!\,k! \\ \text{Gap (apart): } (n-k)!\cdot P(n-k+1,k)$$
 
 **Part II — Distributions**
 $$\sum x_i = n,\ x_i\ge0:\ \binom{n+k-1}{k-1} \qquad\qquad \sum x_i=n,\ x_i\ge1:\ \binom{n-1}{k-1}$$
+
 $$\text{Upper-bounded PIE: } \sum_{S\subseteq[k]}(-1)^{|S|}\binom{n-\sum_{i\in S}(b_i+1)+k-1}{k-1}$$
-$$\text{Multinomial: } (x_1+\cdots+x_k)^n=\sum \binom{n}{n_1,\ldots,n_k}\prod x_i^{n_i}, \qquad \#\text{terms}=\binom{n+k-1}{k-1}$$
+
+$$\text{Multinomial: } (x_1+\cdots+x_k)^n=\sum \binom{n}{n_1,\ldots,n_k}\prod x_i^{n_i}, \; \#\text{terms}=\binom{n+k-1}{k-1}$$
 
 *Twelvefold Way* — see table in §2.3 for all twelve cases (distinct/identical objects × distinct/identical boxes × arbitrary/injective/surjective).
 
 **Part III — PIE & Derangements**
 $$\left|\bigcup A_i\right| = \sum_{\emptyset\ne S}(-1)^{|S|+1}\left|\bigcap_{i\in S}A_i\right|$$
+
 $$D_n = n!\sum_{k=0}^n\frac{(-1)^k}{k!}, \qquad D_n = nD_{n-1}+(-1)^n, \qquad D_n=(n-1)(D_{n-1}+D_{n-2})$$
+
 $$\text{Surjections}(m,n) = \sum_{k=0}^n(-1)^k\binom nk(n-k)^m, \qquad S(m,n)=\frac{\text{Sur}(m,n)}{n!}$$
-$$\phi(N) = N\prod_{p\mid N}\left(1-\frac1p\right) \qquad\qquad \text{Ménage: } U_n=\sum_{k=0}^n(-1)^k\frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!,\ M_n=(n-1)!U_n$$
+
+$$\phi(N) = N\prod_{p\mid N}\left(1-\frac1p\right) \\ \text{Ménage: } U_n=\sum_{k=0}^n(-1)^k\frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!,\ M_n=(n-1)!U_n$$
 
 **Part IV — Pigeonhole & Identities**
 $$\text{PHP: } N \text{ objects}, k \text{ boxes} \Rightarrow \text{some box} \ge \lceil N/k\rceil$$
-$$\sum_{k=0}^r\binom mk\binom n{r-k}=\binom{m+n}r \ \text{(Vandermonde)}, \qquad \sum_{i=r}^n\binom ir=\binom{n+1}{r+1}\ \text{(Hockey Stick)}, \qquad \sum_{k=0}^n\binom nk^2=\binom{2n}n$$
+
+$$\sum_{k=0}^r\binom mk\binom n{r-k}=\binom{m+n}r \ \text{(Vandermonde)}, \\ \sum_{i=r}^n\binom ir=\binom{n+1}{r+1}\ \text{(Hockey Stick)}, \\ \sum_{k=0}^n\binom nk^2=\binom{2n}n$$
 
 **Part V — Generating Functions**
-$$\frac1{1-x}\leftrightarrow(1,1,1,\ldots), \qquad \frac1{(1-x)^r}\leftrightarrow\binom{n+r-1}{r-1}, \qquad (1+x)^n\leftrightarrow\binom nk$$
-$$C_n = \sum_{i=0}^{n-1}C_iC_{n-1-i},\quad C(x)=\frac{1-\sqrt{1-4x}}{2x}, \quad C_n=\frac1{n+1}\binom{2n}n$$
+$$\frac1{1-x}\leftrightarrow(1,1,1,\ldots), \qquad \frac1{(1-x)^r}\leftrightarrow\binom{n+r-1}{r-1}, \\ (1+x)^n\leftrightarrow\binom nk$$
+
+$$C_n = \sum_{i=0}^{n-1}C_iC_{n-1-i},\qquad C(x)=\frac{1-\sqrt{1-4x}}{2x}, \\ C_n=\frac1{n+1}\binom{2n}n$$
 
 ---
 
