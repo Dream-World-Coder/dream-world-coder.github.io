@@ -17,6 +17,7 @@ export const renderedPages = [
     { slug: "minima-extraction" },
 
     { slug: "gemma" },
+    { slug: "transformer" },
 
     { slug: "markdown" },
     { slug: "interview" },
@@ -82,7 +83,16 @@ export const chapters: Section[] = [
         ],
     },
 
-    { title: "ML & DL", chapters: [{ slug: "gemma", title: "Gemma" }] },
+    {
+        title: "ML & DL",
+        chapters: [
+            { slug: "gemma", title: "Gemma" },
+            {
+                slug: "transformer",
+                title: "Transformer Architecture: Encoder–Decoder Mechanisms",
+            },
+        ],
+    },
 
     {
         title: "Dev & Backend Systems",
