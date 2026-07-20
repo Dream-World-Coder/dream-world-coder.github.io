@@ -1,12 +1,12 @@
+// sitemap.ts
 export const dynamic = "force-static";
 
 import type { MetadataRoute } from "next";
 import fs from "fs";
-import path from "path";
+import { url as baseUrl } from "@/lib/data";
+import { getFileMap } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = "https://dream-world-coder.github.io";
-
     const staticRoutes: MetadataRoute.Sitemap = [
         {
             url: `${baseUrl}/`,
@@ -22,16 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // read content/chapters file names & remove .md
-    const chaptersDir = path.join(process.cwd(), "content", "chapters");
+    const fileMap = getFileMap();
 
-    const chapterSlugs: string[] = fs
-        .readdirSync(chaptersDir)
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => file.replace(/\.md$/, ""));
-
-    const chapterRoutes: MetadataRoute.Sitemap = chapterSlugs.map((slug) => {
-        const filePath = path.join(chaptersDir, `${slug}.md`);
+    const chapterRoutes: MetadataRoute.Sitemap = Array.from(
+        fileMap.entries(),
+    ).map(([slug, filePath]) => {
         const stats = fs.statSync(filePath);
 
         return {

@@ -4,7 +4,7 @@ import path from "path";
 const contentDirectory = path.join(process.cwd(), "content");
 const chaptersDir = path.join(contentDirectory, "chapters");
 
-// Recursive helper
+// dfs traverse
 function getAllFiles(dir: string, fileList: string[] = []): string[] {
     if (!fs.existsSync(dir)) return fileList;
 
@@ -20,8 +20,8 @@ function getAllFiles(dir: string, fileList: string[] = []): string[] {
     return fileList;
 }
 
-// Generate a map of slug -> file path and catch conflicts
-function getFileMap(): Map<string, string> {
+// get a map of slug -> file path and catch conflicts
+export function getFileMap(): Map<string, string> {
     const allFiles = getAllFiles(chaptersDir);
     const fileMap = new Map<string, string>();
 
