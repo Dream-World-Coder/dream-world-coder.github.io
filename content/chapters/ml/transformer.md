@@ -21,24 +21,24 @@ Four parts follow. Part 1 establishes the atomic operation — Scaled Dot-Produc
 
 ## Table of Contents
 
-- [Conventions and Notation](#conventions-and-notation)
-- [Part 1 — The Core Mechanism: Scaled Dot-Product & Multi-Head Attention](#part-1--the-core-mechanism-scaled-dot-product--multi-head-attention)
-  - [1.1 Scaled Dot-Product Attention](#11-scaled-dot-product-attention)
-  - [1.2 Derivation of the Scaling Factor](#12-derivation-of-the-scaling-factor-1sqrtdk)
-  - [1.3 Multi-Head Attention](#13-multi-head-attention)
-- [Part 2 — The Encoder Architecture](#part-2--the-encoder-architecture)
-  - [2.1 Sub-layer 1: Multi-Head Self-Attention](#21-sub-layer-1-multi-head-self-attention)
-  - [2.2 Residual Connections and Layer Normalization](#22-residual-connections-and-layer-normalization)
-  - [2.3 Sub-layer 2: Position-wise Feed-Forward Networks](#23-sub-layer-2-position-wise-feed-forward-networks)
-  - [2.4 Positional Encoding](#24-positional-encoding)
-  - [2.5 The Full Encoder Stack](#25-the-full-encoder-stack)
-- [Part 3 — The Decoder Architecture & The Interaction Layer](#part-3--the-decoder-architecture--the-interaction-layer)
-  - [3.1 Masked Multi-Head Self-Attention](#31-masked-multi-head-self-attention)
-  - [3.2 Encoder–Decoder Cross-Attention](#32-encoderdecoder-cross-attention)
-  - [3.3 The Full Decoder Stack](#33-the-full-decoder-stack)
-  - [3.4 Linear and Softmax Projection Layer](#34-linear-and-softmax-projection-layer)
-- [Part 4 — Minimal, Functional PyTorch Implementation](#part-4--minimal-functional-pytorch-implementation)
-- [References and Reading Notes](#references-and-reading-notes)
+- Conventions and Notation 
+- Part 1 — The Core Mechanism: Scaled Dot-Product & Multi-Head Attention 
+  - 1.1 Scaled Dot-Product Attention 
+  - 1.2 Derivation of the Scaling Factor 
+  - 1.3 Multi-Head Attention 
+- Part 2 — The Encoder Architecture 
+  - 2.1 Sub-layer 1: Multi-Head Self-Attention 
+  - 2.2 Residual Connections and Layer Normalization 
+  - 2.3 Sub-layer 2: Position-wise Feed-Forward Networks 
+  - 2.4 Positional Encoding 
+  - 2.5 The Full Encoder Stack 
+- Part 3 — The Decoder Architecture & The Interaction Layer 
+  - 3.1 Masked Multi-Head Self-Attention 
+  - 3.2 Encoder–Decoder Cross-Attention 
+  - 3.3 The Full Decoder Stack 
+  - 3.4 Linear and Softmax Projection Layer 
+- Part 4 — Minimal, Functional PyTorch Implementation 
+- References and Reading Notes 
 
 ---
 
@@ -358,10 +358,10 @@ independent of $pos$ itself. Vaswani et al. (2017, §3.5) conjecture this proper
 ### 2.5 The Full Encoder Stack
 
 **Structural Block Diagram — one Encoder layer:**
-![i](/images/transformer/d1.png)
+![i#w.400](/images/transformer/d1.png)
 
 **Structural Block Diagram — the full Encoder ($N$ layers):**
-![i](/images/transformer/d2.png)
+![i#w.400](/images/transformer/d2.png)
 
 **Implementation Note.** This diagram corresponds exactly to `Encoder.forward`: embedding lookup and scaling, positional encoding addition (with dropout, folded into `PositionalEncoding`), an `nn.ModuleList` of `N` = `n_layers` stacked `TransformerEncoderLayer` instances applied sequentially, and a final `self.norm(x)` — an additional normalization applied to the output of the entire stack, standard in implementations though not always drawn as a distinct step in illustrative diagrams of the original paper.
 
@@ -445,10 +445,10 @@ The lookup is *content-addressed* because compatibility is learned from $q_i$ an
 ### 3.3 The Full Decoder Stack
 
 **Structural Block Diagram — one Decoder layer:**
-![i](/images/transformer/d3.png)
+![i#w.400](/images/transformer/d3.png)
 
 **Structural Block Diagram — the full Decoder ($N$ layers):**
-![i](/images/transformer/d4.png)
+![i#w.400](/images/transformer/d4.png)
 
 **Implementation Note.** This matches `TransformerDecoderLayer.forward` (three residual sub-layers, `norm1`/`norm2`/`norm3` applied in Post-LN order exactly as in Part 2.2) and `Decoder.forward` (embedding, scaling, positional encoding, sequential layer stack each receiving the *same* `memory` tensor, final `LayerNorm`).
 
