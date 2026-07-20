@@ -94,8 +94,8 @@ to the $k$-th layer of inclusion–exclusion — the combinatorial factor cancel
 **Definition 1.5 (Independence).** $A, B$ are independent if $P(A \cap B) = P(A)P(B)$. Events $A_1, \dots, A_n$ are **mutually independent** if for every subset $I \subseteq \{1,\dots,n\}$ with $|I|\ge2$, $P\left(\bigcap_{i\in I} A_i\right) = \prod_{i \in I} P(A_i)$ — a strictly stronger condition than pairwise independence.
 
 **Remark (Pairwise $\neq$ Mutual, made explicit).** Toss two fair coins independently, so $\Omega=\{HH,HT,TH,TT\}$ with each outcome having probability $1/4$. Let $A=\{HH,HT\}$ (first coin H), $B=\{HH,TH\}$ (second coin H), $C=\{HH,TT\}$ (both coins agree). Then $P(A)=P(B)=P(C)=1/2$, and in fact $A\cap B = A\cap C = B\cap C = \{HH\}$, so
-$$P(A\cap B)=P(A\cap C)=P(B\cap C)=\tfrac14=P(A)P(B)=P(A)P(C)=P(B)P(C):\quad\textbf{pairwise independent.}$$
-Yet $A\cap B\cap C=\{HH\}$ too, so $P(A\cap B\cap C)=\tfrac14\ne\tfrac18=P(A)P(B)P(C)$: **not mutually independent**. The failure is driven entirely by the fact that any two of $A,B,C$ logically determine the third.
+$$P(A\cap B)=P(A\cap C)=P(B\cap C)=\frac{1}{4}=P(A)P(B)=P(A)P(C)=P(B)P(C):\quad\textbf{pairwise independent.}$$
+Yet $A\cap B\cap C=\{HH\}$ too, so $P(A\cap B\cap C)=\frac{1}{4}\ne\frac{1}{8}=P(A)P(B)P(C)$: **not mutually independent**. The failure is driven entirely by the fact that any two of $A,B,C$ logically determine the third.
 
 ### 1.4 Bayes' Theorem and Total Probability
 
@@ -110,7 +110,7 @@ Yet $A\cap B\cap C=\{HH\}$ too, so $P(A\cap B\cap C)=\tfrac14\ne\tfrac18=P(A)P(B
 **Trick 2 (Sequential Conditioning / Chain Rule).** $P(A_1 \cap \cdots \cap A_n) = P(A_1)P(A_2\mid A_1) \cdots P(A_n \mid A_1 \cap \cdots \cap A_{n-1})$ — indispensable for problems involving sequential draws without replacement.
 
 **Trick 3 (Absorbing Markov Chains for Exact Probabilities).** Gambler's ruin-type problems: let $p_i$ be the probability of eventual absorption at state $N$ starting from $i$, with $p_i = p\, p_{i+1} + q\, p_{i-1}$ ($q=1-p$), $p_0=0$, $p_N=1$. The characteristic equation of this linear recurrence is $px^2-x+q=0$; since $1-4pq=(p-q)^2$, the roots are $x=1$ and $x=q/p$. Solving with the boundary conditions gives closed forms in each case:
-$$p_i = \frac{1-(q/p)^i}{1-(q/p)^N}\quad(p\ne q), \qquad\qquad p_i=\frac{i}{N}\quad(p=q=\tfrac12,\text{ a double root at }x=1).$$
+$$p_i = \frac{1-(q/p)^i}{1-(q/p)^N}\quad(p\ne q), \qquad\qquad p_i=\frac{i}{N}\quad(p=q=\frac{1}{2},\text{ a double root at }x=1).$$
 
 **Challenge Problem 1.1.** A fair die is rolled repeatedly. Find the probability that the sequence of rolls contains the pattern $(1,2,3)$ (in that order, consecutively) before it contains the pattern $(1,1)$.
 
@@ -262,7 +262,7 @@ Since $X\perp Y$, $f_{T,Y}(t,y)=f_X(ty)f_Y(y)|y|=\dfrac{1}{2\pi}|y|\,e^{-y^2(1+t
 $$f_T(t)=\frac{1}{\pi}\int_0^\infty y\,e^{-y^2(1+t^2)/2}\,dy=\frac{1}{\pi}\cdot\frac{1}{1+t^2}\int_0^\infty e^{-u}\,du=\frac{1}{\pi(1+t^2)},$$
 using the substitution $u=y^2(1+t^2)/2$, $du = y(1+t^2)\,dy$. This is exactly the standard Cauchy density.
 
-For the CLT failure: the characteristic function of standard Cauchy is $\phi(t)=e^{-|t|}$ (§3.2). For $\bar X_n=\frac1n\sum_{i=1}^n X_i$ with $X_i\stackrel{iid}{\sim}\mathrm{Cauchy}(0,1)$, independence gives
+For the CLT failure: the characteristic function of standard Cauchy is $\phi(t)=e^{-|t|}$ (§3.2). For $\bar X_n=\frac{1}{n}\sum_{i=1}^n X_i$ with $X_i\stackrel{iid}{\sim}\mathrm{Cauchy}(0,1)$, independence gives
 $$\phi_{\bar X_n}(t)=\left[\phi_X\!\left(\frac{t}{n}\right)\right]^n=\left[e^{-|t|/n}\right]^n=e^{-|t|}=\phi_X(t)\quad\text{for every }n.$$
 So $\bar X_n\stackrel{d}{=}X_1$ for *every* sample size — the sample mean never concentrates, in flagrant violation of the usual CLT conclusion. This is not a counterexample to the CLT (whose hypotheses require $E[X^2]<\infty$, in particular $E|X|<\infty$); it is a demonstration of *why* the hypothesis is needed: without a finite mean there is nothing for $\bar X_n$ to concentrate around, and Lévy's Continuity Theorem shows the characteristic functions witness this directly, rather than merely failing to prove convergence. $\blacksquare$
 
@@ -378,7 +378,7 @@ $$\mathbf{a}^T\Sigma\mathbf{a}=\mathrm{Var}(\mathbf{a}^T\mathbf{Y})\ge0.$$
 $\Sigma$ fails to be strictly positive *definite* exactly when some linear combination $\mathbf{a}^T\mathbf{Y}$ is almost-surely constant, i.e. the law of $\mathbf{Y}$ is **degenerate**, concentrated on a proper affine subspace of $\mathbb{R}^p$ (which has Lebesgue measure zero in $\mathbb{R}^p$, so no genuine $p$-dimensional density can exist there). This is exactly why Definition 5.3 below imposes $\Sigma\succ0$: the degenerate case is instead handled through the affine-image construction of Theorem 5.6.
 
 **Definition 5.3.** $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$, $\Sigma$ positive definite, has density
-$$f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left\{-\tfrac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\right\}.$$
+$$f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}} \exp\left\{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\right\}.$$
 
 **Theorem 5.6 (Affine transformations).** If $\mathbf{X}\sim N_p(\boldsymbol\mu,\Sigma)$ and $\mathbf{Y}=A\mathbf{X}+\mathbf{b}$ for a $q\times p$ matrix $A$, then $\mathbf{Y}\sim N_q(A\boldsymbol\mu+\mathbf{b},\, A\Sigma A^T)$ — the multivariate Normal family is closed under affine maps, with no rank restriction on $A$ (degenerate normals arise when $A\Sigma A^T$ is singular).
 
@@ -411,8 +411,8 @@ $$\mathrm{Cov}(\mathbf{X}^TA\mathbf{X},\mathbf{X}^TB\mathbf{X})=2\,\mathrm{tr}(A
 (Sanity check: $A=B=I_p,\Sigma=I_p$ gives $\mathrm{Var}(\chi^2_p)=2p$, correct.) If $A\Sigma B=0$ then certainly $\mathrm{tr}(A\Sigma B\Sigma)=\mathrm{tr}(0\cdot\Sigma)=0$, consistent with part (a)'s stronger conclusion. But the *converse* is genuinely weaker, because a matrix trace can vanish without the matrix itself vanishing: with $\Sigma=I$, $A=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$, $B=\begin{pmatrix}0&1\\1&0\end{pmatrix}$ (both symmetric), $AB=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$ has $\mathrm{tr}(AB)=0$ yet $AB\ne0$. So vanishing covariance — the second-moment shadow of Craig's condition — cannot by itself certify $A\Sigma B=0$. The full converse (necessity) of Craig's theorem is true, but it requires matching the *entire* joint moment generating function $E\big[e^{s\mathbf{X}^TA\mathbf{X}+t\mathbf{X}^TB\mathbf{X}}\big]=|I-2sA-2tB|^{-1/2}$ against the product $|I-2sA|^{-1/2}|I-2tB|^{-1/2}$ to **all** orders in $(s,t)$ — not merely the order-$st$ term that produces the covariance formula above — a genuinely more delicate argument that we do not pursue here. $\blacksquare$
 
 **(c)** Let $A=I_n-\frac{1}{n}J$ where $J=\mathbf{1}_n\mathbf{1}_n^T$ is the $n\times n$ all-ones matrix; $A$ is symmetric, and $A\mathbf{1}_n=\mathbf{1}_n-\frac{1}{n}(n\mathbf{1}_n)=\mathbf{0}$. With $\boldsymbol\mu=\mu\mathbf{1}_n$, $\Sigma=\sigma^2I_n$:
-$$\mathrm{tr}(A\Sigma)=\sigma^2\,\mathrm{tr}(A)=\sigma^2\Big[n-\tfrac{1}{n}\,\mathrm{tr}(J)\Big]=\sigma^2\Big[n-\tfrac{1}{n}\cdot n\Big]=\sigma^2(n-1),\qquad\qquad \boldsymbol\mu^TA\boldsymbol\mu=\mu^2\mathbf{1}_n^TA\mathbf{1}_n=\mu^2\mathbf{1}_n^T\mathbf{0}=0.$$
-So $E[\mathbf{X}^TA\mathbf{X}]=\sigma^2(n-1)$. But algebraically $\mathbf{X}^TA\mathbf{X}=\mathbf{X}^T\mathbf{X}-\frac1n(\mathbf{1}_n^T\mathbf{X})^2=\sum_iX_i^2-\frac1n\Big(\sum_iX_i\Big)^2=\sum_i(X_i-\bar X)^2$, so $E\big[\sum_i(X_i-\bar X)^2\big]=\sigma^2(n-1)$, i.e.
+$$\mathrm{tr}(A\Sigma)=\sigma^2\,\mathrm{tr}(A)=\sigma^2\Big[n-\frac{1}{n}\,\mathrm{tr}(J)\Big]=\sigma^2\Big[n-\frac{1}{n}\cdot n\Big]=\sigma^2(n-1),\qquad\qquad \boldsymbol\mu^TA\boldsymbol\mu=\mu^2\mathbf{1}_n^TA\mathbf{1}_n=\mu^2\mathbf{1}_n^T\mathbf{0}=0.$$
+So $E[\mathbf{X}^TA\mathbf{X}]=\sigma^2(n-1)$. But algebraically $\mathbf{X}^TA\mathbf{X}=\mathbf{X}^T\mathbf{X}-\frac{1}{n}(\mathbf{1}_n^T\mathbf{X})^2=\sum_iX_i^2-\frac{1}{n}\Big(\sum_iX_i\Big)^2=\sum_i(X_i-\bar X)^2$, so $E\big[\sum_i(X_i-\bar X)^2\big]=\sigma^2(n-1)$, i.e.
 $$E[S^2]=E\left[\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X)^2\right]=\sigma^2.$$
 $\blacksquare$
 
@@ -449,3 +449,19 @@ which manifestly does not depend on $\boldsymbol\theta$, giving the same factori
 | Beta($\alpha,\beta$) | $\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}$ | $\frac{\alpha}{\alpha+\beta}$ | $\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$ | (hypergeometric series) |
 | Cauchy($x_0,\gamma$) | $\frac{1}{\pi\gamma[1+(\frac{x-x_0}{\gamma})^2]}$ | undefined | undefined | does not exist |
 | $\chi^2_k$ | Gamma$(k/2, 1/2)$ | $k$ | $2k$ | $(1-2t)^{-k/2}, t<1/2$ |
+
+---
+
+## Closing Remark — The Unifying Theme
+
+Beneath the combinatorial identities and distributional families of this treatise lies a single structural fact: **the space of random variables with finite second moment, $L^2(\Omega,\mathcal{F},P)$, is a Hilbert space**, with inner product $\langle X, Y\rangle = E[XY]$. Under this lens:
+
+- **Expectation is an inner product with the constant function $1$**: $E[X] = \langle X, 1\rangle$.
+- **Variance is squared distance from the mean**: $\mathrm{Var}(X) = \|X - E[X]\|^2$.
+- **Covariance is an inner product between centered variables**, and correlation $\rho$ is precisely the cosine of the angle between $X-\mu_X$ and $Y-\mu_Y$ — explaining geometrically why Cauchy–Schwarz forces $|\rho|\le 1$, with equality exactly when the vectors are collinear (i.e., $Y$ is an affine function of $X$).
+- **Conditional expectation $E[Y\mid X]$ is the orthogonal projection** of $Y$ onto the closed subspace $M$ of $\sigma(X)$-measurable, finite-variance random variables — the random-variable analogue of projecting a vector onto a subspace in $\mathbb{R}^n$. Concretely: writing $\widehat Y=E[Y\mid X]$, the projection residual $Y-\widehat Y$ is orthogonal to every element of $M$, in particular to $\widehat Y - E[Y]\in M$ (constants are trivially $\sigma(X)$-measurable). The Pythagorean theorem applied to $(Y-\widehat Y)+(\widehat Y-E[Y])$ then gives $\|Y-E[Y]\|^2=\|Y-\widehat Y\|^2+\|\widehat Y-E[Y]\|^2$, i.e.
+$$\mathrm{Var}(Y)=\underbrace{E\big[\mathrm{Var}(Y\mid X)\big]}_{\|Y-\widehat Y\|^2\text{, via the tower property}}+\underbrace{\mathrm{Var}\big(E[Y\mid X]\big)}_{\|\widehat Y-E[Y]\|^2}$$
+— **Eve's Law is nothing but the Pythagorean theorem**, applied to this one projection.
+- **The multivariate Normal's covariance matrix $\Sigma$** plays the role of a Gram matrix / positive-definite quadratic form (§5.3's opening Remark makes this precise for *any* random vector, Gaussian or not), and orthogonal transformations preserving $\Sigma=I$ correspond exactly to the rotational symmetry of the standard multivariate Normal density — the content of Challenge Problems 5.1(d) and 5.2, where that symmetry is shown to separate a Gaussian vector cleanly into an independent radius and a uniformly-distributed direction.
+
+Probability theory, viewed this way, is measure theory (for existence and integration — Kolmogorov's axioms, Radon–Nikodym densities, $\sigma$-fields rich enough to avoid Vitali-type pathologies) married to linear algebra (for the geometry of dependence — positive-definite covariance matrices, orthogonal diagonalization, quadratic-form independence) — a synthesis worth carrying forward into statistical inference, where estimators are themselves often best understood as projections in this same $L^2$ space.
