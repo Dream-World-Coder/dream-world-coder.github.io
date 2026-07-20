@@ -660,7 +660,7 @@ which, relabeling $k'\to k$, is exactly the second butterfly formula. $\blacksqu
 
 **The "twiddle factor."** $W_N^k$ in the formula $X_k=E_k+W_N^kO_k$ is called the **twiddle factor** — it is the complex number by which the odd-half spectrum must be rotated (in the complex plane, it literally is a rotation, since $|W_N^k|=1$) before being combined with the even-half spectrum. The minus sign that appears for the "upper half" output $X_{k+M}$ comes at *no extra multiplication cost* — it's the same product $W_N^kO_k$, just added in one case and subtracted in the other. This add/subtract-a-shared-product structure, drawn as an X-shaped wiring diagram, is exactly why the operation is called a **butterfly**:
 
-```
+```txt
    E_k ────────●──────────────── X_k = E_k + W_N^k · O_k
                 \      +
                  \    ╱
@@ -670,6 +670,19 @@ which, relabeling $k'\to k$, is exactly the second butterfly formula. $\blacksqu
                   ╱  ╲
                  ╱    ╲    −
    O_k ──[×W_N^k]●──────────────  X_{k+M} = E_k − W_N^k · O_k
+```
+
+```mermaid
+graph LR
+    E_k["E_k"] --> Add(("+"))
+    E_k --> Sub(("-"))
+    
+    O_k["O_k"] --> W["× W_N^k"]
+    W --> Add
+    W --> Sub
+    
+    Add --> X_k["X_k"]
+    Sub --> X_kM["X_{k+M}"]
 ```
 
 **Recursive structure and the FFT algorithm.** Theorem 3.2 reduces one $N$-point DFT to two $M=N/2$-point DFTs plus $O(N)$ butterfly work (each of the $M$ butterflies is one multiplication and two additions). If $N$ is a power of $2$, we can *recurse*: split each of those two $M$-point DFTs into two $M/2$-point DFTs, and so on, all the way down to trivial $1$-point DFTs (a $1$-point DFT is just $X_0=x_0$ — no computation needed). At the bottom level, the recursion has re-ordered the original input into **bit-reversed order** (the sample originally at index $n$, written in binary, ends up at the index obtained by reversing that bit string) — a standard, purely-bookkeeping fact usually just stated and illustrated with a small example rather than proved in an engineering course, and one we follow that convention on here (Challenge Problem 3.1 walks through it concretely for $N=8$).
