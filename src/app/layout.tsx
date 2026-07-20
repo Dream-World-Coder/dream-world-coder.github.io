@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { title, description, keywords, url } from "@/lib/data";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -98,9 +98,9 @@ export default function RootLayout({
                     ) : (
                         children
                     )}
-                    <Analytics />
                 </body>
             </ThemeProvider>
+            <GoogleAnalytics gaId="G-B2KXQRNVK1" />
         </html>
     );
 }
