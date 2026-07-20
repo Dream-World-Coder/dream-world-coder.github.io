@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Chapters() {
+export default async function IndexPage() {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebPage",

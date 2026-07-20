@@ -86,7 +86,7 @@ export async function generateMetadata({
 // main page
 // * ============================= * ============================= * //
 
-export default async function ChapterPage({
+export default async function ArticlePage({
     params,
 }: {
     params: Promise<{ slug: string }>;
