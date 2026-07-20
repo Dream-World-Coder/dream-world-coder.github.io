@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ReactNode } from "react";
 
 import ReactMarkdown from "react-markdown";
@@ -214,57 +213,30 @@ interface MarkdownImageProps {
     // [key: string]: any;
 }
 
-const _MarkdownImage = (props: MarkdownImageProps) => {
-    const { src, alt, ...rest } = props;
-
-    if (!src || !alt) return <></>;
-
-    const { w, h, mt, mb, p } = getSettingsFromAlt(alt);
-    // console.log(w, h, mt, mb, p); // not working, all null
-
-    return (
-        <i
-            className="relative z-10 overflow-hidden flex items-center group"
-            style={{
-                justifyContent: p || "center",
-                marginTop: mt ? `${mt}px` : "35px",
-                marginBottom: mb ? `${mb}px` : "35px",
-            }}
-        >
-            <Image
-                className="relative object-contain"
-                style={{
-                    maxHeight: h ? `${h}px` : "468px",
-                    maxWidth: w ? `${w}px` : "468px",
-                }}
-                src={src}
-                alt={alt}
-                width={w || 468}
-                height={h || 468}
-                {...rest}
-            />
-        </i>
-    );
-};
-
 const MarkdownImage = (props: MarkdownImageProps) => {
     const { src, alt, ...rest } = props;
 
     if (!src || !alt) return <></>;
 
+    const { w, h, mt, mb, p } = getSettingsFromAlt(alt);
+
     return (
         <i
-            className="relative z-10 overflow-hidden flex items-center group"
+            className="relative z-10 overflow-hidden flex items-center group dark:invert"
             style={{
-                justifyContent: "center",
-                marginTop: "25px",
-                marginBottom: "25px",
+                justifyContent: p || "center",
+                marginTop: mt ? `${mt}px` : "25px",
+                marginBottom: mb ? `${mb}px` : "25px",
             }}
         >
-            <Image
+            <img
                 className="relative object-contain"
-                width={600}
-                height={350}
+                style={{
+                    maxWidth: w ? `${w}px` : "auto",
+                    maxHeight: h ? `${h}px` : "auto",
+                    width: w ? `${w}px` : "auto",
+                    height: h ? `${h}px` : "auto",
+                }}
                 src={src}
                 alt={alt}
                 {...rest}
