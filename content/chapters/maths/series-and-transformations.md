@@ -1,10 +1,10 @@
 <!--metadata
   title: "Series And Transformations"
-  authors: ["Subhajit", "claude.ai"]
+  authors: ["Subhajit Gorai"]
   dateCreated: "19/07/2026"
-  dateEdited: "19/07/2026"
+  dateEdited: "20/07/2026"
   description: "A treatise on power-series expansion and integral-transform methods, for the Working Engineer and Mathematician"
-  tags: [""]
+  tags: ["taylor series", "fourier series", "fourier transform", "laplace transform", "mathematics", "olympiad", "jee", "isi", "iit", "gate", "ml"]
 -->
 
 # Transform Methods: Series, Fourier, and Laplace

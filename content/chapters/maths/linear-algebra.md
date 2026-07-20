@@ -1,10 +1,10 @@
 <!--metadata
     title: "Linear Algebra"
-    authors: ["Subhajit", "claude.ai"]
+    authors: ["Subhajit Gorai"]
     dateCreated: "20/07/2026"
     dateEdited: "20/07/2026"
     description: "A structural and computational approach to vector spaces, matrix decompositions, and spectral theory — with a running statistical throughline — for ISI M.Stat, IIT JAM, and GATE Statistics entrance exams."
-    tags: ["linear algebra", "statistics", "mathematics"]
+    tags: ["linear algebra", "statistics", "mathematics", "olympiad", "jee", "isi", "iit", "gate", "ml"]
 -->
 
 # Linear Algebra

@@ -1,10 +1,10 @@
 <!--metadata
   title: "Number Theory"
-  authors: ["Subhajit", "claude.ai"]
+  authors: ["Subhajit Gorai"]
   dateCreated: "19/07/2026"
-  dateEdited: "19/07/2026"
+  dateEdited: "20/07/2026"
   description: "From First Principles to Olympiad and Research-Level Technique"
-  tags: [""]
+  tags: ["number theory", "mathematics", "olympiad", "jee", "isi", "iit", "gate", "ml"]
 -->
 
 # A Treatise on Number Theory
