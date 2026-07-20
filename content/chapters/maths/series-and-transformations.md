@@ -89,9 +89,9 @@ As before: read the proofs. Even the ones you are told to take on faith are wort
 
 ---
 
-# Part 1 — Taylor and Maclaurin Series
+## Part 1 — Taylor and Maclaurin Series
 
-## 1.1 Taylor's Theorem with Remainder
+### 1.1 Taylor's Theorem with Remainder
 
 The entire enterprise begins with a single question: if you know a function and all its derivatives at one point $a$, how well can you reconstruct the function *elsewhere* using only a polynomial built from that data?
 
@@ -164,7 +164,7 @@ $$
 $$
 So $P_3(0.3)=0.3-0.0045=0.2955$ is accurate to within about $3.4\times10^{-4}$ — and indeed $\sin(0.3)=0.29552\ldots$, comfortably inside the bound. $\blacksquare$
 
-## 1.2 The Maclaurin Series and the Standard Table
+### 1.2 The Maclaurin Series and the Standard Table
 
 **Definition 1.2 (Maclaurin Series).** The **Maclaurin series** of $f$ is simply its Taylor series about $a=0$:
 $$
@@ -210,7 +210,7 @@ $$
 $$
 Similarly, substituting $t=-x^2$ into the geometric series gives $\frac{1}{1+x^2}=\sum_{n=0}^\infty(-1)^nx^{2n}$, and integrating term by term yields $\arctan x=\sum_{n=0}^\infty\frac{(-1)^nx^{2n+1}}{2n+1}$. This "integrate a known series" technique is one of the most useful tricks in the whole chapter — see Section 1.5.
 
-## 1.3 Radius and Interval of Convergence
+### 1.3 Radius and Interval of Convergence
 
 A power series $\sum_{n=0}^\infty c_n(x-a)^n$ does not, in general, converge for all $x$. The set of $x$ for which it does converge is always an interval centered at $a$ (possibly a single point, possibly all of $\mathbb{R}$) — this is the content of the next theorem.
 
@@ -236,7 +236,7 @@ L=\lim_{n\to\infty}\left|\frac{c_{n+1}}{c_n}\right| = \lim_{n\to\infty}\frac{n\c
 $$
 so $R=4$; the series converges absolutely for $|x-3|<4$, i.e. $x\in(-1,7)$, and we'd need to check $x=-1$ and $x=7$ separately (at $x=7$: $\sum1/n$ diverges; at $x=-1$: $\sum(-1)^n/n$ converges by the alternating series test — so the full interval of convergence is $[-1,7)$). $\blacksquare$
 
-## 1.4 Term-by-Term Differentiation and Integration
+### 1.4 Term-by-Term Differentiation and Integration
 
 We used "integrate a series term by term" freely in Section 1.2 to get $\ln(1+x)$ and $\arctan x$ from the geometric series. This is not automatic for infinite sums — pointwise convergence alone does not, in general, license swapping $\sum$ and $\int$ or $\sum$ and $\frac{d}{dx}$. The correct sufficient condition is **uniform convergence**, and the clean statement for power series is:
 
@@ -254,7 +254,7 @@ $$
 $$
 which is exactly the Maclaurin series for $\cos x$. $\blacksquare$
 
-## 1.5 Manipulating Known Series
+### 1.5 Manipulating Known Series
 
 Deriving every Maclaurin series from scratch via $f^{(n)}(0)/n!$ is often the hard way. Four algebraic operations let you generate a huge library of series from the handful in Table 1.1.
 
@@ -285,7 +285,7 @@ e^{\sin x} = 1+x+\frac{x^2}{2}+0\cdot x^3+\cdots
 $$
 This example is a useful cautionary tale: composing series is mechanically straightforward but easy to botch bookkeeping-wise, and it is exactly the kind of computation where writing out each power's contribution in a small table, rather than trying to do it "in your head," saves you on an exam.
 
-## 1.6 Taylor Series in Two Variables
+### 1.6 Taylor Series in Two Variables
 
 **Definition 1.3 (Second-Order Taylor Expansion in Two Variables).** For $f(x,y)$ with continuous second partial derivatives near $(a,b)$, write $\mathbf{x}=(x,y)$, $\mathbf{a}=(a,b)$, $\Delta\mathbf{x}=\mathbf{x}-\mathbf{a}=(x-a,\,y-b)$. The second-order Taylor expansion is
 $$
@@ -310,7 +310,7 @@ e^x\cos y \approx 1+x+\frac12\big[x^2+0-y^2\big] = 1+x+\frac{x^2-y^2}{2}.
 $$
 (Sanity check: this matches multiplying the 1-D series $e^x\approx1+x+x^2/2$ and $\cos y\approx1-y^2/2$ and keeping terms of total degree $\le2$: $(1+x+x^2/2)(1-y^2/2)\approx1+x+x^2/2-y^2/2$. ✓) $\blacksquare$
 
-## 1.7 Application: Indeterminate Limits and Error Bounds
+### 1.7 Application: Indeterminate Limits and Error Bounds
 
 **Series in place of L'Hôpital.** L'Hôpital's rule is often the slow way to resolve a $0/0$ limit when both functions have known Maclaurin series — series substitution turns repeated differentiation into simple algebra.
 
@@ -324,7 +324,7 @@ One line, no repeated differentiation, and it comes with a bonus: the *next* ter
 
 **Remainder-based error bounds.** Section 1.1's Example 1.1 already illustrated the core technique: Theorem 1.1's Lagrange remainder $R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$ gives a *guaranteed* upper bound on truncation error, provided you can bound $|f^{(n+1)}(c)|$ over the relevant interval — which is easy whenever $f^{(n+1)}$ is itself bounded (as with $\sin,\cos$) or monotonic (many other elementary functions).
 
-## 1.8 Challenge Problem: The Irrationality of $e$
+### 1.8 Challenge Problem: The Irrationality of $e$
 
 **Challenge Problem 1.1.** Prove that $e$ is irrational, using the Maclaurin series of $e^x$ evaluated at $x=1$ together with a Lagrange remainder bound.
 
@@ -360,9 +360,9 @@ But Step 3 showed $x_n$ is an integer — and there is no integer strictly betwe
 
 ---
 
-# Part 2 — Fourier Series
+## Part 2 — Fourier Series
 
-## 2.1 Orthogonality and the Fourier Coefficients
+### 2.1 Orthogonality and the Fourier Coefficients
 
 Where Part 1 approximated a function *locally*, near one point, by a polynomial, Fourier series approximate a *periodic* function *globally*, over an entire period, by a sum of sines and cosines. The engine that makes this work — and makes the coefficients computable by a simple formula rather than a difficult fitting problem — is orthogonality.
 
@@ -403,7 +403,7 @@ The $b_n$ formula follows identically, multiplying by $\sin\frac{m\pi x}{L}$ ins
 
 **Remark (term-by-term integration).** As in Section 1.4, swapping $\int$ and $\sum_{n=1}^\infty$ needs justification — here, uniform convergence of the Fourier series on $[-L,L]$. This holds whenever $f$ is, e.g., piecewise smooth (the Dirichlet conditions of Section 2.2), and we use it freely from here on, exactly as flagged in the Preface.
 
-## 2.2 Dirichlet Conditions and Convergence
+### 2.2 Dirichlet Conditions and Convergence
 
 Having a *formula* for the coefficients $a_n,b_n$ does not by itself guarantee the resulting series converges, still less that it converges back to $f(x)$. The standard sufficient condition used throughout engineering mathematics is due to Dirichlet.
 
@@ -422,7 +422,7 @@ where $f(x^-),f(x^+)$ are the one-sided limits.
 
 **Example 2.1.** The function $f(x)=x$ on $(-\pi,\pi)$, extended with period $2\pi$, has a jump discontinuity at $x=\pi$ (where $f(\pi^-)=\pi$ but the periodic extension gives $f(\pi^+)=-\pi$). Dirichlet's theorem predicts the Fourier series converges there to $\frac{\pi+(-\pi)}{2}=0$ — and indeed, every term $\sin(n\pi)=0$ and $\cos$ terms are absent from this odd function's expansion, so the series evaluated at $x=\pi$ literally sums to $0$, exactly as predicted. $\blacksquare$
 
-## 2.3 The Complex Exponential Form
+### 2.3 The Complex Exponential Form
 
 **Theorem 2.4 (Complex Exponential Fourier Series).** Using Euler's formula $e^{i\theta}=\cos\theta+i\sin\theta$, the real Fourier series of Theorem 2.2 can be rewritten as
 $$
@@ -438,7 +438,7 @@ $$
 
 **Remark.** This complex form is not merely more compact — it is the form that generalizes directly to the DFT in Part 3 and the continuous Fourier transform in Part 4. The index $n$ here plays the role of a discrete "frequency," and $c_n$ measures how much of that frequency is present in $f$; this is the conceptual seed of everything that follows for the rest of this treatise.
 
-## 2.4 Half-Range Expansions
+### 2.4 Half-Range Expansions
 
 Often a function is only specified on a *half*-interval $[0,L]$ (e.g., the initial temperature profile of a rod occupying $[0,L]$), and we are free to *choose* how to extend it to $[-L,L]$ before applying Fourier theory. Two canonical choices eliminate half the coefficients.
 
@@ -464,7 +464,7 @@ b_n = \frac2L\int_0^L 1\cdot\sin\frac{n\pi x}{L}\,dx = \frac2L\left[-\frac{L}{n\
 $$
 So $1 = \dfrac{4}{\pi}\left(\sin\dfrac{\pi x}{L}+\dfrac13\sin\dfrac{3\pi x}{L}+\dfrac15\sin\dfrac{5\pi x}{L}+\cdots\right)$ for $0<x<L$. $\blacksquare$
 
-## 2.5 Parseval's Theorem
+### 2.5 Parseval's Theorem
 
 **Theorem 2.5 (Parseval's Theorem).** If $f$ has Fourier series $f(x)=\frac{a_0}{2}+\sum_{n=1}^\infty(a_n\cos\frac{n\pi x}{L}+b_n\sin\frac{n\pi x}{L})$, then
 $$
@@ -487,7 +487,7 @@ Dividing both sides by $L$ gives the claimed identity. $\blacksquare$
 
 **Remark.** Parseval's theorem is nothing but the statement "**energy is conserved when you change basis**": the left side, $\frac1L\int f^2$, is the mean-square value (a physical notion of signal *power* or *energy*), and the right side re-expresses that same total energy as a sum over each frequency component's individual contribution — exactly like the Pythagorean theorem $|\mathbf{v}|^2=\sum v_i^2$ applied to the (infinite-dimensional) orthogonal basis $\{1,\cos\frac{n\pi x}{L},\sin\frac{n\pi x}{L}\}$. This "sum-of-squares equals total energy" idea reappears essentially unchanged as Plancherel's theorem for the continuous Fourier transform in Section 4.3.
 
-## 2.6 The Gibbs Phenomenon
+### 2.6 The Gibbs Phenomenon
 
 **Definition/Observation 2.2 (The Gibbs Phenomenon).** When a Fourier series is truncated to $N$ terms and $f$ has a jump discontinuity, the partial sum $S_N(x)$ does not merely approximate the jump poorly near the discontinuity — it systematically **overshoots** the jump on both sides, by an amount that does *not* shrink as $N\to\infty$. Concretely, for a jump of height $J=f(x_0^+)-f(x_0^-)$ at $x_0$, the overshoot on either side approaches a *fixed fraction* of $J$, namely
 $$
@@ -497,7 +497,7 @@ as $N\to\infty$. What *does* shrink as $N\to\infty$ is the *width* of the region
 
 **Remark (why it happens, informally).** Near a jump, $f$ locally resembles a step function, and a finite trigonometric sum is a smooth, band-limited object trying to reproduce an infinitely sharp corner; smooth functions built from finitely many oscillation frequencies cannot approximate a genuine jump without "ringing" — the same phenomenon that shows up whenever you low-pass filter a sharp edge in signal processing or image processing. The precise $\approx9\%$ figure comes from analyzing the partial sums of the square wave (Challenge Problem 2.1's first result) directly and relating the overshoot to the sine integral $\mathrm{Si}(\pi)=\int_0^\pi\frac{\sin t}{t}dt$; deriving that constant rigorously is a standard but slightly technical calculus exercise which we do not carry out in full here, but the qualitative fact — persistent $\sim9\%$ overshoot at every jump, regardless of how many terms you take — is exactly the kind of fact that shows up as a GATE/exam conceptual question and is worth memorizing as stated.
 
-## 2.7 Application: Separation of Variables for the 1D Heat Equation
+### 2.7 Application: Separation of Variables for the 1D Heat Equation
 
 Consider a thin rod of length $L$ with both ends held at zero temperature, governed by the heat equation
 $$
@@ -524,7 +524,7 @@ $$
 
 **Remark.** This is the payoff for the entire chapter: Fourier's original 1807 motivation for inventing this whole theory *was* the heat equation, and the logical chain is exactly Sections 2.1 (orthogonality gives you the coefficient formula) $\to$ 2.4 (the boundary conditions dictate you want a sine, not cosine, basis) $\to$ 2.7 (that same basis diagonalizes the PDE into independently solvable ODEs, one per mode $n$, each decaying at its own rate $e^{-\alpha^2(n\pi/L)^2t}$ — higher-frequency spatial modes decay faster, which is exactly why heat diffusion smooths out sharp features quickly and smooth features slowly).
 
-## 2.8 Challenge Problem: The Square Wave and $\sum 1/n^2$
+### 2.8 Challenge Problem: The Square Wave and $\sum 1/n^2$
 
 **Challenge Problem 2.1.** (a) Find the Fourier series of the square wave $f(x)=\begin{cases}-1 & -\pi<x<0\\ \ \ 1 & 0<x<\pi\end{cases}$, extended with period $2\pi$. (b) Use Parseval's theorem to evaluate $\displaystyle\sum_{n=1}^\infty \frac{1}{n^2}$.
 
@@ -567,9 +567,9 @@ $$
 
 ---
 
-# Part 3 — The Discrete Fourier Transform and FFT Algorithms
+## Part 3 — The Discrete Fourier Transform and FFT Algorithms
 
-## 3.1 The DFT and Its Inverse
+### 3.1 The DFT and Its Inverse
 
 We now leave the world of continuous functions and enter the world of finite sequences of numbers — the world a computer actually lives in. Given $N$ samples $x_0,x_1,\ldots,x_{N-1}$ (real or complex), the **Discrete Fourier Transform (DFT)** is the discrete analogue of the complex-exponential Fourier coefficients from Theorem 2.4.
 
@@ -594,7 +594,7 @@ confirming the IDFT formula correctly recovers $x_n$. $\blacksquare$
 
 **Relation to sampling a continuous signal (Nyquist/aliasing, briefly).** If the sequence $x_n$ arises by sampling a continuous signal $x(t)$ every $T_s$ seconds ($x_n=x(nT_s)$), the DFT's frequency index $k$ corresponds to a physical frequency $f_k=k/(NT_s)$ Hz, and the highest frequency the sampling can represent without ambiguity is the **Nyquist frequency** $f_{\text{Nyq}}=\frac{1}{2T_s}$. If the original continuous signal contains energy at frequencies above $f_{\text{Nyq}}$, that energy does not disappear — it "folds back" and masquerades as a lower frequency in the sampled data, a corruption called **aliasing**. This is why practical sampling systems always precede the sampler with an analog low-pass "anti-aliasing" filter. We revisit this precisely, with a proof, once the continuous Fourier transform is available in Section 4.5.
 
-## 3.2 Properties of the DFT
+### 3.2 Properties of the DFT
 
 Write $\mathrm{DFT}\{x_n\}=X_k$ for the transform pair defined above.
 
@@ -621,7 +621,7 @@ $$
 
 **Remark.** Property 4 is why, for real-valued signals, only "half" the DFT spectrum ($k=0,\ldots,N/2$) carries independent information — the other half is redundant, being the complex conjugate mirror image. Real-input FFT implementations exploit this to roughly halve both computation and storage.
 
-## 3.3 Why Direct Computation is $O(N^2)$
+### 3.3 Why Direct Computation is $O(N^2)$
 
 Reading Definition 3.1's formula for $X_k$ directly off the page: computing *one* output value $X_k$ requires $N$ complex multiplications ($x_n\cdot W_N^{nk}$ for each of $n=0,\ldots,N-1$) and $N-1$ complex additions. Since there are $N$ output values $X_0,\ldots,X_{N-1}$ to compute, the total cost is
 $$
@@ -629,7 +629,7 @@ N \text{ outputs} \times O(N) \text{ work per output} = O(N^2) \text{ total comp
 $$
 For $N=10^6$ samples — entirely ordinary in audio or communications engineering — this is $10^{12}$ operations, which is the difference between a computation finishing in about a second and one taking the better part of a day on comparable hardware. **This is the entire motivation for the FFT**: find an algorithm that computes exactly the same $N$ numbers $X_0,\ldots,X_{N-1}$, but in fewer arithmetic operations, by exploiting *redundancy* in the definition — the fact that many of the $N^2$ products $x_nW_N^{nk}$ that get computed along the way are, in a precise sense, wasteful repetitions of each other.
 
-## 3.4 The Radix-2 Cooley–Tukey FFT
+### 3.4 The Radix-2 Cooley–Tukey FFT
 
 Assume from here on that $N=2^m$ is a power of $2$ (the "radix-2" case — see Section 3.5 for what happens when it isn't).
 
@@ -688,7 +688,7 @@ D(N) = D(1) + \frac12\cdot m = 0+\frac{m}{2} = \frac{\log_2N}{2}.
 $$
 So $C(N)=N\cdot D(N)=\frac{N\log_2N}{2}$ complex multiplications exactly (for $N$ a power of $2$) — which is $O(N\log_2N)$, as claimed, and moreover gives the *exact leading-order operation count*, not merely the asymptotic order: for $N=1024=2^{10}$, this predicts $\frac{1024\times10}{2}=5120$ complex multiplications, versus $N^2=1{,}048{,}576$ for the direct DFT — a **speedup factor of roughly $200\times$** at this modest size, growing without bound as $N$ increases. $\blacksquare$
 
-## 3.5 A Survey of FFT Variants
+### 3.5 A Survey of FFT Variants
 
 Radix-2 DIT is the archetype, but is far from the only fast algorithm; each variant below trades off differently between implementation simplicity, arithmetic count, memory-access pattern, and which $N$ it applies to.
 
@@ -712,7 +712,7 @@ Radix-2 DIT is the archetype, but is far from the only fast algorithm; each vari
 | Prime-factor (Good–Thomas) | $N=N_1N_2$, $\gcd(N_1,N_2)=1$ | CRT re-indexing, no twiddles | Coprime factorization available |
 | Bluestein (Chirp-Z) | Any $N$, incl. prime | Rewrite as convolution via $nk=\frac12(n^2+k^2-(k-n)^2)$ | $N$ is prime / awkward, can't zero-pad |
 
-## 3.6 Application: Fast Convolution
+### 3.6 Application: Fast Convolution
 
 **Theorem 3.4 (Convolution via the DFT).** To compute the *linear* (ordinary, non-circular) convolution of two sequences $x$ (length $P$) and $y$ (length $Q$) — defined as $(x*y)_n=\sum_m x_my_{n-m}$, a sequence of length $P+Q-1$ — zero-pad both sequences to a common length $N\ge P+Q-1$ (conventionally the next power of $2$, so a radix-2 FFT applies), take the $N$-point DFT of each, multiply pointwise, and inverse-transform:
 $$
@@ -723,7 +723,7 @@ $$
 
 **Cost comparison.** Direct convolution of two length-$N$ sequences costs $O(N^2)$ multiplications (a single multiply-accumulate for each of $N^2$ pairs $(m,n)$). FFT-based convolution costs $O(N\log N)$ for the three transforms (two forward, one inverse) plus $O(N)$ for the pointwise multiply — an asymptotic win identical in spirit to Section 3.3–3.4's DFT speedup, and it is precisely why every serious digital-filtering, large-integer-multiplication, and polynomial-multiplication library performs convolution in the frequency domain once the sequences get large, rather than directly in the time domain.
 
-## 3.7 Challenge Problem: An 8-Point FFT by Hand
+### 3.7 Challenge Problem: An 8-Point FFT by Hand
 
 **Challenge Problem 3.1.** Compute the 8-point DFT of $x=(x_0,\ldots,x_7)=(1,2,3,4,4,3,2,1)$ using the radix-2 decimation-in-time butterfly diagram, and check the result against a direct DFT computation of one output value.
 
@@ -815,9 +815,9 @@ The butterfly-computed and directly-computed values of $X_1$ agree exactly, conf
 
 ---
 
-# Part 4 — The Continuous Fourier Transform
+## Part 4 — The Continuous Fourier Transform
 
-## 4.1 Motivation as a Limit of Fourier Series
+### 4.1 Motivation as a Limit of Fourier Series
 
 Every function we handed to a Fourier series in Part 2 was *periodic*. What about a function that is not periodic — a single pulse, a decaying transient, a signal that simply is not repeating? The continuous Fourier transform is what remains of Fourier series machinery when we let the period $2L\to\infty$, so that a "non-periodic function" is treated as the limiting case of "a periodic function whose period has grown to swallow the whole real line."
 
@@ -840,7 +840,7 @@ $$
 
 **Remark.** This heuristic — turning a Riemann sum into an integral by refining a partition — is *not* a rigorous derivation (properly justifying the limit requires the same kind of uniform-convergence / dominated-convergence care flagged throughout this treatise), but it is exactly the right intuition and the standard motivating argument in every engineering mathematics course: **the Fourier transform is a Fourier series with a continuum of frequencies instead of a discrete lattice of them**, $c_n\Delta\omega$ having taken over the role that $c_n$ played before, and the sum $\sum_n$ having become the integral $\int d\omega$.
 
-## 4.2 Definition and Existence
+### 4.2 Definition and Existence
 
 **Definition 4.1 (Fourier Transform Pair).**
 $$
@@ -858,7 +858,7 @@ $$
 $$
 since then $|\hat f(\omega)|=\left|\int f(t)e^{-i\omega t}dt\right|\le\int|f(t)||e^{-i\omega t}|dt=\int|f(t)|dt<\infty$ for every $\omega$ (using $|e^{-i\omega t}|=1$). Functions failing this test (e.g. $f(t)=1$, or $f(t)=\cos\omega_0t$, neither of which decays) can still be assigned a Fourier transform, but only in the **generalized-function (distributional)** sense, via Dirac deltas — this is exactly what happens in the standard pair "$1\leftrightarrow 2\pi\delta(\omega)$" in Table 4.1, and we use such distributional transforms freely (as every engineering text does) without re-deriving distribution theory from scratch.
 
-## 4.3 Properties of the Transform
+### 4.3 Properties of the Transform
 
 **Theorem 4.1 (Fourier Transform Properties).** Let $\mathcal{F}\{f(t)\}=\hat f(\omega)$, $\mathcal{F}\{g(t)\}=\hat g(\omega)$.
 
@@ -902,7 +902,7 @@ $$
 
 **Remark.** This entire property list is worth memorizing as a *table*, because inverting a Fourier transform in practice (much like inverting a Laplace transform in Part 5) is almost always done by pattern-matching a given $\hat f(\omega)$ against Table 4.1 combined with these properties, rather than by evaluating the inversion integral directly.
 
-## 4.4 Standard Transform Pairs
+### 4.4 Standard Transform Pairs
 
 **Table 4.1 (Standard Fourier Transform Pairs).** Using the convention of Definition 4.1.
 
@@ -928,7 +928,7 @@ $$
 
 **Delta and constant.** $\hat\delta(\omega) = \int\delta(t)e^{-i\omega t}dt = e^{-i\omega\cdot0}=1$ by the sifting property of the delta function. The pair $1\leftrightarrow2\pi\delta(\omega)$ is not independently derived here — it follows from $\delta\leftrightarrow1$ by the **duality property** of Section 4.5, which is the cleanest route.
 
-## 4.5 Duality and the Sampling–Periodicity Relationship
+### 4.5 Duality and the Sampling–Periodicity Relationship
 
 **Theorem 4.2 (Duality).** If $\mathcal{F}\{f(t)\}=\hat f(\omega)$, then
 $$
@@ -944,7 +944,7 @@ $$
 
 **Theorem 4.3 (Sampling Theorem, informal statement) [Stated without full proof — full proof requires the Dirac comb / Poisson summation formula, which is outside our assumed toolkit].** Sampling a continuous signal $x(t)$ every $T_s$ seconds is mathematically equivalent to multiplying $x(t)$ by a **Dirac comb** (an infinite train of delta functions spaced $T_s$ apart). By the Convolution Theorem (Theorem 4.1, Property 6) together with the fact that multiplication in one domain is convolution in the other (a fact this same Convolution Theorem also supplies, by the symmetry of the forward/inverse transform), *multiplying by a comb in time* corresponds exactly to *convolving with a comb in frequency* — i.e., **sampling in time makes the spectrum periodic in frequency**, with period equal to the sampling frequency $\omega_s=2\pi/T_s$. This is precisely the origin of the DFT's periodicity property (Theorem 3.1, Property 2): a discretely-*sampled* signal necessarily has a periodic spectrum, and — by the same duality argument run the other way — a periodic (hence discretely-*decomposable-into-a-Fourier-series*) signal necessarily has a discretely-*sampled* (i.e. indexed by integers $n$) spectrum. The DFT's two-way discreteness (discrete in time **and** discrete in frequency) is therefore not a coincidence or a computational convenience bolted on afterward — it is the unavoidable consequence of applying "sample" (which discretizes and periodizes the *other* domain) in *both* directions at once. Aliasing (Section 3.1) is simply the statement that if $x(t)$'s spectrum is wider than one period $\omega_s$ of this induced periodic replication, adjacent copies of the spectrum overlap and corrupt each other — which is exactly the Nyquist criterion, now seen as a direct consequence of Theorem 4.1's convolution property rather than an independent fact.
 
-## 4.6 Challenge Problem: The Fourier Transform of a Gaussian
+### 4.6 Challenge Problem: The Fourier Transform of a Gaussian
 
 **Challenge Problem 4.1.** Prove that the Fourier transform of $f(t)=e^{-at^2}$ ($a>0$) is itself Gaussian, specifically $\hat f(\omega)=\sqrt{\pi/a}\,e^{-\omega^2/4a}$, by differentiating under the integral sign to obtain a first-order ODE that $\hat f$ satisfies.
 
@@ -993,9 +993,9 @@ This confirms the Gaussian is (up to the explicit rescaling of width and height 
 
 ---
 
-# Part 5 — The Laplace Transform
+## Part 5 — The Laplace Transform
 
-## 5.1 Definition and Region of Convergence
+### 5.1 Definition and Region of Convergence
 
 The Fourier transform of Part 4 required $f$ to be absolutely integrable (or handled distributionally) — a serious restriction, since it rules out ordinary, physically reasonable signals like $e^{t}$ or even $t\cdot u(t)$ (a ramp) that *grow* rather than decay. The Laplace transform fixes this by multiplying the integrand by an extra decaying factor $e^{-\sigma t}$ before Fourier-transforming, which tames the growth — at the cost of $\omega$ becoming a full complex variable $s=\sigma+i\omega$.
 
@@ -1016,7 +1016,7 @@ F(s) = \int_0^\infty e^{at}e^{-st}dt = \int_0^\infty e^{-(s-a)t}dt = \frac{1}{s-
 $$
 confirming Theorem 5.1's predicted ROC boundary exactly. $\blacksquare$
 
-## 5.2 Properties of the Transform
+### 5.2 Properties of the Transform
 
 **Theorem 5.2 (Laplace Transform Properties).** Let $\mathcal{L}\{f(t)\}=F(s)$, $\mathcal{L}\{g(t)\}=G(s)$.
 
@@ -1056,7 +1056,7 @@ $$
 = \int_0^\infty f(\tau)e^{-s\tau}\left(\int_0^\infty g(u)e^{-su}du\right)d\tau = G(s)\int_0^\infty f(\tau)e^{-s\tau}d\tau = F(s)G(s). \qquad\blacksquare
 $$
 
-## 5.3 The Standard Transform Table
+### 5.3 The Standard Transform Table
 
 **Table 5.1 (Standard Laplace Transforms).**
 
@@ -1091,7 +1091,7 @@ where the geometric series $\sum_{n=0}^\infty (e^{-sT})^n=\frac{1}{1-e^{-sT}}$ c
 
 **Derivation — $\delta(t-a)$.** By the sifting property of the Dirac delta, $\int_0^\infty \delta(t-a)e^{-st}dt = e^{-sa}$ directly (for $a\ge0$, so the delta spike lies within the domain of integration $[0,\infty)$).
 
-## 5.4 Inverting a Transform
+### 5.4 Inverting a Transform
 
 Given $F(s)$, recovering $f(t)$ — "inverse Laplace transforming" — has three standard routes in an engineering course, in increasing order of generality and decreasing order of how often you'll actually need them.
 
@@ -1121,7 +1121,7 @@ f(t) = \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} F(s)\,e^{st}\,ds,
 $$
 where the vertical line $\mathrm{Re}(s)=c$ is chosen inside the ROC of $F$ (i.e., $c$ greater than every pole's real part). This is called the **Bromwich integral** (or Mellin's inverse formula). In practice it is evaluated via the residue theorem — closing the contour with a large semicircular arc and summing residues at the poles of $F(s)e^{st}$ enclosed — which is exactly *why* Method 1's partial-fraction approach works at all: partial fractions are a way of pre-computing those residues algebraically, without ever explicitly invoking contour integration. We name this method and its logical role (it is the "real" definition, of which partial fractions is the practical shortcut for rational $F(s)$) without deriving it, since a full treatment needs complex-analysis machinery (the residue theorem, Jordan's lemma for the arc's vanishing contribution) beyond this course's assumed toolkit.
 
-## 5.5 Initial and Final Value Theorems
+### 5.5 Initial and Final Value Theorems
 
 **Theorem 5.3 (Initial Value Theorem).** If $f$ and $f'$ are both Laplace-transformable, then
 $$
@@ -1141,7 +1141,7 @@ $$
 
 **Example 5.5 (The FVT trap, explicitly).** Let $F(s)=\dfrac{s}{s^2+1}$, i.e. $f(t)=\cos t$ (Table 5.1). Then $sF(s)=\dfrac{s^2}{s^2+1}\to0$ as $s\to0$ — the FVT algebra suggests $\lim_{t\to\infty}f(t)=0$. But $f(t)=\cos t$ **does not converge** as $t\to\infty$ — it oscillates forever between $-1$ and $1$. The theorem's conclusion is simply invalid here, because $sF(s)=\frac{s^2}{s^2+1}$ has poles at $s=\pm i$, which lie *on* the imaginary axis, i.e. in the closed right-half-plane boundary — violating the hypothesis. **Always check pole locations of $sF(s)$ before trusting a Final Value Theorem computation**; this is one of the single most common conceptual-trap questions in GATE-style exams on this topic.
 
-## 5.6 Application: Solving Linear ODEs
+### 5.6 Application: Solving Linear ODEs
 
 **The core method.** Apply $\mathcal{L}\{\cdot\}$ to both sides of a linear ODE with constant coefficients, using Theorem 5.2 Property 4 (which automatically incorporates the initial conditions $f(0),f'(0),\ldots$), solve the resulting purely *algebraic* equation for the transform of the unknown function, then invert (Section 5.4) to recover the solution in the time domain.
 
@@ -1169,7 +1169,7 @@ y(t) = \sin(t-\pi)\,u(t-\pi) = \begin{cases}0 & t<\pi\\ -\sin t & t\ge\pi\end{ca
 $$
 (using $\sin(t-\pi)=-\sin t$). Physically: the system sits at rest until the impulse hits at $t=\pi$, then rings sinusoidally forever after — exactly the expected behavior of an undamped oscillator struck by a hammer blow at $t=\pi$. $\blacksquare$
 
-## 5.7 Transfer Functions and Stability
+### 5.7 Transfer Functions and Stability
 
 **Definition 5.3 (Transfer Function).** For a linear time-invariant (LTI) system described by a constant-coefficient linear ODE relating input $x(t)$ to output $y(t)$, transforming under **zero initial conditions** and solving for the ratio $Y(s)/X(s)$ defines the system's **transfer function**:
 $$
@@ -1186,7 +1186,7 @@ $$
 
 **Remark.** This pole-location-vs-stability correspondence is exactly why the Final Value Theorem's pitfall in Section 5.5 is not a mere technicality — "does $sF(s)$ have poles in the closed right-half-plane" is *the same question*, asked of the specific function $sF(s)$, as "is this system's relevant natural-mode content stable," and both come down to reading pole locations off the same $s$-plane.
 
-## 5.8 The $s=i\omega$ Relationship to the Fourier Transform
+### 5.8 The $s=i\omega$ Relationship to the Fourier Transform
 
 **Theorem 5.5 (Laplace–Fourier Correspondence).** If $f(t)=0$ for $t<0$ and $f$ is absolutely integrable on $[0,\infty)$ (so its Fourier transform exists as an ordinary integral), then the Fourier transform of $f$ is exactly the Laplace transform evaluated on the imaginary axis:
 $$
@@ -1199,7 +1199,7 @@ $$
 
 **Remark (the conceptual payoff).** This is the cleanest possible statement of "Laplace generalizes Fourier": the Fourier transform asks *only* "how much of each pure oscillation $e^{i\omega t}$ is present," while the Laplace transform asks the strictly more general question "how much of each *exponentially growing-or-decaying oscillation* $e^{st}=e^{(\sigma+i\omega)t}$ is present," with the Fourier question recovered as the special case $\sigma=0$. This is exactly why the Laplace transform can handle inputs (like a growing exponential, or a signal that only switches on at $t=0$) that defeat the ordinary Fourier transform outright.
 
-## 5.9 Challenge Problem: Frullani's Integral via $\int_0^\infty F(s)\,ds$
+### 5.9 Challenge Problem: Frullani's Integral via $\int_0^\infty F(s)\,ds$
 
 **Challenge Problem 5.1.** Evaluate $\displaystyle\int_0^\infty \frac{e^{-at}-e^{-bt}}{t}\,dt$ (for $a,b>0$) using the identity $\int_0^\infty \dfrac{f(t)}{t}dt = \int_0^\infty F(s)\,ds$ (Theorem 5.2, Property 7, with the lower limit taken to $s=0$).
 

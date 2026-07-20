@@ -80,9 +80,9 @@ Work through the Challenge Problems seriously. They are calibrated to ISI M.Stat
 
 ---
 
-# Part 1 — Vector Spaces and Linear Transformations
+## Part 1 — Vector Spaces and Linear Transformations
 
-## 1.1 Vector Spaces and Subspaces
+### 1.1 Vector Spaces and Subspaces
 
 **Definition 1.1.1 (Vector Space).**
 A *vector space* over a field $\mathbb{F}$ is a set $V$ equipped with two operations, vector addition $+: V\times V \to V$ and scalar multiplication $\cdot: \mathbb{F}\times V \to V$, satisfying the following axioms for all $u,v,w \in V$ and $\alpha,\beta \in \mathbb{F}$:
@@ -114,7 +114,7 @@ This is the smallest subspace of $V$ containing $U \cup W$. If $U \cap W = \{0\}
 
 ---
 
-## 1.2 Span, Independence, Basis, Dimension
+### 1.2 Span, Independence, Basis, Dimension
 
 **Definition 1.2.1 (Linear Span).** For $S = \{v_1,\dots,v_k\} \subseteq V$,
 $$\text{span}(S) := \left\{\sum_{i=1}^k \alpha_i v_i : \alpha_i \in \mathbb{F}\right\}.$$
@@ -145,7 +145,7 @@ rank $4$, so the four vectors are independent (and hence a basis of the $4$-dime
 
 ---
 
-## 1.3 Linear Transformations and Matrix Representation
+### 1.3 Linear Transformations and Matrix Representation
 
 **Definition 1.3.1 (Linear Transformation).** $T: V \to W$ is *linear* if $T(\alpha u + \beta v) = \alpha T(u) + \beta T(v)$ for all $u,v\in V,\ \alpha,\beta\in\mathbb{F}$.
 
@@ -164,7 +164,7 @@ Since this holds for all $v$, the matrix $P^{-1}AP$ represents $T$ in basis $\ma
 
 ---
 
-## 1.4 The Four Fundamental Subspaces and Rank–Nullity
+### 1.4 The Four Fundamental Subspaces and Rank–Nullity
 
 For $A \in M_{m\times n}(\mathbb{F})$, viewed as a linear map $\mathbb{F}^n \to \mathbb{F}^m$:
 
@@ -202,7 +202,7 @@ $$\mathcal{C}(A) \perp \mathcal{N}(A^T) \quad\text{with}\quad \mathcal{C}(A) \op
 
 ---
 
-## 1.5 Challenge Problems
+### 1.5 Challenge Problems
 
 **Challenge Problem 1.** *(Flagship result — full proof required.)* Let $U, W$ be subspaces of a finite-dimensional vector space $V$. Prove that
 $$\dim(U+W) = \dim(U) + \dim(W) - \dim(U\cap W).$$
@@ -247,9 +247,9 @@ obtained by inducting on the two-subspace formula and discarding the (nonnegativ
 
 ---
 
-# Part 2 — Determinant, Trace, Rank, and Inverse
+## Part 2 — Determinant, Trace, Rank, and Inverse
 
-## 2.1 Rank Revisited: Sylvester's Inequality
+### 2.1 Rank Revisited: Sylvester's Inequality
 
 **Theorem 2.1.1 (Sub-additivity/Sub-multiplicativity of Rank under Products).** For $A \in M_{m\times n}(\mathbb{F})$, $B\in M_{n\times p}(\mathbb{F})$,
 $$\text{rank}(A) + \text{rank}(B) - n \le \text{rank}(AB) \le \min(\text{rank}(A), \text{rank}(B)).$$
@@ -267,7 +267,7 @@ $$\text{rank}(B) \le (n - \text{rank}(A)) + \text{rank}(AB) \implies \text{rank}
 
 ---
 
-## 2.2 Trace
+### 2.2 Trace
 
 **Definition 2.2.1.** For $A \in M_n(\mathbb{F})$, $\text{tr}(A) := \sum_{i=1}^n A_{ii}$.
 
@@ -285,7 +285,7 @@ $$\text{rank}(B) \le (n - \text{rank}(A)) + \text{rank}(AB) \implies \text{rank}
 
 ---
 
-## 2.3 Determinants
+### 2.3 Determinants
 
 **Definition 2.3.1 (Axiomatic/Multilinear Definition).** $\det: M_n(\mathbb{F}) \to \mathbb{F}$ is the unique function that is (i) multilinear in the rows, (ii) alternating (equal rows $\implies$ determinant $0$), and (iii) normalized so $\det(I) = 1$. Equivalently, via the Leibniz formula,
 $$\det(A) = \sum_{\sigma \in S_n} \text{sgn}(\sigma)\prod_{i=1}^n A_{i,\sigma(i)}.$$
@@ -331,7 +331,7 @@ Equating the two evaluations of $\det(N)$ gives the claim; setting $A=I_n$ gives
 
 ---
 
-## 2.4 The Inverse, Adjugate, and Matrix Identities
+### 2.4 The Inverse, Adjugate, and Matrix Identities
 
 **Definition 2.4.1 (Adjugate).** For $A \in M_n(\mathbb{F})$, the *adjugate* (classical adjoint) $\text{adj}(A)$ is the transpose of the cofactor matrix: $\text{adj}(A)_{ij} = C_{ji} = (-1)^{i+j}M_{ji}$, where $M_{ji}$ is the $(j,i)$ minor of $A$.
 
@@ -353,7 +353,7 @@ $$(A + UCV)^{-1} = A^{-1} - A^{-1}U(C^{-1}+VA^{-1}U)^{-1}VA^{-1}.$$
 
 ---
 
-## 2.5 Problem-Solving Tricks
+### 2.5 Problem-Solving Tricks
 
 **Trick 2.5.1 (Rank Factorization).** Any $A \in M_{m\times n}(\mathbb{F})$ with $\text{rank}(A) = r$ can be written $A = BC$ with $B \in M_{m\times r}$, $C \in M_{r\times n}$, both of rank $r$ (take $B$ = a basis of $\mathcal{C}(A)$ as columns, $C$ = the coefficients expressing each column of $A$ in that basis). This turns rank questions about $A$ into questions about smaller full-rank factors, and is the standard route to prove $\text{rank}(A) = \text{rank}(A^TA) = \text{rank}(AA^T)$ (over $\mathbb{R}$), via $\mathcal N(A^TA)=\mathcal N(A)$ (Trick 2.2.4).
 
@@ -365,7 +365,7 @@ This is the standard route for inverting a covariance matrix partitioned into bl
 
 ---
 
-## 2.6 Challenge Problems
+### 2.6 Challenge Problems
 
 **Challenge Problem 1 (Block Determinant Identity).** Let $A,B \in M_n(\mathbb{R})$ with $AB = BA$ (commuting). Prove that
 $$\det\begin{pmatrix}A & B\\ -B& A\end{pmatrix} = \det(A^2+B^2).$$
@@ -423,9 +423,9 @@ $$\text{rank}(M) = \text{rank}(A-BD^{-1}B^T)+\text{rank}(D). \qquad\blacksquare$
 
 ---
 
-# Part 3 — Systems of Linear Equations
+## Part 3 — Systems of Linear Equations
 
-## 3.1 Matrix Formulation and Consistency
+### 3.1 Matrix Formulation and Consistency
 
 **Definition 3.1.1.** A linear system in $n$ unknowns and $m$ equations is written $Ax = b$, $A \in M_{m\times n}(\mathbb{F})$, $x \in \mathbb{F}^n$, $b \in \mathbb{F}^m$. It is *homogeneous* if $b=0$, else *non-homogeneous*. The system is *consistent* if a solution exists.
 
@@ -433,7 +433,7 @@ $$\text{rank}(M) = \text{rank}(A-BD^{-1}B^T)+\text{rank}(D). \qquad\blacksquare$
 
 ---
 
-## 3.2 The Rouché–Capelli Theorem
+### 3.2 The Rouché–Capelli Theorem
 
 **Definition 3.2.1 (Augmented Matrix).** $[A\,|\,b] \in M_{m\times(n+1)}(\mathbb{F})$ is $A$ with $b$ appended as an extra column.
 
@@ -451,7 +451,7 @@ Moreover, if consistent:
 
 ---
 
-## 3.3 Structure of the Solution Set
+### 3.3 Structure of the Solution Set
 
 **Theorem 3.3.1 (Superposition/Affine Structure).** The general solution of a consistent system $Ax=b$ is
 $$x = x_p + x_h, \qquad x_p \text{ any particular solution},\ x_h \in \mathcal{N}(A).$$
@@ -462,7 +462,7 @@ $$x = x_p + x_h, \qquad x_p \text{ any particular solution},\ x_h \in \mathcal{N
 
 ---
 
-## 3.4 The Moore–Penrose Pseudoinverse
+### 3.4 The Moore–Penrose Pseudoinverse
 
 **Definition 3.4.1.** For $A \in M_{m\times n}(\mathbb{R})$ (possibly non-square, possibly rank-deficient), the *Moore–Penrose pseudoinverse* $A^+ \in M_{n\times m}(\mathbb{R})$ is the unique matrix satisfying the four **Penrose conditions**:
 1. $AA^+A = A$
@@ -484,7 +484,7 @@ $$x = x_p + x_h, \qquad x_p \text{ any particular solution},\ x_h \in \mathcal{N
 
 ---
 
-## 3.5 Challenge Problems
+### 3.5 Challenge Problems
 
 **Challenge Problem 1 (Parameterized Consistency).** For which values of $\lambda \in \mathbb{R}$ does the system
 $$x + y + \lambda z = 1,\qquad x+\lambda y + z = 1,\qquad \lambda x + y + z = 1$$
@@ -546,9 +546,9 @@ $$X\hat\beta = Hy. \qquad\blacksquare$$
 
 ---
 
-# Part 4 — Eigenvalues, Eigenvectors, and Diagonalization
+## Part 4 — Eigenvalues, Eigenvectors, and Diagonalization
 
-## 4.1 Eigenvalues, Eigenvectors, Characteristic Polynomial
+### 4.1 Eigenvalues, Eigenvectors, Characteristic Polynomial
 
 **Definition 4.1.1.** For $A \in M_n(\mathbb{F})$, $\lambda \in \mathbb{F}$ (or an algebraic closure thereof) is an *eigenvalue* if there exists $v \ne 0$ with $Av = \lambda v$; $v$ is the corresponding *eigenvector*. The *eigenspace* $E_\lambda := \mathcal{N}(A-\lambda I)$.
 
@@ -560,7 +560,7 @@ $$X\hat\beta = Hy. \qquad\blacksquare$$
 
 ---
 
-## 4.2 Multiplicities and Diagonalizability
+### 4.2 Multiplicities and Diagonalizability
 
 **Definition 4.2.1.** The *algebraic multiplicity* $a(\lambda)$ of eigenvalue $\lambda$ is its multiplicity as a root of $p_A$. The *geometric multiplicity* $g(\lambda) := \dim E_\lambda$.
 
@@ -574,7 +574,7 @@ $$X\hat\beta = Hy. \qquad\blacksquare$$
 
 ---
 
-## 4.3 Cayley–Hamilton and the Minimal Polynomial
+### 4.3 Cayley–Hamilton and the Minimal Polynomial
 
 **Theorem 4.3.1 (Cayley–Hamilton).** Every $A \in M_n(\mathbb{F})$ satisfies its own characteristic polynomial: $p_A(A) = 0$.
 
@@ -602,7 +602,7 @@ The roots of $m_A$ are thus exactly the eigenvalues of $A$, which are exactly th
 
 ---
 
-## 4.4 Similarity Invariants
+### 4.4 Similarity Invariants
 
 **Theorem 4.4.1.** If $A \sim B$ (similar, i.e. $B=P^{-1}AP$), then $A,B$ share: characteristic polynomial, eigenvalues (with algebraic and geometric multiplicities), minimal polynomial, trace, determinant, rank.
 
@@ -612,7 +612,7 @@ The roots of $m_A$ are thus exactly the eigenvalues of $A$, which are exactly th
 
 ---
 
-## 4.5 Challenge Problems
+### 4.5 Challenge Problems
 
 **Challenge Problem 1 (Minimal Polynomial Trick).** Let $A \in M_n(\mathbb{R})$ satisfy $A^3 = A$. Prove $A$ is diagonalizable (over $\mathbb{R}$, in the sense of being similar to a diagonal matrix with real entries).
 
@@ -640,9 +640,9 @@ so $Bv\in E_\lambda(A)$ too. Hence $B\big(E_\lambda(A)\big)\subseteq E_\lambda(A
 
 ---
 
-# Part 5 — Spectral Theory and Special Matrices
+## Part 5 — Spectral Theory and Special Matrices
 
-## 5.1 Symmetric, Orthogonal, Idempotent, Nilpotent
+### 5.1 Symmetric, Orthogonal, Idempotent, Nilpotent
 
 **Definition 5.1.1.** $A \in M_n(\mathbb{R})$ is:
 - **Symmetric** if $A = A^T$.
@@ -663,7 +663,7 @@ so $Bv\in E_\lambda(A)$ too. Hence $B\big(E_\lambda(A)\big)\subseteq E_\lambda(A
 
 ---
 
-## 5.2 The Spectral Theorem
+### 5.2 The Spectral Theorem
 
 **Theorem 5.2.1 (Spectral Theorem for Real Symmetric Matrices).** If $A \in M_n(\mathbb{R})$ is symmetric, then:
 (a) All eigenvalues of $A$ are real.
@@ -681,7 +681,7 @@ so $Bv\in E_\lambda(A)$ too. Hence $B\big(E_\lambda(A)\big)\subseteq E_\lambda(A
 
 ---
 
-## 5.3 Positive Definite and Semi-Definite Matrices
+### 5.3 Positive Definite and Semi-Definite Matrices
 
 **Definition 5.3.1.** Symmetric $A\in M_n(\mathbb{R})$ is:
 - **Positive semi-definite** ($A\succeq0$) if $x^TAx \ge 0\ \forall x\in\mathbb{R}^n$.
@@ -710,7 +710,7 @@ Both leading principal minors are $M_1=0\ge0$ and $M_2=\det A=0\ge0$, yet $A$ ha
 
 ---
 
-## 5.4 Singular Value Decomposition
+### 5.4 Singular Value Decomposition
 
 **Theorem 5.4.1 (SVD).** Every $A \in M_{m\times n}(\mathbb{R})$ can be written
 $$A = U\Sigma V^T,$$
@@ -722,7 +722,7 @@ where $U\in M_m(\mathbb{R})$, $V\in M_n(\mathbb{R})$ are orthogonal, and $\Sigma
 
 ---
 
-## 5.5 Challenge Problems
+### 5.5 Challenge Problems
 
 **Challenge Problem 1 (Idempotent $\Rightarrow$ Diagonalizable, trace = rank, full proof).** Let $A$ be idempotent (not assumed symmetric). Prove $A$ is diagonalizable and $\text{tr}(A)=\text{rank}(A)$.
 
