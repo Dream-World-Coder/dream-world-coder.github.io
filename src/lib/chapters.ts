@@ -5,15 +5,15 @@
 
 export const renderedPages = [
     { slug: "wanna-learn-web-dev" },
-    // { slug: "ttl-cache" },
-    // { slug: "why-redis" },
+    { slug: "ttl-cache" },
+    { slug: "why-redis" },
 
     { slug: "1993-to-17007-rps-mern-single-thread" },
     { slug: "computable-poetry" },
     { slug: "grepvf" },
 
     { slug: "heap-vs-sorted-array" },
-    // { slug: "stable-and-unstable-sort" },
+    { slug: "stable-and-unstable-sort" },
     { slug: "minima-extraction" },
 
     { slug: "gemma" },
