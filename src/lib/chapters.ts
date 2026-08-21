@@ -21,6 +21,7 @@ export const renderedPages = [
 
     { slug: "markdown" },
     { slug: "interview" },
+    { slug: "media.net" },
 
     { slug: "pnc" },
     { slug: "integration" },
@@ -124,6 +125,13 @@ export const chapters: Section[] = [
                 title: "Computable Poetry",
             },
             { slug: "grepvf", title: "A CVE Checker that can Hack" },
+        ],
+    },
+
+    {
+        title: "Interview Experience",
+        chapters: [
+            { slug: "media.net", title: "My Media.net Inteview Experience" },
         ],
     },
 
