@@ -191,16 +191,19 @@ export default async function ArticlePage({
                             </div>
                         )}
 
-                        {prevSlug && nextSlug && nextSlug.slug === "last" && (
-                            <div className="w-full mt-6 italic">
-                                I hope these articles helped you even by a
-                                little, <br />
-                                <span className="underline decoration-dotted">
-                                    Thank you!
-                                </span>{" "}
-                                for continuing till the end!
-                            </div>
-                        )}
+                        {false &&
+                            prevSlug &&
+                            nextSlug &&
+                            nextSlug?.slug === "last" && (
+                                <div className="w-full mt-6 italic">
+                                    I hope these articles helped you even by a
+                                    little, <br />
+                                    <span className="underline decoration-dotted">
+                                        Thank you!
+                                    </span>{" "}
+                                    for continuing till the end!
+                                </div>
+                            )}
                     </article>
 
                     <CornerPlusIcons />

@@ -21,6 +21,8 @@ export const renderedPages = [
 
     { slug: "markdown" },
     { slug: "interview" },
+    { slug: "imp-qns" },
+    { slug: "imp-js" },
     { slug: "media.net" },
 
     { slug: "pnc" },
@@ -137,7 +139,11 @@ export const chapters: Section[] = [
 
     {
         title: "For Me",
-        chapters: [{ slug: "interview", title: "OA Analysis" }],
+        chapters: [
+            { slug: "interview", title: "OA Analysis" },
+            { slug: "imp-qns", title: "Imp Qns" },
+            { slug: "imp-js", title: "Imp Javascript" },
+        ],
     },
 ];
 
