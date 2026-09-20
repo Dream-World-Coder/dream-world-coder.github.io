@@ -1,4 +1,5 @@
 export const experienceData = [
+    { role: "SDE Intern", org: "Amazon", detail: "", link: "amazon.com" },
     {
         role: "Research Intern",
         org: "Chennai Mathematical Institute",
