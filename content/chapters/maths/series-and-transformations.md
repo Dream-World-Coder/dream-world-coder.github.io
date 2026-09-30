@@ -1,6 +1,6 @@
 <!--metadata
   title: "Series And Transformations"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "19/07/2026"
   dateEdited: "20/07/2026"
   description: "A treatise on power-series expansion and integral-transform methods, for the Working Engineer and Mathematician"

@@ -1,6 +1,6 @@
 <!--metadata
   title: "Probability Theory"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "20/07/2026"
   dateEdited: "20/07/2026"
   description: "An axiomatic and structural approach to probability theory, random variables, and multivariate distributions for ISI M.Stat, IIT JAM, and CMI entrance exams."

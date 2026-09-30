@@ -1,6 +1,6 @@
 <!--metadata
   title: "Important JavaScript"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subha"]
   dateCreated: "27/08/2026"
   dateEdited: "27/08/2026"
   description: "Imp Js for Accenture OA"

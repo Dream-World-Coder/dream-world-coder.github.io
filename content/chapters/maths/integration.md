@@ -1,6 +1,6 @@
 <!--metadata
   title: "A Treatise on Integral and Vector Calculus"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "19/07/2026"
   dateEdited: "20/07/2026"
   description: "Rules, Theorems, Proofs, and Problem-Solving Tactics for JEE Advanced, the Mathematical Olympiads, and the ISI/CMI Entrance Examinations"

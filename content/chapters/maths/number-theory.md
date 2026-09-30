@@ -1,6 +1,6 @@
 <!--metadata
   title: "Number Theory"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "19/07/2026"
   dateEdited: "20/07/2026"
   description: "From First Principles to Olympiad and Research-Level Technique"

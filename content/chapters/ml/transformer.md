@@ -1,6 +1,6 @@
 <!--metadata
   title: "Transformer"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "21/07/2026"
   dateEdited: "21/07/2026"
   description: ""

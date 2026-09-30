@@ -1,6 +1,6 @@
 <!--metadata
   title: "Permutations and Combinations"
-  authors: ["Subhajit Gorai"]
+  authors: ["Subhajit Gorai", "Claude"]
   dateCreated: "20/07/2026"
   dateEdited: "20/07/2026"
   description: "From First Principles to Generating Functions — For the JEE Advanced, ISI/CMI Entrance, and Olympiad Aspirant"
