@@ -18,12 +18,12 @@ export interface ActivityDataInterface {
 
 export const activityData: ActivityDataInterface[] = [
     // LampLight
-    {
-        title: "LampLight",
-        links: [{ label: "GitHub", href: "" }],
-        description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!",
-    },
+    // {
+    //     title: "LampLight",
+    //     links: [{ label: "GitHub", href: "" }],
+    //     description:
+    //         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!",
+    // },
 
     // Depuzzled
     {
@@ -34,9 +34,8 @@ export const activityData: ActivityDataInterface[] = [
                 href: "https://github.com/Dream-World-Coder/depuzzled",
             },
         ],
-        description: `<!--C++ Klotski engine in 739bits.<br/>
-        Inspired by a junior. [link]-->
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, totam accusamus tempora natus laboriosam perferendis quos nemo beatae neque omnis voluptatum officia maiores doloremque quam voluptatibus eius alias provident officiis!
+        description: `A 311 byte Klotski solver in C++<br/>
+        [will write soon, im lazy]
         `,
     },
 
@@ -73,15 +72,12 @@ export const activityData: ActivityDataInterface[] = [
                             Regex: A book of regex rules for deterministic detection.
                         </li>
                         <li>
-                            Semgrep: Lorem ipsum dolor sit amet consectetur adipisicing.
+                            Semgrep: ...[will write soon, im lazy]
                         </li>
                     </ul>
                 </li>
                 <li>
-                    Non Deterministic Engine: Uses Gemma. Lorem ipsum dolor sit amet,
-                    consectetur adipisicing elit. Esse perspiciatis totam asperiores
-                    incidunt iste, amet cumque quia quo nulla, adipisci, accusantium
-                    assumenda eligendi sit suscipit enim eveniet quidem in voluptate?
+                    Non Deterministic Engine: Uses the same architecture as VulRAG... [will write soon, im lazy]
                 </li>
             </ol>
         </div>
